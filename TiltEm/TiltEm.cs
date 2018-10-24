@@ -62,7 +62,10 @@ namespace TiltEm
 
             if (ResetRequested)
             {
-                body.bodyTransform.Rotate(new Vector3(0, body.bodyTransform.rotation.eulerAngles.y, 0));
+                body.bodyTransform.Rotate(new Vector3(360 - body.bodyTransform.rotation.eulerAngles.x,
+                    360 - body.bodyTransform.rotation.eulerAngles.y,
+                    360 - body.bodyTransform.rotation.eulerAngles.z));
+
                 RotationToApplyBkp = RotationToApply = Vector3.zero;
                 ResetRequested = false;
             }
