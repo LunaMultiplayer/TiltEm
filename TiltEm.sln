@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEm", "TiltEm\TiltEm.csproj", "{BB4385D3-CC7F-497F-9D34-CA6D2FB047F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		Scripts\CopyToKSPDirectory.bat = Scripts\CopyToKSPDirectory.bat
+		README.md = README.md
+		Scripts\SetDirectories.bat = Scripts\SetDirectories.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

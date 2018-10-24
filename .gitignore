@@ -1,7 +1,8 @@
 *.user
 *.userprefs
 .vs/
-packages/*
+External/KSPLibraries/*.dll
+External/Nuget/*
 TiltEm/*.csproj.user
 TiltEm/bin/*
 TiltEm/obj/*
