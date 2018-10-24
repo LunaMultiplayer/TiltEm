@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEm", "TiltEm\TiltEm.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		appveyor.yml = appveyor.yml
 		Scripts\CopyToKSPDirectory.bat = Scripts\CopyToKSPDirectory.bat
 		README.md = README.md

@@ -1,10 +1,10 @@
 ﻿using Harmony;
-using UnityEngine;
+// ReSharper disable All
 
 namespace TiltEm
 {
     /// <summary>
-    /// This harmony patch is intended to not allow you generating contracts in case you don't have the contract lock
+    /// This harmony patch is intended to update the body rotation after KSP has done it's thing
     /// </summary>
     [HarmonyPatch(typeof(CelestialBody))]
     [HarmonyPatch("CBUpdate")]
@@ -13,12 +13,7 @@ namespace TiltEm
         [HarmonyPostfix]
         private static void PostFixCBUpdate(CelestialBody __instance)
         {
-            if (!__instance.bodyName.Contains("Kerbin")) return;
-
-            if (__instance.bodyTransform.rotation.eulerAngles.x == 0)
-            {
-                __instance.bodyTransform.Rotate(new Vector3(45, 0, 0));
-            }
+            TiltEm.CelestialBodyUpdate(__instance);
         }
     }
 }
