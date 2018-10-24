@@ -1,0 +1,9 @@
+*.user
+*.userprefs
+.vs/
+packages/*
+TiltEm/*.csproj.user
+TiltEm/bin/*
+TiltEm/obj/*
+*.nupkg
+.idea
