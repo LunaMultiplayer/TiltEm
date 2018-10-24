@@ -71,25 +71,14 @@ namespace TiltEm
             GUI.DragWindow(_moveRect);
             GUILayout.BeginVertical();
 
-            GUILayout.BeginHorizontal();
             GUILayout.Label($"Kerbin Rotation: {TiltEm.Kerbin.bodyTransform.rotation.eulerAngles}");
-            GUILayout.EndHorizontal();
+            GUILayout.Label($"Current tilt: {TiltEm.Tilt}");
 
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("X + 10"))
-                TiltEm.RotationToApply += new Vector3(10, 0, 0);
-            if (GUILayout.Button("X - 10"))
-                TiltEm.RotationToApply += new Vector3(-10, 0, 0);
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("Y + 10"))
-                TiltEm.RotationToApply += new Vector3(0, 10, 0);
-            if (GUILayout.Button("Y - 10"))
-                TiltEm.RotationToApply += new Vector3(0, -10, 0);
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("Z + 10"))
-                TiltEm.RotationToApply += new Vector3(0, 0, 10);
-            if (GUILayout.Button("Z - 10"))
-                TiltEm.RotationToApply += new Vector3(0, 0, -10);
+            if (GUILayout.Button("Tilt + 10"))
+                TiltEm.Tilt += 10;
+            if (GUILayout.Button("Tilt - 10"))
+                TiltEm.Tilt -= 10;
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset"))

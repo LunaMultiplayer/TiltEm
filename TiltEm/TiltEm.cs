@@ -17,8 +17,8 @@ namespace TiltEm
         public static CelestialBody Kerbin => FlightGlobals.GetBodyByName("Kerbin");
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
-        public static Vector3 RotationToApplyBkp = Vector3.zero;
-        public static Vector3 RotationToApply = Vector3.zero;
+        public static int TiltBkp = 0;
+        public static int Tilt = 0;
         public static bool ResetRequested;
 
         public static bool InertialFrameOfReference => FlightGlobals.currentMainBody != null && (!FlightGlobals.currentMainBody.rotates || !FlightGlobals.currentMainBody.inverseRotation);
@@ -38,7 +38,7 @@ namespace TiltEm
         {
             if (data == GameScenes.TRACKSTATION)
             {
-                RotationToApply = RotationToApplyBkp;
+                Tilt = TiltBkp;
             }
         }
 
@@ -54,14 +54,14 @@ namespace TiltEm
         {
             if (!body.bodyName.Contains("Kerbin")) return;
 
-            if (RotationToApply != Vector3.zero)
+            if (Tilt != 0)
             {
-                body.bodyTransform.Rotate(RotationToApply, Space.World);
+                body.bodyTransform.Rotate(new Vector3(Tilt, 0, 0), Space.World);
 
                 if (ApplyRotationOnlyOnce)
                 {
-                    RotationToApplyBkp = RotationToApply;
-                    RotationToApply = Vector3.zero;
+                    TiltBkp = Tilt;
+                    Tilt = 0;
                 }
             }
 
@@ -69,7 +69,7 @@ namespace TiltEm
             {
                 body.bodyTransform.Rotate(new Vector3(0, body.bodyTransform.rotation.eulerAngles.y, 0));
 
-                RotationToApplyBkp = RotationToApply = Vector3.zero;
+                TiltBkp = Tilt = 0;
                 ResetRequested = false;
             }
         }
