@@ -15,7 +15,10 @@ namespace TiltEm
         public static Vector3 RotationToApply = Vector3.zero;
         public static bool ResetRequested;
 
-        public static bool ApplyRotationOnlyOnce => FlightGlobals.currentMainBody.rotates || FlightGlobals.currentMainBody.inverseRotation;
+        public static bool InertialFrameOfReference => FlightGlobals.currentMainBody != null && (!FlightGlobals.currentMainBody.rotates || !FlightGlobals.currentMainBody.inverseRotation);
+
+        public static bool ApplyRotationOnlyOnce => HighLogic.LoadedScene == GameScenes.SPACECENTER ||
+            HighLogic.LoadedScene == GameScenes.FLIGHT && !InertialFrameOfReference;
 
         public void Awake()
         {
