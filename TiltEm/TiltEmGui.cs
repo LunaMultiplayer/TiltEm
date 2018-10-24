@@ -71,6 +71,7 @@ namespace TiltEm
             GUI.DragWindow(_moveRect);
             GUILayout.BeginVertical();
 
+            GUILayout.Label($"Planetarium Rotation: {((Quaternion)Planetarium.Rotation).eulerAngles}");
             GUILayout.Label($"Kerbin Rotation: {TiltEm.Kerbin.bodyTransform.rotation.eulerAngles}");
             GUILayout.Label($"Current tilt: {TiltEm.Tilt}");
 
@@ -82,7 +83,7 @@ namespace TiltEm
             GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset"))
-                TiltEm.ResetRequested = true;
+                TiltEm.Tilt = 0;
 
             GUILayout.EndVertical();
         }
