@@ -56,9 +56,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TiltEm.cs" />
     <Compile Include="TiltEmGui.cs" />
+    <Compile Include="TiltEmUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PlanetTilt.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

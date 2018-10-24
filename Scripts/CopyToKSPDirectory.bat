@@ -15,6 +15,9 @@ SET SOLUTIONCONFIGURATION=Debug
 mkdir "%KSPPATH%\GameData\TiltEm\"
 IF DEFINED KSPPATH2 (mkdir "%KSPPATH2%\GameData\TiltEm\")
 
+del "%KSPPATH%\GameData\TiltEm\*.*" /Q /F
+IF DEFINED KSPPATH2 (del "%KSPPATH2%\GameData\TiltEm\*.*" /Q /F)
+
 mkdir "%KSPPATH%\GameData\TiltEm\Plugins"
 IF DEFINED KSPPATH2 (mkdir "%KSPPATH2%\GameData\TiltEm\Plugins")
 
@@ -28,6 +31,9 @@ del "%KSPPATH%\GameData\TiltEm\Button\*.*" /Q /F
 IF DEFINED KSPPATH2 (del "%KSPPATH2%\GameData\TiltEm\Button\*.*" /Q /F)
 
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.dll"
+
+xcopy /Y "%~dp0..\TiltEm\PlanetTilt.cfg" "%KSPPATH%\GameData\TiltEm"
+IF DEFINED KSPPATH2 (xcopy /Y "%~dp0..\TiltEm\PlanetTilt.cfg" "%KSPPATH2%\GameData\TiltEm")
 
 xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH%\GameData\TiltEm\Plugins"
 IF DEFINED KSPPATH2 (xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH2%\GameData\TiltEm\Plugins")

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 namespace TiltEm
 {
@@ -20,11 +21,13 @@ namespace TiltEm
         private static GUILayoutOption[] _layoutOptions;
         private static bool _isWindowLocked;
 
+        private static StringBuilder _builder = new StringBuilder();
+
         public static void DrawGui()
         {
             if (!Display) return;
 
-            _windowRect = FixWindowPos(GUILayout.Window(6984624, _windowRect, DrawContent, "Tilt Kerbin", _layoutOptions));
+            _windowRect = FixWindowPos(GUILayout.Window(6984624, _windowRect, DrawContent, "Tilt", _layoutOptions));
         }
 
         public static void CheckWindowLock()
@@ -72,18 +75,15 @@ namespace TiltEm
             GUILayout.BeginVertical();
 
             GUILayout.Label($"Planetarium Rotation: {((Quaternion)Planetarium.Rotation).eulerAngles}");
-            GUILayout.Label($"Kerbin Rotation: {TiltEm.Kerbin.bodyTransform.rotation.eulerAngles}");
-            GUILayout.Label($"Current tilt: {TiltEm.Tilt}");
+            GUILayout.Space(20);
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Tilt + 10"))
-                TiltEm.Tilt += 10;
-            if (GUILayout.Button("Tilt - 10"))
-                TiltEm.Tilt -= 10;
-            GUILayout.EndHorizontal();
-
-            if (GUILayout.Button("Reset"))
-                TiltEm.Tilt = 0;
+            _builder.Length = 0;
+            foreach (var body in FlightGlobals.Bodies)
+            {
+                TiltEm.TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt);
+                _builder.AppendLine($"{body.bodyName}: Tilt: {tilt} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
+            }
+            GUILayout.Label(_builder.ToString());
 
             GUILayout.EndVertical();
         }
