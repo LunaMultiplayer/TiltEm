@@ -8,6 +8,12 @@ namespace TiltEm
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
     public class TiltEm : MonoBehaviour
     {
+        private class CbParent : MonoBehaviour
+        {
+
+        }
+
+
         public static CelestialBody Kerbin => FlightGlobals.GetBodyByName("Kerbin");
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
@@ -50,8 +56,7 @@ namespace TiltEm
 
             if (RotationToApply != Vector3.zero)
             {
-                body.rotation = (Quaternion)body.rotation * Quaternion.Euler(RotationToApply);
-                body.bodyTransform.rotation = body.rotation;
+                body.bodyTransform.Rotate(RotationToApply, Space.World);
 
                 if (ApplyRotationOnlyOnce)
                 {
