@@ -1,9 +1,10 @@
 ﻿using System.Text;
+using TiltEmCommon;
 using UnityEngine;
 
 namespace TiltEm
 {
-    public class TiltEmGui
+    internal class TiltEmGui
     {
         public static bool Display
         {
@@ -17,7 +18,7 @@ namespace TiltEm
         private static Rect _windowRect;
         private static Rect _moveRect;
         private const float WindowHeight = 100;
-        private const float WindowWidth = 300;
+        private const float WindowWidth = 350;
         private static GUILayoutOption[] _layoutOptions;
         private static bool _isWindowLocked;
 
@@ -80,8 +81,7 @@ namespace TiltEm
             Builder.Length = 0;
             foreach (var body in FlightGlobals.Bodies)
             {
-                TiltEm.TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt);
-                Builder.AppendLine($"{body.bodyName}: Tilt: {tilt.x} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
+                Builder.AppendLine($"{body.bodyName}: Tilt: {TiltEmShared.GetTiltForDisplay(body.bodyName)} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
             }
             GUILayout.Label(Builder.ToString());
 

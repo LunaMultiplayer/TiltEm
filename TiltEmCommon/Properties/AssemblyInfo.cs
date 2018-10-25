@@ -1,19 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: KSPAssembly("TiltEmCommon", 1, 1)]
-
-[assembly: AssemblyTitle("TiltEm")]
+[assembly: AssemblyTitle("TiltEmCommon")]
 [assembly: AssemblyDescription("Axial tilt for KSP")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TiltEm")]
+[assembly: AssemblyProduct("TiltEmCommon")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("Gabriel Vazquez")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: Guid("bb4385d3-cc7f-497f-9d34-ca6d2fb047f7")]
+[assembly: Guid("06a3e7cd-b0fb-4869-bdd9-26ab90d6396c")]
 
 [assembly: AssemblyVersion("1.1.0")]
 [assembly: AssemblyFileVersion("1.1.0")]

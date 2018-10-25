@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TiltEm
 {
-    public class TiltEmUtil
+    internal class TiltEmUtil
     {        
         /// <summary>
         /// Combine the paths specified as .net 3.5 doesn't give you a good method

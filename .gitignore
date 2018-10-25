@@ -6,6 +6,9 @@ External/Nuget/*
 TiltEm/*.csproj.user
 TiltEm/bin/*
 TiltEm/obj/*
+TiltEmCommon/*.csproj.user
+TiltEmCommon/bin/*
+TiltEmCommon/obj/*
 TiltEmKopernicus/*.csproj.user
 TiltEmKopernicus/bin/*
 TiltEmKopernicus/obj/*

@@ -31,12 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\External\Nuget\Assembly-CSharp.1.5.1\lib\net35\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Kopernicus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\External\Nuget\Kopernicus.1.5.1.1\lib\net35\Kopernicus.dll</HintPath>
@@ -56,22 +52,24 @@
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\External\Nuget\UnityEngine.1.5.1\lib\net35\UnityEngine.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\External\Nuget\UnityEngine.UI.1.5.1\lib\net35\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CelestialBody_Awake.cs" />
-    <Compile Include="CelestialBody_CBUpdate.cs" />
     <Compile Include="TiltEm.cs" />
     <Compile Include="TiltLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TiltEmCommon\TiltEmCommon.csproj">
+      <Project>{06a3e7cd-b0fb-4869-bdd9-26ab90d6396c}</Project>
+      <Name>TiltEmCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

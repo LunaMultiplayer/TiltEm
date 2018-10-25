@@ -7,11 +7,18 @@ namespace TiltEmKopernicus
     [ParserTargetExternal("Body", "Properties", "Kopernicus")]
     public class TiltLoader : BaseLoader
     {
-        [ParserTarget("tilt")]
-        public NumericParser<float> Tilt
+        [ParserTarget("tiltx")]
+        public NumericParser<double> TiltX
         {
-            get => generatedBody.Get("tilt", 0f);
-            set => generatedBody.Set("tilt", value.Value);
+            get => generatedBody.Get("tiltx", 0f);
+            set => generatedBody.Set("tiltx", value.Value);
+        }
+
+        [ParserTarget("tiltz")]
+        public NumericParser<double> TiltZ
+        {
+            get => generatedBody.Get("tiltz", 0f);
+            set => generatedBody.Set("tiltz", value.Value);
         }
     }
 }

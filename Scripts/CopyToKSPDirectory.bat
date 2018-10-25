@@ -20,6 +20,7 @@ mkdir "%KSPPATH%\GameData\TiltEm\Button"
 del "%KSPPATH%\GameData\TiltEm\Button\*.*" /Q /F
 
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.dll"
+"%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEmCommon.dll"
 
 xcopy /Y "%~dp0..\TiltEm\PlanetTilt.cfg" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH%\GameData\TiltEm\Plugins"
