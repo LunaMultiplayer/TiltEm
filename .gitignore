@@ -6,6 +6,9 @@ External/Nuget/*
 TiltEm/*.csproj.user
 TiltEm/bin/*
 TiltEm/obj/*
+TiltEmKopernicus/*.csproj.user
+TiltEmKopernicus/bin/*
+TiltEmKopernicus/obj/*
 *.nupkg
 .idea
 .DotSettings
