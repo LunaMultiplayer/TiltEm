@@ -1,4 +1,4 @@
-::You must keep this file in the solution folder for it to work. 
+::You must keep this file in the solution folder for it to work.
 ::Make sure to pass the solution configuration when calling it (either Debug or Release)
 
 ::Set the directories in the setdirectories.bat file if you want a different folder than Kerbal Space Program
@@ -23,5 +23,6 @@ del "%KSPPATH%\GameData\TiltEm\Button\*.*" /Q /F
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEmCommon.dll"
 
 xcopy /Y "%~dp0..\TiltEm\PlanetTilt.cfg" "%KSPPATH%\GameData\TiltEm"
+xcopy /Y "%~dp0..\TiltEm\PlanetTilt.version" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH%\GameData\TiltEm\Plugins"
 xcopy /Y "%~dp0..\Resources\Button\*.*" "%KSPPATH%\GameData\TiltEm\Button"
