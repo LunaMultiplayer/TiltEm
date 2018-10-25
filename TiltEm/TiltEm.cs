@@ -38,18 +38,23 @@ namespace TiltEm
             TiltEmGui.DrawGui();
         }
 
+
+        public static void CelestialBodyAwake(CelestialBody body)
+        {
+            if (!TiltDictionary.ContainsKey(body.flightGlobalsIndex) || body.orbit == null) return;
+
+            body.bodyTransform.transform.Rotate(new Vector3(TiltDictionary[body.flightGlobalsIndex], 0, 0), Space.World);
+        }
+
         public static void CelestialBodyUpdate(CelestialBody body)
         {
             if (!TiltDictionary.ContainsKey(body.flightGlobalsIndex) || body.orbit == null) return;
 
             var tilt = TiltDictionary[body.flightGlobalsIndex];
 
-            if (RotatingFrame)
+            if (body.inverseRotation)
             {
                 Planetarium.Rotation = (Quaternion)Planetarium.Rotation * (Quaternion.Inverse(Planetarium.Rotation) * Quaternion.Euler(tilt, 0, 0)) * (Quaternion)Planetarium.Rotation;
-
-                if (body.bodyTransform.transform.rotation.eulerAngles.x == 0)
-                    body.bodyTransform.transform.Rotate(new Vector3(tilt, 0, 0), Space.World);
             }
             else
             {

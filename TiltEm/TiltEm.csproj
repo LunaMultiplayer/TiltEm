@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CelestialBody_Awake.cs" />
     <Compile Include="CelestialBody_CBUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TiltEm.cs" />
