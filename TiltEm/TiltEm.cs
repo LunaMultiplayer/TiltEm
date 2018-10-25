@@ -64,7 +64,10 @@ namespace TiltEm
             else
             {
                 body.rotation = ApplySpaceRotation(body.rotation, tilt);
-                body.bodyTransform.transform.rotation = ApplySpaceRotation(body.bodyTransform.transform.rotation, tilt);
+                body.bodyTransform.transform.rotation = body.rotation;
+
+                //We must fix the bodyFrame vectors as otherwise landed vessels will not take the axial tilt on track station
+                body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
             }
         }
 
