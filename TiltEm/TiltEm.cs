@@ -79,7 +79,7 @@ namespace TiltEm
                     {
                         var bodyIndex = int.Parse(value.name);
                         var tilt = float.Parse(value.value);
-                        if (FlightGlobals.Bodies.Count < bodyIndex)
+                        if (bodyIndex < FlightGlobals.Bodies.Count)
                         {
                             Debug.Log($"[TiltEm]: Celestialbody {FlightGlobals.Bodies[bodyIndex].bodyName} with index {bodyIndex} will have a tilt of {tilt}");
                             TiltDictionary.Add(bodyIndex, tilt);
