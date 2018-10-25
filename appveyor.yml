@@ -40,7 +40,6 @@ assembly_info:
 #---------------------------------#
 
 configuration:
- - Debug
  - Release
 platform: Any CPU
 before_build:
@@ -57,14 +56,14 @@ after_build:
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: xcopy /y "$env:appveyor_build_folder\Resources\Button\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Button"
  #7zip everything
- - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:configuration.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEm $(smallversion).zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
- - path: .\TiltEm-$(configuration).zip
-   name: TiltEm-$(configuration).zip
+ - path: .\TiltEm $(smallversion).zip
+   name: TiltEm $(smallversion).zip
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
@@ -74,7 +73,7 @@ deploy:
    tag: $(smallversion)-Draft
    release: TiltEm $(smallversion)-Draft
    description: 'Build $(appveyor_build_version)'
-   artifact: TiltEm-$(configuration).zip
+   artifact: TiltEm $(smallversion).zip
    auth_token:
     secure: zWJqDvz3LjR2J358JIJKICwghW/DWRzs73KWb3KApTLOreA4c8DN1tos+O3qBMR7
    draft: true

@@ -21,8 +21,7 @@
 
 # Installation
 
-1) Go to the [latest release](../../releases/latest) page
-2) Select the version you want to download. *Debug* version has a GUI to display the current transforms but generally you'll want to use the *Release* version
+1) Go to the [latest release](../../releases/latest) page and download the zip file
 3) Decompress the downloaded .zip and put it in the KSP folder
 4) If you want to edit the current tilts, edit the file `GameData\TiltEm\PlanetTilt.cfg` the first number is the celestial body index, the second number is the degrees of tilt.  
 Have a look at the [wiki](../../wiki) to see what index refers to what body name in the default KSP planet pack
