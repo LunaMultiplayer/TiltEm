@@ -64,7 +64,7 @@ namespace TiltEm
             else
             {
                 body.rotation = ApplySpaceRotation(body.rotation, tilt);
-                body.bodyTransform.transform.rotation = body.rotation;
+                body.bodyTransform.transform.rotation = ApplySpaceRotation(body.bodyTransform.transform.rotation, tilt);
             }
         }
 

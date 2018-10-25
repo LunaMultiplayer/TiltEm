@@ -54,6 +54,7 @@
     <Compile Include="TiltEm.cs" />
     <Compile Include="TiltEmGui.cs" />
     <Compile Include="TiltEmUtil.cs" />
+    <Compile Include="CelestialBody_GetWorldSurfacePosition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
