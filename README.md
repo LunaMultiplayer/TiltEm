@@ -4,17 +4,17 @@
 </p>
 
 <p align="center">
+    <a href="https://forum.kerbalspaceprogram.com/index.php?/topic/179281-15x-tiltem-planetary-axial-tilt-v100-25-oct-2018"><img src="https://img.shields.io/badge/KSP%20Forum-Post-4265f4.svg?style=flat" alt="KSP forum post"/></a>
+</p>
+
+<p align="center">
     <a href="../../releases"><img src="https://img.shields.io/github/release/lunamultiplayer/tiltem.svg?style=flat&logo=github&logoColor=white" alt="Latest release" /></a>
     <a href="../../releases"><img src="https://img.shields.io/github/downloads/lunamultiplayer/tiltem/total.svg?style=flat&logo=github&logoColor=white" alt="Total downloads" /></a>
     <a href="../../"><img src="https://img.shields.io/github/search/lunamultiplayer/tiltem/goto.svg?&style=flat&logo=github&logoColor=white" alt="Total hits" /></a>
 </p>
 
 <p align="center">
-    <a href="https://forum.kerbalspaceprogram.com/index.php?/topic/179281-15x-tiltem-planetary-axial-tilt-v100-25-oct-2018"><img src="https://img.shields.io/badge/KSP%20Forum-Post-4265f4.svg?style=flat" alt="KSP forum post"/></a>
-</p>
-
-<p align="center">
-  <a href="../../releases/latest"><img src="../master/Doc/Tilt.gif" alt="Download" height="254" width="346"/></a>
+  <a href="../../releases/latest"><img src="../master/Doc/Tilt.gif" alt="Gif" height="254" width="346"/></a>
 </p>
 
 ---
