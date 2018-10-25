@@ -13,6 +13,7 @@ skip_tags: true
 #Do not build if we change any of this files
 skip_commits:
   files:
+    - '**/*.gif'
     - '**/*.md'
     - '**/*.editorconfig'
 image: Visual Studio 2017
