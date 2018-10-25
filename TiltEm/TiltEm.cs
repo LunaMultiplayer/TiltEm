@@ -1,5 +1,4 @@
 ﻿using Harmony;
-using KSP.UI.Screens;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,16 +29,17 @@ namespace TiltEm
 #endif
         }
 
+#if DEBUG
+
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
         {
-#if DEBUG
+
             TiltEmGui.SetStyles();
             TiltEmGui.CheckWindowLock();
             TiltEmGui.DrawGui();
-#endif
         }
-
+#endif
         public static void CelestialBodyAwake(CelestialBody body)
         {
             if (!TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt)) return;
@@ -97,6 +97,8 @@ namespace TiltEm
             }
         }
 
+#if DEBUG
+
         public void EnableToolBar()
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/Button/TiltEmButton", false);
@@ -105,5 +107,7 @@ namespace TiltEm
             ApplicationLauncher.Instance.AddModApplication(() => TiltEmGui.Display = true, () => TiltEmGui.Display = false,
                 () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
         }
+#endif
+
     }
 }
