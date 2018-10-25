@@ -16,27 +16,12 @@
 
 *This mod adds axial tilt on planets for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
 
-PlanetTilt.cfg reference for default KSP:
+# Installation
 
-| Planet        | Body index    |
-| ------------- |--------------:|
-| Sun           | 0             |
-| Kerbin        | 1             |
-| Mun           | 2             |
-| Minmus        | 3             |
-| Moho          | 4             |
-| Eve           | 5             |
-| Duna          | 6             |
-| Ike           | 7             |
-| Jool          | 8             |
-| Laythe        | 9             |
-| Vall          | 10            |
-| Bop           | 11            |
-| Tylo          | 12            |
-| Gilly         | 13            |
-| Pol           | 14            |
-| Dres          | 15            |
-| Dres          | 16            |
+1 - Go to the [latest release](../../releases/latest) page
+2 - Select the version you want to download. *Debug* version has a GUI to display the current transforms but generally you'll want to use the *Release* version
+3 - Decompress and put it in the KSP folder
+4 - If you want to edit the current tilts, edit the file `GameData\TiltEm\PlanetTilt.cfg` the first number is the celestial body index, the second number is the degrees of tilt. Have a look at the [wiki](../../wiki) to see what index refers to what body name in the default KSP planet pack
 
 ---
 
