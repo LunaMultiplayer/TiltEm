@@ -50,6 +50,9 @@ namespace TiltEm
 
         public static void CelestialBodyUpdate(CelestialBody body)
         {
+            //Instead of a harmony patch, you can do it in the TimingManager.FixedUpdateAdd(TimingManager.TimingStage.Precalc)
+            //That would involve running trough all the celestial bodies with a loop tough...
+
             if (!TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt)) return;
 
             if (body.inverseRotation)
