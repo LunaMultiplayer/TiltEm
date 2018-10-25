@@ -20,14 +20,14 @@ namespace TiltEm
         public void Awake()
         {
             DontDestroyOnLoad(this);
-            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-            GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
-            FillTiltDictionary();
+            Debug.Log("[TiltEm]: TiltEm started!");
 
-            foreach (var celestialBody in FlightGlobals.Bodies)
+            FillTiltDictionary();
+            if (TiltDictionary.Any())
             {
-                Debug.Log($"{celestialBody.bodyName} - {celestialBody.flightGlobalsIndex}");
+                HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             }
+            GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
         }
 
         // ReSharper disable once InconsistentNaming
@@ -70,12 +70,15 @@ namespace TiltEm
                         TiltDictionary.Add(int.Parse(value.name), float.Parse(value.value));
                     }
                 }
+                else
+                {
+                    Debug.LogWarning($"[TiltEm]: No PlanetTilt.cfg found on path: {path}");
+                }
             }
             catch (Exception e)
             {
                 Debug.LogError($"[TiltEm]: Error while reading PlanetTilt.cfg. Details: {e}");
             }
-
         }
 
         public void EnableToolBar()

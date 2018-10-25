@@ -21,7 +21,7 @@ namespace TiltEm
         private static GUILayoutOption[] _layoutOptions;
         private static bool _isWindowLocked;
 
-        private static StringBuilder _builder = new StringBuilder();
+        private static readonly StringBuilder Builder = new StringBuilder();
 
         public static void DrawGui()
         {
@@ -77,13 +77,13 @@ namespace TiltEm
             GUILayout.Label($"Planetarium Rotation: {((Quaternion)Planetarium.Rotation).eulerAngles}");
             GUILayout.Space(20);
 
-            _builder.Length = 0;
+            Builder.Length = 0;
             foreach (var body in FlightGlobals.Bodies)
             {
                 TiltEm.TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt);
-                _builder.AppendLine($"{body.bodyName}: Tilt: {tilt} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
+                Builder.AppendLine($"{body.bodyName}: Tilt: {tilt} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
             }
-            GUILayout.Label(_builder.ToString());
+            GUILayout.Label(Builder.ToString());
 
             GUILayout.EndVertical();
         }
