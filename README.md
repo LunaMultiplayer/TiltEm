@@ -10,11 +10,15 @@
     <a href="../../releases"><img src="https://img.shields.io/github/downloads/lunamultiplayer/lunamultiplayer/total.svg?style=flat&logo=github&logoColor=white" alt="Total downloads" /></a>
 </p>
 
+<p align="center">
+  <a href="../../releases/latest"><img src="../master/Doc/Tilt.gif" alt="Download" height="371" width="446"/></a>
+</p>
+
 ---
 
 # TiltEm
 
-*Tilting planets for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
+*This mod adds axial tilt on planets for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
 
 PlanetTilt.cfg reference:
 

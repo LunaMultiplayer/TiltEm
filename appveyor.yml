@@ -52,6 +52,7 @@ after_build:
 #Client post build commands
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Button"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\PlanetTilt.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: xcopy /y "$env:appveyor_build_folder\Resources\Button\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Button"
  #7zip everything

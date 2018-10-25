@@ -8,3 +8,4 @@ TiltEm/bin/*
 TiltEm/obj/*
 *.nupkg
 .idea
+.DotSettings
