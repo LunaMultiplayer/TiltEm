@@ -3,7 +3,7 @@
     <a href="https://discord.gg/wKVMhWQ"><img src="https://img.shields.io/discord/378456662392045571.svg?style=flat&logo=discord&label=discord" alt="Chat on discord"/></a>
     <a href="../../releases"><img src="https://img.shields.io/github/release/lunamultiplayer/tiltem.svg?style=flat&logo=github&logoColor=white" alt="Latest release" /></a>
     <a href="../../releases"><img src="https://img.shields.io/github/downloads/lunamultiplayer/tiltem/total.svg?style=flat&logo=github&logoColor=white" alt="Total downloads" /></a>
-      <a href="../../"><img src="https://img.shields.io/github/search/lunamultiplayer/tiltem/goto.svg?&style=flat&logo=github&logoColor=white" alt="Total hits" /></a>
+    <a href="../../"><img src="https://img.shields.io/github/search/lunamultiplayer/tiltem/goto.svg?&style=flat&logo=github&logoColor=white" alt="Total hits" /></a>
 </p>
 
 <p align="center">
