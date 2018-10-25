@@ -4,7 +4,7 @@
 namespace TiltEm
 {
     /// <summary>
-    /// This harmony patch is intended to update the body rotation after KSP has done it's thing
+    /// This harmony patch is intended to update the body rotation just when they awake
     /// </summary>
     [HarmonyPatch(typeof(CelestialBody))]
     [HarmonyPatch("Awake")]

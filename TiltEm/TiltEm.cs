@@ -15,8 +15,6 @@ namespace TiltEm
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
         public static Dictionary<int, float> TiltDictionary = new Dictionary<int, float>();
 
-        public static bool RotatingFrame => FlightGlobals.currentMainBody != null && FlightGlobals.currentMainBody.inverseRotation;
-
         public void Awake()
         {
             DontDestroyOnLoad(this);
@@ -38,22 +36,21 @@ namespace TiltEm
             TiltEmGui.DrawGui();
         }
 
-
         public static void CelestialBodyAwake(CelestialBody body)
         {
-            if (!TiltDictionary.ContainsKey(body.flightGlobalsIndex) || body.orbit == null) return;
+            if (!TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt)) return;
 
-            body.bodyTransform.transform.Rotate(new Vector3(TiltDictionary[body.flightGlobalsIndex], 0, 0), Space.World);
+            body.bodyTransform.transform.Rotate(new Vector3(tilt, 0, 0), Space.World);
         }
 
         public static void CelestialBodyUpdate(CelestialBody body)
         {
-            if (!TiltDictionary.ContainsKey(body.flightGlobalsIndex) || body.orbit == null) return;
-
-            var tilt = TiltDictionary[body.flightGlobalsIndex];
+            if (!TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt)) return;
 
             if (body.inverseRotation)
             {
+                //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
+                //as we are rotating WITH the planet and in the same reference plane
                 Planetarium.Rotation = (Quaternion)Planetarium.Rotation * (Quaternion.Inverse(Planetarium.Rotation) * Quaternion.Euler(tilt, 0, 0)) * (Quaternion)Planetarium.Rotation;
             }
             else
