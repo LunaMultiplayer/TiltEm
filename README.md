@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="../../releases/latest"><img src="../master/Doc/Tilt.gif" alt="Download" height="311" width="386"/></a>
+  <a href="../../releases/latest"><img src="../master/Doc/Tilt.gif" alt="Download" height="254" width="346"/></a>
 </p>
 
 ---
