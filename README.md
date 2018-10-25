@@ -14,7 +14,7 @@
 
 # Tilt'Em
 
-*This mod adds axial tilt on planets for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
+*This mod adds planetary axial tilt for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
 
 # Installation
 
