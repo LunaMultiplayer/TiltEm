@@ -25,15 +25,19 @@ namespace TiltEm
             {
                 HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             }
+#if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
+#endif
         }
 
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
         {
+#if DEBUG
             TiltEmGui.SetStyles();
             TiltEmGui.CheckWindowLock();
             TiltEmGui.DrawGui();
+#endif
         }
 
         public static void CelestialBodyAwake(CelestialBody body)
@@ -69,7 +73,17 @@ namespace TiltEm
                     var cfgNode = ConfigNode.Load(path);
                     foreach (var value in cfgNode.GetNodes()[0].values.Cast<ConfigNode.Value>())
                     {
-                        TiltDictionary.Add(int.Parse(value.name), float.Parse(value.value));
+                        var bodyIndex = int.Parse(value.name);
+                        var tilt = float.Parse(value.value);
+                        if (FlightGlobals.Bodies.Count < bodyIndex)
+                        {
+                            Debug.Log($"[TiltEm]: Celestialbody {FlightGlobals.Bodies[bodyIndex].bodyName} with index {bodyIndex} will have a tilt of {tilt}");
+                            TiltDictionary.Add(bodyIndex, tilt);
+                        }
+                        else
+                        {
+                            Debug.LogError($"[TiltEm]: Celestialbody with index {bodyIndex} does not exist in FlightGlobals.Bodies");
+                        }
                     }
                 }
                 else
@@ -87,6 +101,7 @@ namespace TiltEm
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/Button/TiltEmButton", false);
             GameEvents.onGUIApplicationLauncherReady.Remove(EnableToolBar);
+
             ApplicationLauncher.Instance.AddModApplication(() => TiltEmGui.Display = true, () => TiltEmGui.Display = false,
                 () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
         }

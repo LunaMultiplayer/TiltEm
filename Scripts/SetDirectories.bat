@@ -3,5 +3,3 @@
 
 ::Set the path below as you need and then run this bat to copy the files and make them debuggeable
 SET KSPPATH=C:\Kerbal Space Program
-::Set another path in case you run two KSP instances otherwise leave empty
-SET KSPPATH2=C:\Kerbal Space Program2
