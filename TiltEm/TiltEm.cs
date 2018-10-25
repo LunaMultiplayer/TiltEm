@@ -13,7 +13,7 @@ namespace TiltEm
     public class TiltEm : MonoBehaviour
     {
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
-        public static Dictionary<int, float> TiltDictionary = new Dictionary<int, float>();
+        public static Dictionary<int, Vector3> TiltDictionary = new Dictionary<int, Vector3>();
 
         public void Awake()
         {
@@ -45,7 +45,7 @@ namespace TiltEm
         {
             if (!TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt)) return;
 
-            body.bodyTransform.transform.Rotate(new Vector3(tilt, 0, 0), Space.World);
+            body.bodyTransform.transform.Rotate(tilt, Space.World);
         }
 
         public static void CelestialBodyUpdate(CelestialBody body)
@@ -59,14 +59,17 @@ namespace TiltEm
             {
                 //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
                 //as we are rotating WITH the planet and in the same reference plane
-                Planetarium.Rotation = (Quaternion)Planetarium.Rotation * (Quaternion.Inverse(Planetarium.Rotation) * Quaternion.Euler(tilt, 0, 0)) * (Quaternion)Planetarium.Rotation;
+                Planetarium.Rotation = ApplySpaceRotation(Planetarium.Rotation, tilt);
             }
             else
             {
-                body.bodyTransform.transform.Rotate(new Vector3(tilt, 0, 0), Space.World);
+                body.rotation = ApplySpaceRotation(body.rotation, tilt);
+                body.bodyTransform.transform.rotation = body.rotation;
             }
         }
-        
+
+        private static Quaternion ApplySpaceRotation(Quaternion quat, Vector3 tilt) => quat * (Quaternion.Inverse(quat) * Quaternion.Euler(tilt)) * quat;
+
         private static void FillTiltDictionary()
         {
             try
@@ -82,7 +85,7 @@ namespace TiltEm
                         if (bodyIndex < FlightGlobals.Bodies.Count)
                         {
                             Debug.Log($"[TiltEm]: Celestialbody {FlightGlobals.Bodies[bodyIndex].bodyName} with index {bodyIndex} will have a tilt of {tilt}");
-                            TiltDictionary.Add(bodyIndex, tilt);
+                            TiltDictionary.Add(bodyIndex, new Vector3(tilt, 0, 0));
                         }
                         else
                         {

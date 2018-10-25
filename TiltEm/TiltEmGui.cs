@@ -81,7 +81,7 @@ namespace TiltEm
             foreach (var body in FlightGlobals.Bodies)
             {
                 TiltEm.TiltDictionary.TryGetValue(body.flightGlobalsIndex, out var tilt);
-                Builder.AppendLine($"{body.bodyName}: Tilt: {tilt} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
+                Builder.AppendLine($"{body.bodyName}: Tilt: {tilt.x} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
             }
             GUILayout.Label(Builder.ToString());
 
