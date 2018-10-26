@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 [assembly: KSPAssembly("TiltEmKopernicus", 1, 0)]
 [assembly: KSPAssemblyDependency("Kopernicus", 1, 0)]
+[assembly: KSPAssemblyDependency("TiltEmCommon", 1, 0)]
 
 [assembly: AssemblyTitle("TiltEmKopernicus")]
 [assembly: AssemblyDescription("Axial tilt for KSP and Kopernicus")]

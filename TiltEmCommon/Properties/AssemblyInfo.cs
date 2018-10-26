@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
+[assembly: KSPAssembly("TiltEmCommon", 1, 0)]
+
 [assembly: AssemblyTitle("TiltEmCommon")]
 [assembly: AssemblyDescription("Axial tilt for KSP")]
 [assembly: AssemblyConfiguration("")]
