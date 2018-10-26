@@ -10,14 +10,10 @@ call "%~dp0\SetDirectories.bat"
 IF DEFINED KSPPATH (ECHO KSPPATH is defined) ELSE (SET KSPPATH=C:\Kerbal Space Program)
 SET SOLUTIONCONFIGURATION=Debug
 
+RMDIR "%KSPPATH%\GameData\TiltEm\" /S /Q
+
 mkdir "%KSPPATH%\GameData\TiltEm\"
-del "%KSPPATH%\GameData\TiltEm\*.*" /Q /F
-
 mkdir "%KSPPATH%\GameData\TiltEm\Plugins"
-del "%KSPPATH%\GameData\TiltEm\Plugins\*.*" /Q /F
-
-mkdir "%KSPPATH%\GameData\TiltEm\Button"
-del "%KSPPATH%\GameData\TiltEm\Button\*.*" /Q /F
 
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.dll"
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEmCommon.dll"
@@ -25,4 +21,5 @@ del "%KSPPATH%\GameData\TiltEm\Button\*.*" /Q /F
 xcopy /Y "%~dp0..\TiltEm\PlanetTilt.cfg" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm.version" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH%\GameData\TiltEm\Plugins"
-xcopy /Y "%~dp0..\Resources\Button\*.*" "%KSPPATH%\GameData\TiltEm\Button"
+
+xcopy /Y /S "%~dp0..\Resources\*.*" "%KSPPATH%\GameData\TiltEm"

@@ -18,8 +18,9 @@ namespace TiltEmCommon
         [HarmonyPostfix]
         private static void PostFixCreatePhysicalCharacteristics(KbApp_PlanetParameters __instance, List<UIListItem> __result)
         {
-            var uIListItem = __instance.cascadingList.CreateBody(Localizer.Format("Axial tilt"), string.Concat(new string[] { "<color=#b8f4d1>",
-                TiltEmShared.GetTiltForDisplay(__instance.currentBody.bodyName), " ", "deg", "</color>" }));
+            var deg = TiltEmShared.GetTiltForDisplay(__instance.currentBody.bodyName);
+            var uIListItem = __instance.cascadingList.CreateBody(Localizer.Format("#autoLOC_TiltEm_AxialTilt"), string.Concat(new string[] { "<color=#b8f4d1>",
+                Localizer.Format("#autoLOC_TiltEm_AxialTiltDisplay", deg), "</color>" }));
 
             __result.Add(uIListItem);
         }

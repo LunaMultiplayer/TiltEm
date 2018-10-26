@@ -75,6 +75,14 @@ namespace TiltEm
             GUI.DragWindow(_moveRect);
             GUILayout.BeginVertical();
 
+            GUILayout.BeginHorizontal();
+            for (var i = 0; i < TiltEmShared.DebugSwitches.Length; i++)
+            {
+                TiltEmShared.DebugSwitches[i] = GUILayout.Toggle(TiltEmShared.DebugSwitches[i], $"D{i}");
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(20);
             GUILayout.Label($"Planetarium Rotation: {((Quaternion)Planetarium.Rotation).eulerAngles}");
             GUILayout.Space(20);
 

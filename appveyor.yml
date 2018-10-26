@@ -51,14 +51,18 @@ build:
 after_build:
 #Client post build commands
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
- - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\"
+ - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Localization"
 
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
+ - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Localization"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm.version" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\PlanetTilt.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
 
+ - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\"
+ - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Localization"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmCommon.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration"
+ - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Localization"
  
  #7zip everything
  - ps: 7z a "$env:appveyor_build_folder\TiltEm ($env:smallversion).zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"

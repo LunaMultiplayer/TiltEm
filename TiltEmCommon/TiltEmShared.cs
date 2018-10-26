@@ -8,6 +8,9 @@ namespace TiltEmCommon
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class TiltEmShared : MonoBehaviour
     {
+        public static bool[] DebugSwitches = new bool[10];
+
+
         private static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
         
@@ -19,6 +22,9 @@ namespace TiltEmCommon
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
         }
 
+        /// <summary>
+        /// Adds the tilt of the body into the system
+        /// </summary>
         public static void AddTiltData(CelestialBody body, Vector3d tilt)
         {
             if (body == null)
@@ -35,11 +41,17 @@ namespace TiltEmCommon
             TiltDictionary.Add(body.bodyName, tilt);
         }
 
+        /// <summary>
+        /// Gets the tilt magnitude to display it in a UI for the given body
+        /// </summary>
         public static string GetTiltForDisplay(string bodyName)
         {
             return !TiltDictionary.TryGetValue(bodyName, out var tilt) ? "0" : KSPUtil.LocalizeNumber(tilt.magnitude, "F2");
         }
 
+        /// <summary>
+        /// Gets the raw tilt vector for the given body
+        /// </summary>
         public static Vector3d GetTilt(string bodyName)
         {
             return !TiltDictionary.TryGetValue(bodyName, out var tilt) ? Vector3d.zero : tilt;
@@ -53,9 +65,6 @@ namespace TiltEmCommon
         {
             if (!TiltDictionary.TryGetValue(body.bodyName, out var tilt)) return;
 
-            if (body.orbit != null)
-                tilt = tilt * body.orbit.meanAnomaly;
-
             if (body.inverseRotation)
             {
                 //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
@@ -65,7 +74,7 @@ namespace TiltEmCommon
             else
             {
                 body.rotation = ApplySpaceRotation(body.rotation, tilt);
-                body.bodyTransform.transform.rotation = body.rotation;
+                body.bodyTransform.transform.Rotate(tilt, Space.World);
 
                 //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station
                 body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
