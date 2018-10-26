@@ -35,7 +35,7 @@ namespace TiltEm
             {
                 foreach (var urlCfg in GameDatabase.Instance.GetConfigs("PlanetTilts"))
                 {
-                    foreach (var node in urlCfg.config.GetNodes()[0].GetNodes())
+                    foreach (var node in urlCfg.config.GetNodes())
                     { 
                         var body = FlightGlobals.GetBodyByName(node.name);
                         if (body != null)
