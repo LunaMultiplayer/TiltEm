@@ -38,6 +38,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\External\KSPLibraries\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\External\KSPLibraries\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine">
       <HintPath>..\External\KSPLibraries\UnityEngine.dll</HintPath>
@@ -45,9 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
-    <Compile Include="DebugDrawer.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
-    <Compile Include="Harmony\PlanetariumCamera_SetTarget.cs" />
     <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEmShared.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

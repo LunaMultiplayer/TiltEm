@@ -1,32 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Vectrosity;
 
 namespace TiltEmCommon
 {
     [KSPAddon(KSPAddon.Startup.TrackingStation, true)]
     public class TiltAxisRenderer : MonoBehaviour
     {
+        private static CelestialBody _targetBody;
+        private static VectorLine _line;
+
+        private static readonly List<Vector3> Points = new List<Vector3> { new Vector3(), new Vector3() };
+
         public void Awake()
         {
             DontDestroyOnLoad(this);
-
-            GameEvents.onPlanetariumTargetChanged.Add(OnPlanetariumTargetChange);
-            GameEvents.onGameSceneSwitchRequested.Add(OnSceneRequested);
-        }
-
-        public void OnPlanetariumTargetChange(MapObject data)
-        {
-            if (data.celestialBody != null)
-            {
-                data.celestialBody.scaledBody.AddComponent<LineRenderer>().positionCount = 3;
-            }
-        }
-
-        public void OnSceneRequested(GameEvents.FromToAction<GameScenes, GameScenes> data)
-        {
-            if (data.from == GameScenes.TRACKSTATION && data.to != GameScenes.TRACKSTATION && PlanetariumCamera.fetch.target.celestialBody)
-            {
-                Destroy(PlanetariumCamera.fetch.target.celestialBody.scaledBody.GetComponent<LineRenderer>());
-            }
         }
 
         public void Update()
@@ -34,15 +22,25 @@ namespace TiltEmCommon
             if (HighLogic.LoadedScene != GameScenes.TRACKSTATION || PlanetariumCamera.fetch.target.celestialBody == null) return;
 
             var body = PlanetariumCamera.fetch.target.celestialBody;
-            var scale = (int)body.Radius;
 
-            var lineRenderer = body.scaledBody.GetComponent<LineRenderer>();
+            if (_targetBody != body)
+                VectorLine.Destroy(ref _line);
 
-            if (lineRenderer == null) return;
+            _targetBody = body;
 
-            lineRenderer.SetPosition(0, -1 * (body.scaledBody.transform.up * scale));
-            lineRenderer.SetPosition(1, body.scaledBody.transform.position);
-            lineRenderer.SetPosition(2, body.scaledBody.transform.up * scale);
+            var scale = (float)(body.Radius * 0.00025);
+
+            Points[0] = body.scaledBody.transform.position + body.scaledBody.transform.up * scale; //top
+            Points[1] = body.scaledBody.transform.position + (-1 * body.scaledBody.transform.up) * scale; //bottom
+
+            _line = new VectorLine("AxialTilt", Points, 2f, LineType.Continuous);
+            _line.rectTransform.gameObject.layer = 31;
+            _line.color = Color.blue;
+            _line.smoothColor = true;
+            _line.UpdateImmediate = true;
+
+            _line.active = true;
+            _line.Draw3D();
         }
     }
 }
