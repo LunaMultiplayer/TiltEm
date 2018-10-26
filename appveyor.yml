@@ -65,18 +65,18 @@ after_build:
  - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Localization"
  
  #7zip everything
- - ps: 7z a "$env:appveyor_build_folder\TiltEm ($env:smallversion).zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
- - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus ($env:smallversion).zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\*.*"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\*.*"
 
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
- - path: .\TiltEm ($(smallversion)).zip
-   name: TiltEm ($(smallversion)).zip
- - path: .\TiltEmKopernicus ($(smallversion)).zip
-   name: TiltEmKopernicus ($(smallversion)).zip
+ - path: .\TiltEm-$(smallversion).zip
+   name: TiltEm-$(smallversion).zip
+ - path: .\TiltEmKopernicus-$(smallversion).zip
+   name: TiltEmKopernicus-$(smallversion).zip
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
@@ -86,7 +86,7 @@ deploy:
    tag: $(smallversion)-Draft
    release: TiltEm $(smallversion)-Draft
    description: 'Build $(appveyor_build_version)'
-   artifact: TiltEm ($(smallversion)).zip
+   artifact: TiltEm-$(smallversion).zip
    auth_token:
     secure: zWJqDvz3LjR2J358JIJKICwghW/DWRzs73KWb3KApTLOreA4c8DN1tos+O3qBMR7
    draft: true
