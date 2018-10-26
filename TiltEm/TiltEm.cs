@@ -61,7 +61,6 @@ namespace TiltEm
         }
 
 #if DEBUG
-
         public void EnableToolBar()
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/Button/TiltEmButton", false);

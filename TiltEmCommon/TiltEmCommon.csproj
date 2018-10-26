@@ -44,8 +44,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CelestialBody_CBUpdate.cs" />
-    <Compile Include="KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
+    <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
+    <Compile Include="DebugDrawer.cs" />
+    <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
+    <Compile Include="Harmony\PlanetariumCamera_SetTarget.cs" />
+    <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEmShared.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

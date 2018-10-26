@@ -9,11 +9,10 @@ namespace TiltEmCommon
     public class TiltEmShared : MonoBehaviour
     {
         public static bool[] DebugSwitches = new bool[10];
-
-
+        
         private static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
-        
+
         public void Awake()
         {
             DontDestroyOnLoad(this);
@@ -81,7 +80,7 @@ namespace TiltEmCommon
                 body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
             }
         }
-
+        
         /// <summary>
         /// Does the same as Transform.Rotate but against a given quaternion
         /// </summary>
