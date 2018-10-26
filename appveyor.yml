@@ -66,7 +66,7 @@ after_build:
  
  #7zip everything
  - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
- - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\*.*"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\"
 
 #---------------------------------#
 #      artifacts configuration    #
