@@ -76,7 +76,8 @@ namespace TiltEmCommon
                 body.rotation = ApplySpaceRotation(body.rotation, tilt);
                 body.bodyTransform.transform.Rotate(tilt, Space.World);
 
-                //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station
+                //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station and they will
+                //rotate around the vertical axis as it didn't had tilt
                 body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
             }
         }
