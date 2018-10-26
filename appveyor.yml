@@ -69,9 +69,9 @@ after_build:
 #---------------------------------#
 
 artifacts:
- - path: $env:appveyor_build_folder\TiltEm ($(smallversion)).zip
+ - path: .\TiltEm ($(smallversion)).zip
    name: TiltEm ($(smallversion)).zip
- - path: $env:appveyor_build_folder\TiltEmKopernicus ($(smallversion)).zip
+ - path: .\TiltEmKopernicus ($(smallversion)).zip
    name: TiltEmKopernicus ($(smallversion)).zip
 #---------------------------------#
 #     deployment configuration    #

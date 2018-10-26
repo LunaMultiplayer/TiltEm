@@ -14,7 +14,7 @@ namespace TiltEmKopernicus
 
             foreach (var body in FlightGlobals.Bodies)
             {
-                if (body.Has("tiltx") && body.Has("tiltz"))
+                if (body.Has("tiltx") || body.Has("tiltz"))
                 {
                     TiltEmShared.AddTiltData(body, new Vector3d(body.Get("tiltx", 0d), 0, body.Get("tiltz", 0d)));
                 }
