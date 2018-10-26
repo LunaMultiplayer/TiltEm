@@ -15,8 +15,11 @@ namespace TiltEm
             Debug.Log("[TiltEm]: TiltEm started!");
 
             FillTiltDictionary();
+#if DEBUG
+            GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
+#endif
         }
-        
+
 #if DEBUG
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
