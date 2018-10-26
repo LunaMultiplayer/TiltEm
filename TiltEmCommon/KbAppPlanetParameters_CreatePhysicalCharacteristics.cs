@@ -15,12 +15,25 @@ namespace TiltEmCommon
     [HarmonyPatch("CreatePhysicalCharacteristics")]
     internal class KbAppPlanetParameters_CreatePhysicalCharacteristics
     {
+        private static string Title => Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTilt", out var localizedTitle) ? localizedTitle : "Obliquity";
+
+        private static string GetLocalizedDegrees(string bodyName)
+        {
+            if (Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTiltDisplay", out _))
+            {
+                return Localizer.Format("#autoLOC_TiltEm_AxialTiltDisplay", TiltEmShared.GetTiltForDisplay(bodyName));
+            }
+
+            return $"{TiltEmShared.GetTiltForDisplay(bodyName)} deg";
+        }
+
         [HarmonyPostfix]
         private static void PostFixCreatePhysicalCharacteristics(KbApp_PlanetParameters __instance, List<UIListItem> __result)
         {
-            var deg = TiltEmShared.GetTiltForDisplay(__instance.currentBody.bodyName);
-            var uIListItem = __instance.cascadingList.CreateBody(Localizer.Format("#autoLOC_TiltEm_AxialTilt"), string.Concat(new string[] { "<color=#b8f4d1>",
-                Localizer.Format("#autoLOC_TiltEm_AxialTiltDisplay", deg), "</color>" }));
+            var title = Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTilt", out var localizedTitle) ? localizedTitle : "Obliquity";
+            
+            var uIListItem = __instance.cascadingList.CreateBody(Title, string.Concat(new string[] { "<color=#b8f4d1>",
+                GetLocalizedDegrees(__instance.currentBody.bodyName), "</color>" }));
 
             __result.Add(uIListItem);
         }
