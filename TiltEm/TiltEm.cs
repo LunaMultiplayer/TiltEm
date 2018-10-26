@@ -29,16 +29,14 @@ namespace TiltEm
             TiltEmGui.DrawGui();
         }
 #endif
-        
+
         private static void FillTiltDictionary()
         {
             try
             {
-                var path = TiltEmUtil.CombinePaths(UrlDir.ApplicationRootPath, "GameData", "TiltEm", "PlanetTilt.cfg");
-                if (File.Exists(path))
+                foreach (var urlCfg in GameDatabase.Instance.GetConfigs("PlanetTilts"))
                 {
-                    var cfgNode = ConfigNode.Load(path);
-                    foreach (var node in cfgNode.GetNodes()[0].GetNodes())
+                    foreach (var value in urlCfg.config.values.Cast<ConfigNode.Value>())
                     {
                         var body = FlightGlobals.GetBodyByName(node.name);
                         if (body != null)
@@ -56,14 +54,10 @@ namespace TiltEm
                         }
                     }
                 }
-                else
-                {
-                    Debug.LogWarning($"[TiltEm]: No PlanetTilt.cfg found on path: {path}");
-                }
             }
             catch (Exception e)
             {
-                Debug.LogError($"[TiltEm]: Error while reading PlanetTilt.cfg. Details: {e}");
+                Debug.LogError($"[TiltEm]: Error while reading PlanetTilts config node. Details: {e}");
             }
         }
 

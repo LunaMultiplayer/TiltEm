@@ -26,9 +26,22 @@
 # Installation
 
 1) Go to the [latest release](../../releases/latest) page and download the zip file
-3) Decompress the downloaded .zip and put it in the KSP folder
-4) If you want to edit the current tilts, edit the file `GameData\TiltEm\PlanetTilt.cfg` the first number is the celestial body index, the second number is the degrees of tilt.  
+2) Decompress the downloaded .zip and put it in the KSP folder
+3) If you want to edit the current tilts, edit the file `GameData\TiltEm\PlanetTilt.cfg` the first number is the celestial body index, the second number is the degrees of tilt.
 Have a look at the [wiki](../../wiki) to see what index refers to what body name in the default KSP planet pack
+
+# Modding
+
+You can use ModuleManager patches to edit the ﻿PlanetTilts config node without editing the cfg file:
+
+```
+@PlanetTilts
+{
+    %3  = 15
+    %11 = 25
+    %12 = 35
+}
+```
 
 ---
 
