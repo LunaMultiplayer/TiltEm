@@ -54,20 +54,12 @@ after_build:
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Localization"
 
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
- - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Localization"
+ - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm.version" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\PlanetTilt.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
-
- - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
- - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\0Harmony.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmCommon.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
- - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\TiltEm.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  
  #7zip everything
  - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
- - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
 
 #---------------------------------#
 #      artifacts configuration    #
@@ -76,8 +68,6 @@ after_build:
 artifacts:
  - path: .\TiltEm-$(smallversion).zip
    name: TiltEm-$(smallversion).zip
- - path: .\TiltEmKopernicus-$(smallversion).zip
-   name: TiltEmKopernicus-$(smallversion).zip
 #---------------------------------#
 #     deployment configuration    #
 #---------------------------------#
@@ -87,7 +77,7 @@ deploy:
    tag: $(smallversion)-Draft
    release: TiltEm $(smallversion)-Draft
    description: 'Build $(appveyor_build_version)'
-   artifact: /TiltEm.*\.zip/
+   artifact: TiltEm-$(smallversion).zip
    auth_token:
     secure: zWJqDvz3LjR2J358JIJKICwghW/DWRzs73KWb3KApTLOreA4c8DN1tos+O3qBMR7
    draft: true
