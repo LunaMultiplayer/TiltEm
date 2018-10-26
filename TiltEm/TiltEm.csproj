@@ -37,6 +37,10 @@
       <HintPath>..\External\KSPLibraries\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ModuleManager.3.1.0">
+      <HintPath>..\External\References\ModuleManager.3.1.0.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

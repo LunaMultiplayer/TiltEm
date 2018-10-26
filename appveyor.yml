@@ -52,6 +52,7 @@ after_build:
 #Client post build commands
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm.version" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
+ - ps: xcopy /y "$env:appveyor_build_folder\External\References\ModuleManager.3.1.0.dll" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\PlanetTilt.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  #7zip everything

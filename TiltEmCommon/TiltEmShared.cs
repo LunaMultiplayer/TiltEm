@@ -53,6 +53,9 @@ namespace TiltEmCommon
         {
             if (!TiltDictionary.TryGetValue(body.bodyName, out var tilt)) return;
 
+            if (body.orbit != null)
+                tilt = tilt * body.orbit.meanAnomaly;
+
             if (body.inverseRotation)
             {
                 //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
