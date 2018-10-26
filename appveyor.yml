@@ -58,15 +58,15 @@ after_build:
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm.version" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\PlanetTilt.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
 
- - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\"
- - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Localization"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration"
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmCommon.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration"
- - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Localization"
+ - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
+ - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmCommon.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
+ - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
  
  #7zip everything
  - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
- - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEmKopernicus-$env:smallversion.zip" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
 
 #---------------------------------#
 #      artifacts configuration    #
