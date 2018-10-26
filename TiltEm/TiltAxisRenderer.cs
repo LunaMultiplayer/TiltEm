@@ -2,7 +2,7 @@
 using UnityEngine;
 using Vectrosity;
 
-namespace TiltEmCommon
+namespace TiltEm
 {
     [KSPAddon(KSPAddon.Startup.TrackingStation, true)]
     public class TiltAxisRenderer : MonoBehaviour

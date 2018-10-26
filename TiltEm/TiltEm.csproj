@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB4385D3-CC7F-497F-9D34-CA6D2FB047F7}</ProjectGuid>
+    <ProjectGuid>{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TiltEm</RootNamespace>
@@ -32,32 +32,59 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\KSPLibraries\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\External\Nuget\Assembly-CSharp.1.5.1\lib\net35\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\External\KSPLibraries\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Kopernicus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Kopernicus.1.5.1.1\lib\net35\Kopernicus.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Kopernicus.Components, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Kopernicus.Components.1.5.1.1\lib\net35\Kopernicus.Components.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Kopernicus.OnDemand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Kopernicus.OnDemand.1.5.1.1\lib\net35\Kopernicus.OnDemand.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Kopernicus.Parser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Kopernicus.Parser.1.5.1.1\lib\net35\Kopernicus.Parser.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModularFlightIntegrator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\ModularFlightIntegrator.1.2.5.4\lib\net35\ModularFlightIntegrator.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\KSPLibraries\UnityEngine.dll</HintPath>
+      <HintPath>..\External\Nuget\UnityEngine.1.5.1\lib\net35\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\UnityEngine.UI.1.5.1\lib\net35\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
+    <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
+    <Compile Include="Kopernicus\KopernicusLoader.cs" />
+    <Compile Include="Kopernicus\TiltLoader.cs" />
+    <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEm.cs" />
-    <Compile Include="TiltEmGui.cs" />
-    <Compile Include="TiltEmUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PlanetTilt.cfg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TiltEmCommon\TiltEmCommon.csproj">
-      <Project>{06a3e7cd-b0fb-4869-bdd9-26ab90d6396c}</Project>
-      <Name>TiltEmCommon</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+    <None Include="TiltEm.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

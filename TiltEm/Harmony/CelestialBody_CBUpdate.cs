@@ -2,7 +2,7 @@
 
 // ReSharper disable All
 
-namespace TiltEmCommon
+namespace TiltEm.Harmony
 {
     /// <summary>
     /// This harmony patch is intended to update the body rotation after KSP has done it's thing
@@ -14,7 +14,7 @@ namespace TiltEmCommon
         [HarmonyPostfix]
         private static void PostFixCBUpdate(CelestialBody __instance)
         {
-            TiltEmShared.ApplyTiltToCelestialBody(__instance);
+            TiltEm.ApplyTiltToCelestialBody(__instance);
         }
     }
 }

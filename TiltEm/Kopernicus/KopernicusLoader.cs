@@ -1,11 +1,10 @@
 ﻿using Kopernicus;
-using TiltEmCommon;
 using UnityEngine;
 
-namespace TiltEmKopernicus
+namespace TiltEm.Kopernicus
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
-    public class TiltEm : MonoBehaviour
+    public class KopernicusLoader : MonoBehaviour
     {
         public void Awake()
         {
@@ -16,7 +15,7 @@ namespace TiltEmKopernicus
             {
                 if (body.Has("tiltx") || body.Has("tiltz"))
                 {
-                    TiltEmShared.AddTiltData(body, new Vector3d(body.Get("tiltx", 0d), 0, body.Get("tiltz", 0d)));
+                    TiltEm.AddTiltData(body, new Vector3d(body.Get("tiltx", 0d), 0, body.Get("tiltz", 0d)));
                 }
             }
         }

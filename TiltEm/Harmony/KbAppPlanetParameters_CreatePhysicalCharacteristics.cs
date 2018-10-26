@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 // ReSharper disable All
 
-namespace TiltEmCommon
+namespace TiltEm.Harmony
 {
     /// <summary>
     /// This harmony patch is intended to display the axial tilt in the track station knowledge base
@@ -21,10 +21,10 @@ namespace TiltEmCommon
         {
             if (Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTiltDisplay", out _))
             {
-                return Localizer.Format("#autoLOC_TiltEm_AxialTiltDisplay", TiltEmShared.GetTiltForDisplay(bodyName));
+                return Localizer.Format("#autoLOC_TiltEm_AxialTiltDisplay", TiltEm.GetTiltForDisplay(bodyName));
             }
 
-            return $"{TiltEmShared.GetTiltForDisplay(bodyName)} deg";
+            return $"{TiltEm.GetTiltForDisplay(bodyName)} deg";
         }
 
         [HarmonyPostfix]

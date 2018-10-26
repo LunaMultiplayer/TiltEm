@@ -1,7 +1,7 @@
 ﻿using Kopernicus;
 using Kopernicus.Configuration;
 
-namespace TiltEmKopernicus
+namespace TiltEm.Kopernicus
 {
     [RequireConfigType(ConfigType.Node)]
     [ParserTargetExternal("Body", "Properties", "Kopernicus")]
