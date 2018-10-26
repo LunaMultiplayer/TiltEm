@@ -77,7 +77,7 @@
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
     <Compile Include="Kopernicus\KopernicusLoader.cs" />
-    <Compile Include="Kopernicus\TiltLoader.cs" />
+    <Compile Include="Kopernicus\TiltReader.cs" />
     <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

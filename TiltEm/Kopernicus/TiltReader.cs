@@ -5,7 +5,7 @@ namespace TiltEm.Kopernicus
 {
     [RequireConfigType(ConfigType.Node)]
     [ParserTargetExternal("Body", "Properties", "Kopernicus")]
-    public class TiltLoader : BaseLoader
+    public class TiltReader : BaseLoader
     {
         [ParserTarget("tiltx")]
         public NumericParser<double> TiltX
