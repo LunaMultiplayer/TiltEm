@@ -28,7 +28,7 @@
 1) Install [Kopernicus](https://forum.kerbalspaceprogram.com/index.php?/topic/140580-151-1-backports-kopernicus-kittopiatech/)
 2) Go to the [latest release](../../releases/latest) page and download the zip file
 2) Decompress the downloaded .zip and put it in the KSP folder
-3) If you want to edit the current tilts, edit the file `TiltEm.cfg`
+3) If you want to edit the current tilts, edit the file `.cfg`
 
 ---
 
