@@ -60,6 +60,7 @@ after_build:
 
  - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
  - ps: mkdir "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\0Harmony.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmCommon.dll" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus"
  - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\Localization\*.*" "$env:appveyor_build_folder\FinalFilesKopernicus\$env:configuration\Kopernicus\Localization"
