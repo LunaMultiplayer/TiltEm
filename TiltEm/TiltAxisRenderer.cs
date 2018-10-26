@@ -2,6 +2,7 @@
 using UnityEngine;
 using Vectrosity;
 
+#if DEBUG
 namespace TiltEm
 {
     [KSPAddon(KSPAddon.Startup.TrackingStation, true)]
@@ -38,6 +39,8 @@ namespace TiltEm
 
             _line.active = true;
             _line.Draw3D();
+
         }
     }
 }
+#endif
