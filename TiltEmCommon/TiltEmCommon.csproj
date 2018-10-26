@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="CelestialBody_CBUpdate.cs" />
     <Compile Include="KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
-    <Compile Include="NavBall_Update.cs" />
     <Compile Include="TiltEmShared.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
