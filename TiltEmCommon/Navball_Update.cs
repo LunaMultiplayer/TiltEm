@@ -15,6 +15,8 @@ namespace TiltEmCommon
         [HarmonyPostfix]
         private static void PostFixNavBall_Update(NavBall __instance)
         {
+            if (FlightGlobals.currentMainBody == null) return;
+
             __instance.navBall.rotation = TiltEmShared.ApplySpaceRotation(__instance.relativeGymbal, TiltEmShared.GetTilt(FlightGlobals.currentMainBody.bodyName));
         }
     }
