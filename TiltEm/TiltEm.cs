@@ -1,6 +1,5 @@
 ﻿using KSP.UI.Screens;
 using System;
-using System.IO;
 using TiltEmCommon;
 using UnityEngine;
 
@@ -36,8 +35,8 @@ namespace TiltEm
             {
                 foreach (var urlCfg in GameDatabase.Instance.GetConfigs("PlanetTilts"))
                 {
-                    foreach (var value in urlCfg.config.values.Cast<ConfigNode.Value>())
-                    {
+                    foreach (var node in urlCfg.config.GetNodes()[0].GetNodes())
+                    { 
                         var body = FlightGlobals.GetBodyByName(node.name);
                         if (body != null)
                         {
