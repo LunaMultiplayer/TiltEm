@@ -81,10 +81,14 @@
     <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TiltEmGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TiltEm.cfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TiltEmButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

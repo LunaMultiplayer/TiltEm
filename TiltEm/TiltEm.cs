@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using KSP.UI.Screens;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -8,8 +9,10 @@ namespace TiltEm
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class TiltEm : MonoBehaviour
     {
+#if DEBUG
         public static bool[] DebugSwitches = new bool[10];
-        
+#endif
+
         private static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
@@ -19,7 +22,31 @@ namespace TiltEm
             Debug.Log("[TiltEm]: TiltEm started!");
 
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+#if DEBUG
+            GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
+#endif
         }
+
+#if DEBUG
+        // ReSharper disable once InconsistentNaming
+        public void OnGUI()
+        {
+            TiltEmGui.SetStyles();
+            TiltEmGui.CheckWindowLock();
+            TiltEmGui.DrawGui();
+        }
+#endif
+
+#if DEBUG
+        public void EnableToolBar()
+        {
+            var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/TiltEmButton", false);
+            GameEvents.onGUIApplicationLauncherReady.Remove(EnableToolBar);
+
+            ApplicationLauncher.Instance.AddModApplication(() => TiltEmGui.Display = true, () => TiltEmGui.Display = false,
+                () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
+        }
+#endif
 
         /// <summary>
         /// Adds the tilt of the body into the system
