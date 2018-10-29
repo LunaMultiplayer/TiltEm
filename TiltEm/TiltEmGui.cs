@@ -17,7 +17,7 @@ namespace TiltEm
         private static Rect _windowRect;
         private static Rect _moveRect;
         private const float WindowHeight = 100;
-        private const float WindowWidth = 350;
+        private const float WindowWidth = 450;
         private static GUILayoutOption[] _layoutOptions;
         private static bool _isWindowLocked;
 
@@ -82,13 +82,15 @@ namespace TiltEm
             GUILayout.EndHorizontal();
 
             GUILayout.Space(20);
-            GUILayout.Label($"Planetarium Rotation: {((Quaternion)Planetarium.Rotation).eulerAngles}");
+            GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
             GUILayout.Space(20);
 
             Builder.Length = 0;
             foreach (var body in FlightGlobals.Bodies)
             {
-                Builder.AppendLine($"{body.bodyName}: Tilt: {TiltEm.GetTiltForDisplay(body.bodyName)} - Rotation: {body.bodyTransform.rotation.eulerAngles}");
+                Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
+                                   $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
+                                   $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
             }
             GUILayout.Label(Builder.ToString());
 
