@@ -95,11 +95,11 @@ namespace TiltEm
             {
                 //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
                 //as we are rotating WITH the planet and in the same reference plane
-                Planetarium.Rotation = ApplySpaceRotation(Planetarium.Rotation, tilt);
+                Planetarium.Rotation = ApplyWorldRotation(Planetarium.Rotation, tilt);
             }
             else
             {
-                body.rotation = ApplySpaceRotation(body.rotation, tilt);
+                body.rotation = ApplyWorldRotation(body.rotation, tilt);
                 body.bodyTransform.transform.Rotate(tilt, Space.World);
 
                 //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station and they will
@@ -114,7 +114,7 @@ namespace TiltEm
         /// <param name="quaternion">Quaternion to apply the rotation to</param>
         /// <param name="tilt">Rotation to apply</param>
         /// <returns>Rotated Quaternion</returns>
-        public static Quaternion ApplySpaceRotation(Quaternion quaternion, Vector3 tilt) => quaternion * (Quaternion.Inverse(quaternion) * Quaternion.Euler(tilt)) * quaternion;
+        public static Quaternion ApplyWorldRotation(Quaternion quaternion, Vector3 tilt) => quaternion * (Quaternion.Inverse(quaternion) * Quaternion.Euler(tilt)) * quaternion;
 
         /// <summary>
         /// Does the same as Transform.Rotate but against a given quaternion and against LOCAL space
