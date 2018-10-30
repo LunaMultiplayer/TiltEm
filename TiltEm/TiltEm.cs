@@ -97,5 +97,10 @@ namespace TiltEm
                 body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
             }
         }
+
+        public static bool TryGetTilt(string bodyName, out Vector3d tilt)
+        {
+            return TiltDictionary.TryGetValue(bodyName, out tilt);
+        }
     }
 }
