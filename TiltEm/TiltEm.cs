@@ -13,7 +13,7 @@ namespace TiltEm
         public static bool[] DebugSwitches = new bool[10];
 #endif
 
-        private static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
+        public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
         public void Awake()
@@ -26,7 +26,7 @@ namespace TiltEm
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
 #endif
         }
-
+        
 #if DEBUG
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
@@ -35,9 +35,7 @@ namespace TiltEm
             TiltEmGui.CheckWindowLock();
             TiltEmGui.DrawGui();
         }
-#endif
 
-#if DEBUG
         public void EnableToolBar()
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/TiltEmButton", false);
@@ -76,14 +74,6 @@ namespace TiltEm
         }
 
         /// <summary>
-        /// Gets the raw tilt vector for the given body
-        /// </summary>
-        public static Vector3d GetTilt(string bodyName)
-        {
-            return !TiltDictionary.TryGetValue(bodyName, out var tilt) ? Vector3d.zero : tilt;
-        }
-
-        /// <summary>
         /// Applies tilt to the given CelestialBody. If we are in the rotating frame of the given body
         /// we will rotate the planetarium instead
         /// </summary>
@@ -95,11 +85,11 @@ namespace TiltEm
             {
                 //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
                 //as we are rotating WITH the planet and in the same reference plane
-                Planetarium.Rotation = ApplyWorldRotation(Planetarium.Rotation, tilt);
+                Planetarium.Rotation = TiltEmUtil.ApplyWorldRotation(Planetarium.Rotation, tilt);
             }
             else
             {
-                body.rotation = ApplyWorldRotation(body.rotation, tilt);
+                body.rotation = TiltEmUtil.ApplyWorldRotation(body.rotation, tilt);
                 body.bodyTransform.transform.Rotate(tilt, Space.World);
 
                 //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station and they will
@@ -107,21 +97,5 @@ namespace TiltEm
                 body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
             }
         }
-
-        /// <summary>
-        /// Does the same as Transform.Rotate but against a given quaternion and against WORLD space
-        /// </summary>
-        /// <param name="quaternion">Quaternion to apply the rotation to</param>
-        /// <param name="tilt">Rotation to apply</param>
-        /// <returns>Rotated Quaternion</returns>
-        public static Quaternion ApplyWorldRotation(Quaternion quaternion, Vector3 tilt) => quaternion * (Quaternion.Inverse(quaternion) * Quaternion.Euler(tilt)) * quaternion;
-
-        /// <summary>
-        /// Does the same as Transform.Rotate but against a given quaternion and against LOCAL space
-        /// </summary>
-        /// <param name="quaternion">Quaternion to apply the rotation to</param>
-        /// <param name="tilt">Rotation to apply</param>
-        /// <returns>Rotated Quaternion</returns>
-        public static Quaternion ApplyLocalRotation(Quaternion quaternion, Vector3 tilt) => quaternion * Quaternion.Euler(tilt);
     }
 }
