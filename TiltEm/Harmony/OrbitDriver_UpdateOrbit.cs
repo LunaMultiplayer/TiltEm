@@ -11,19 +11,14 @@ namespace TiltEm.Harmony
     [HarmonyPatch("UpdateOrbit")]
     internal class OrbitDriver_UpdateOrbit
     {
-        private static Vector3d Tilt;
 
         [HarmonyPrefix]
         private static void PreFixUpdateOrbit(OrbitDriver __instance, ref bool __state)
         {
-            if (__instance.vessel == FlightGlobals.ActiveVessel) return;
-
-            __state = false;
-            if (__instance.referenceBody && __instance.referenceBody.inverseRotation && TiltEm.TryGetTilt(__instance.referenceBody.bodyName, out Tilt))
+            if (__instance.referenceBody && __instance.referenceBody.inverseRotation && TiltEm.TryGetTilt(__instance.referenceBody.bodyName, out var tilt))
             {
                 __state = true;
-
-                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, Tilt);
+                TiltEmUtil.RestorePlanetariumTilt();
             }
         }
 
@@ -32,7 +27,7 @@ namespace TiltEm.Harmony
         {
             if (__state)
             {
-                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, -1 * Tilt);
+                TiltEmUtil.ApplyPlanetariumTilt(__instance.referenceBody);
             }
         }
     }

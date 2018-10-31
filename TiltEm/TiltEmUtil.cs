@@ -4,6 +4,8 @@ namespace TiltEm
 {
     public class TiltEmUtil
     {
+        public static bool PlanetariumTilted { get; set; }
+
         /// <summary>
         /// Does the same as Transform.Rotate but against a given quaternion and against WORLD space
         /// </summary>
@@ -40,7 +42,7 @@ namespace TiltEm
             var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
             Planetarium.Rotation = quaternionD.swizzle;
 
-            TiltEm.PlanetariumTilted = false;
+            PlanetariumTilted = false;
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace TiltEm
             //In tracking station will be summer in the north and then when in flight, it will be winter in the north
             ApplyTiltToFrame(ref Planetarium.Zup, -1 * tilt);
 
-            TiltEm.PlanetariumTilted = true;
+            PlanetariumTilted = true;
         }
 
         /// <summary>

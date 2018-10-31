@@ -12,9 +12,6 @@ namespace TiltEm
 #if DEBUG
         public static bool[] DebugSwitches = new bool[10];
 #endif
-
-        public static bool PlanetariumTilted { get; set; }
-
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
@@ -27,6 +24,7 @@ namespace TiltEm
             GameEvents.onRotatingFrameTransition.Add(RotatingFrameTransition);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onLevelWasLoadedGUIReady.Add(LevelWasLoaded);
+
 #if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
 #endif
@@ -53,8 +51,7 @@ namespace TiltEm
 
         public void Update()
         {
-            if (PlanetariumTilted && FlightGlobals.ActiveVessel && 
-                (!FlightGlobals.ActiveVessel.mainBody || FlightGlobals.ActiveVessel.mainBody && !FlightGlobals.ActiveVessel.mainBody.inverseRotation))
+            if (FlightGlobals.ActiveVessel && (!FlightGlobals.ActiveVessel.mainBody || FlightGlobals.ActiveVessel.mainBody && !FlightGlobals.ActiveVessel.mainBody.inverseRotation))
             {
                 TiltEmUtil.RestorePlanetariumTilt();
             }
