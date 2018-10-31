@@ -23,7 +23,7 @@ namespace TiltEm.Harmony
             {
                 __state = true;
 
-                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, -1 * Tilt);
+                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, Tilt);
             }
         }
 
@@ -32,7 +32,7 @@ namespace TiltEm.Harmony
         {
             if (__state)
             {
-                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, Tilt);
+                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, -1 * Tilt);
             }
         }
     }
