@@ -49,8 +49,7 @@ namespace TiltEm
         {
             if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
 
-            var rot = (QuaternionD)ApplyWorldRotation(body.BodyFrame.Rotation.swizzle, tilt);
-            rot.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
+            ApplyTiltToFrame(ref body.BodyFrame, tilt);
         }
 
         /// <summary>
@@ -60,8 +59,16 @@ namespace TiltEm
         {
             if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
 
-            var rot = (QuaternionD)ApplyWorldRotation(Planetarium.Zup.Rotation.swizzle, tilt);
-            rot.swizzle.FrameVectors(out Planetarium.Zup.X, out Planetarium.Zup.Y, out Planetarium.Zup.Z);
+            ApplyTiltToFrame(ref Planetarium.Zup, tilt);
+        }
+
+        /// <summary>
+        /// Applies tilt to the given celestial frame
+        /// </summary>
+        public static void ApplyTiltToFrame(ref Planetarium.CelestialFrame frame, Vector3d tilt)
+        {
+            var rot = (QuaternionD)ApplyWorldRotation(frame.Rotation.swizzle, tilt);
+            rot.swizzle.FrameVectors(out frame.X, out frame.Y, out frame.Z);
         }
     }
 }
