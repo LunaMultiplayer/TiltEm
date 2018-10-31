@@ -22,11 +22,14 @@ namespace TiltEm
             Debug.Log("[TiltEm]: TiltEm started!");
 
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+            GameEvents.onRotatingFrameTransition.Add(RotatingFrameTransition);
+            GameEvents.onVesselChange.Add(OnVesselChange);
+            GameEvents.onLevelWasLoadedGUIReady.Add(LevelWasLoaded);
 #if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
 #endif
         }
-        
+
 #if DEBUG
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
@@ -45,6 +48,55 @@ namespace TiltEm
                 () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
         }
 #endif
+
+        /// <summary>
+        /// When loading a vessel that doesn't have a main body or that is not in inverse rotation we rotate the bodies.
+        /// Otherwise if the vessel has a main body and is rotating we rotate the planetarium
+        /// </summary>
+        private void OnVesselChange(Vessel vessel)
+        {
+            if (vessel.mainBody && vessel.mainBody.inverseRotation)
+            {
+                TiltEmUtil.RestorePlanetTilt(vessel.mainBody);
+            }
+            else
+            {
+                TiltEmUtil.RestorePlanetariumTilt();
+            }
+        }
+        
+        /// <summary>
+        /// When loading a scene that doesn't have a main body we rotate the bodies.
+        /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
+        /// </summary>
+        private void LevelWasLoaded(GameScenes data)
+        {
+            if (data < GameScenes.SPACECENTER) return;
+
+            if (FlightGlobals.currentMainBody && FlightGlobals.currentMainBody.inverseRotation)
+            {
+                TiltEmUtil.RestorePlanetTilt(FlightGlobals.currentMainBody);
+            }
+            else
+            {
+                TiltEmUtil.RestorePlanetariumTilt();
+            }
+        }
+
+        /// <summary>
+        /// When switching to rotation mode we tilt the planetarium. Otherwise we tilt the planetarium
+        /// </summary>
+        public void RotatingFrameTransition(GameEvents.HostTargetAction<CelestialBody, bool> data)
+        {
+            if (data.target)
+            {
+                TiltEmUtil.RestorePlanetTilt(data.host);
+            }
+            else
+            {
+                TiltEmUtil.RestorePlanetariumTilt();
+            }
+        }
 
         /// <summary>
         /// Adds the tilt of the body into the system
@@ -72,32 +124,10 @@ namespace TiltEm
         {
             return !TiltDictionary.TryGetValue(bodyName, out var tilt) ? "0" : KSPUtil.LocalizeNumber(tilt.magnitude, "F2");
         }
-
+        
         /// <summary>
-        /// Applies tilt to the given CelestialBody. If we are in the rotating frame of the given body
-        /// we will rotate the planetarium instead
+        /// Returns the given tilt if found
         /// </summary>
-        public static void ApplyTiltToCelestialBody(CelestialBody body)
-        {
-            if (!TiltDictionary.TryGetValue(body.bodyName, out var tilt)) return;
-
-            if (body.inverseRotation)
-            {
-                //Basically we do the same as body.bodyTransform.transform.Rotate but with the planetarium
-                //as we are rotating WITH the planet and in the same reference plane
-                Planetarium.Rotation = TiltEmUtil.ApplyWorldRotation(Planetarium.Rotation, tilt);
-            }
-            else
-            {
-                body.rotation = TiltEmUtil.ApplyWorldRotation(body.rotation, tilt);
-                body.bodyTransform.transform.Rotate(tilt, Space.World);
-
-                //We must fix the bodyFrame vectors as otherwise landed vessels will not compute the axial tilt on track station and they will
-                //rotate around the vertical axis as it didn't had tilt
-                body.rotation.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
-            }
-        }
-
         public static bool TryGetTilt(string bodyName, out Vector3d tilt)
         {
             return TiltDictionary.TryGetValue(bodyName, out tilt);
