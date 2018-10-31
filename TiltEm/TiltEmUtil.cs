@@ -59,7 +59,9 @@ namespace TiltEm
         {
             if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
 
-            ApplyTiltToFrame(ref Planetarium.Zup, tilt);
+            //When tilting the Planetarium you must INVERT the tilt. Don't really know why but otherwise
+            //In tracking station will be summer in the north and then when in flight, it will be winter in the north
+            ApplyTiltToFrame(ref Planetarium.Zup, -1 * tilt);
         }
 
         /// <summary>
