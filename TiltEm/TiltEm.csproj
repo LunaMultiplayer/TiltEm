@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Harmony\OrbitDriver_UpdateOrbit.cs" />
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
     <Compile Include="Kopernicus\KopernicusLoader.cs" />
