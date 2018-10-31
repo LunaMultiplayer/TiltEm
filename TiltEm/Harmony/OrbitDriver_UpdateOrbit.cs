@@ -11,7 +11,6 @@ namespace TiltEm.Harmony
     [HarmonyPatch("UpdateOrbit")]
     internal class OrbitDriver_UpdateOrbit
     {
-
         [HarmonyPrefix]
         private static void PreFixUpdateOrbit(OrbitDriver __instance, ref bool __state)
         {
