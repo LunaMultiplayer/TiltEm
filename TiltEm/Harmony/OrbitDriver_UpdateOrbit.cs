@@ -17,7 +17,7 @@ namespace TiltEm.Harmony
             if (__instance.referenceBody && __instance.referenceBody.inverseRotation && TiltEm.TryGetTilt(__instance.referenceBody.bodyName, out var tilt))
             {
                 __state = true;
-                TiltEmUtil.RestorePlanetariumTilt();
+                TiltEmUtil.ApplyTiltToFrame(ref __instance.orbit.OrbitFrame, tilt);
             }
         }
 
@@ -26,7 +26,7 @@ namespace TiltEm.Harmony
         {
             if (__state)
             {
-                TiltEmUtil.ApplyPlanetariumTilt(__instance.referenceBody);
+                Planetarium.CelestialFrame.OrbitalFrame(__instance.orbit.LAN, __instance.orbit.inclination, __instance.orbit.argumentOfPeriapsis, ref __instance.orbit.OrbitFrame);
             }
         }
     }
