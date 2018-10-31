@@ -39,6 +39,8 @@ namespace TiltEm
             Planetarium.CelestialFrame.PlanetaryFrame(0, 90, Planetarium.InverseRotAngle, ref Planetarium.Zup);
             var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
             Planetarium.Rotation = quaternionD.swizzle;
+
+            TiltEm.PlanetariumTilted = false;
         }
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace TiltEm
         /// </summary>
         public static void ApplyPlanetTilt(CelestialBody body)
         {
-            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
+            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt) || body.inverseRotation) return;
 
             ApplyTiltToFrame(ref body.BodyFrame, tilt);
         }
@@ -56,11 +58,13 @@ namespace TiltEm
         /// </summary>
         public static void ApplyPlanetariumTilt(CelestialBody body)
         {
-            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
+            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt) || !body.inverseRotation) return;
 
             //When tilting the Planetarium you must INVERT the tilt. Don't really know why but otherwise
             //In tracking station will be summer in the north and then when in flight, it will be winter in the north
             ApplyTiltToFrame(ref Planetarium.Zup, -1 * tilt);
+
+            TiltEm.PlanetariumTilted = true;
         }
 
         /// <summary>
