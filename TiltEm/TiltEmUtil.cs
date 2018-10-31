@@ -41,5 +41,27 @@ namespace TiltEm
             var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
             Planetarium.Rotation = quaternionD.swizzle;
         }
+
+        /// <summary>
+        /// Tilts given planet frames
+        /// </summary>
+        public static void ApplyPlanetTilt(CelestialBody body)
+        {
+            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
+
+            var rot = (QuaternionD)ApplyWorldRotation(body.BodyFrame.Rotation.swizzle, tilt);
+            rot.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
+        }
+
+        /// <summary>
+        /// Tilts the planetarium. Useful when you're in inverse rotation mode 
+        /// </summary>
+        public static void ApplyPlanetariumTilt(CelestialBody body)
+        {
+            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt)) return;
+
+            var rot = (QuaternionD)ApplyWorldRotation(Planetarium.Zup.Rotation.swizzle, tilt);
+            rot.swizzle.FrameVectors(out Planetarium.Zup.X, out Planetarium.Zup.Y, out Planetarium.Zup.Z);
+        }
     }
 }

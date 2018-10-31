@@ -12,13 +12,9 @@ namespace TiltEm.Harmony
     [HarmonyPatch("CBUpdate")]
     internal class CelestialBody_CBUpdate
     {
-        private static Vector3d Tilt;
-
         [HarmonyPrefix]
         private static bool PreFixCBUpdate(CelestialBody __instance)
         {
-            if (!TiltEm.TryGetTilt(__instance.bodyName, out Tilt)) return true;
-
             CBUpdate(__instance);
             return false;
         }
@@ -46,8 +42,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, Planetarium.InverseRotAngle, ref Planetarium.Zup);
                     
                     //Apply tilt
-                    var rot = (QuaternionD)TiltEmUtil.ApplyWorldRotation(Planetarium.Zup.Rotation.swizzle, Tilt);
-                    rot.swizzle.FrameVectors(out Planetarium.Zup.X, out Planetarium.Zup.Y, out Planetarium.Zup.Z);
+                    TiltEmUtil.ApplyPlanetariumTilt(body);
 
                     var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
                     Planetarium.Rotation = quaternionD.swizzle;
@@ -58,8 +53,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, body.directRotAngle, ref body.BodyFrame);
 
                     //Apply tilt
-                    var rot = (QuaternionD)TiltEmUtil.ApplyWorldRotation(body.BodyFrame.Rotation.swizzle, Tilt);
-                    rot.swizzle.FrameVectors(out body.BodyFrame.X, out body.BodyFrame.Y, out body.BodyFrame.Z);
+                    TiltEmUtil.ApplyPlanetTilt(body);
 
                     body.rotation = body.BodyFrame.Rotation.swizzle;
                     body.bodyTransform.rotation = body.rotation;
@@ -86,8 +80,6 @@ namespace TiltEm.Harmony
                 var num = celestialBody.orbit.period - body.rotationPeriod;
                 body.solarDayLength = num != 0 ? celestialBody.orbit.period * body.rotationPeriod / num : double.MaxValue;
             }
-
-
         }
     }
 }
