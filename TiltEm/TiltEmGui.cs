@@ -2,7 +2,6 @@
 using UnityEngine;
 
 #if DEBUG
-
 namespace TiltEm
 {
     internal class TiltEmGui

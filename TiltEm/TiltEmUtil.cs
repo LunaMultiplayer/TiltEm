@@ -4,7 +4,6 @@ namespace TiltEm
 {
     public class TiltEmUtil
     {
-
         /// <summary>
         /// Does the same as Transform.Rotate but against a given quaternion and against WORLD space
         /// </summary>

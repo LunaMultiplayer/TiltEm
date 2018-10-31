@@ -49,6 +49,8 @@ namespace TiltEm
         }
 #endif
 
+        #region Game events
+
         /// <summary>
         /// When loading a vessel that doesn't have a main body or that is not in inverse rotation we rotate the bodies.
         /// Otherwise if the vessel has a main body and is rotating we rotate the planetarium
@@ -116,6 +118,8 @@ namespace TiltEm
 
             TiltDictionary.Add(body.bodyName, tilt);
         }
+
+        #endregion
 
         /// <summary>
         /// Gets the tilt magnitude to display it in a UI for the given body
