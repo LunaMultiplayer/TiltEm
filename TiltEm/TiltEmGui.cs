@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using UnityEngine;
 
+#if DEBUG
+
 namespace TiltEm
 {
     internal class TiltEmGui
@@ -133,3 +135,4 @@ namespace TiltEm
         }
     }
 }
+#endif
