@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Harmony;
+using System.Text;
 using UnityEngine;
 
 #if DEBUG
@@ -82,6 +83,19 @@ namespace TiltEm
             }
             GUILayout.EndHorizontal();
 
+            GUILayout.Space(20);
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Toggle rotating frame"))
+            {
+                var manager = Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
+                manager.ToggleRotatingFrame();
+            }
+            if (GUILayout.Button("Reset"))
+            {
+                var manager = Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
+                manager.degub = false;
+            }
+            GUILayout.EndHorizontal();
             GUILayout.Space(20);
             GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
             GUILayout.Space(20);
