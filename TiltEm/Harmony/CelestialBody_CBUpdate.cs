@@ -14,7 +14,7 @@ namespace TiltEm.Harmony
     internal class CelestialBody_CBUpdate
     {
         [HarmonyPrefix]
-        private static bool PreFixCBUpdate(CelestialBody __instance)
+        private static bool PrefixCBUpdate(CelestialBody __instance)
         {
             CBUpdate(__instance);
             return false;

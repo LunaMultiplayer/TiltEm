@@ -12,10 +12,10 @@ namespace TiltEm.Harmony
     internal class OrbitDriver_UpdateOrbit
     {
         [HarmonyPrefix]
-        private static void PreFixUpdateOrbit(OrbitDriver __instance, ref bool __state)
+        private static void PrefixUpdateOrbit(OrbitDriver __instance, ref bool __state)
         {
             //TODO something must be done to modify the orbit for vessels with updateMode == OrbitDriver.UpdateMode.TRACK_Phys. Even for active vessel
-            if (FlightGlobals.fetch && FlightGlobals.ActiveVessel == __instance.vessel && __instance.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+            if (__instance.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                 return;
 
             if (__instance.referenceBody && __instance.referenceBody.inverseRotation && TiltEm.TryGetTilt(__instance.referenceBody.bodyName, out var tilt))
@@ -26,7 +26,7 @@ namespace TiltEm.Harmony
         }
 
         [HarmonyPostfix]
-        private static void PostFixUpdateOrbit(OrbitDriver __instance, ref bool __state)
+        private static void PostfixUpdateOrbit(OrbitDriver __instance, ref bool __state)
         {
             if (__state)
             {

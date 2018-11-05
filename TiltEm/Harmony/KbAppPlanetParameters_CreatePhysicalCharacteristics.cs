@@ -28,7 +28,7 @@ namespace TiltEm.Harmony
         }
 
         [HarmonyPostfix]
-        private static void PostFixCreatePhysicalCharacteristics(KbApp_PlanetParameters __instance, List<UIListItem> __result)
+        private static void PostfixCreatePhysicalCharacteristics(KbApp_PlanetParameters __instance, List<UIListItem> __result)
         {
             var title = Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTilt", out var localizedTitle) ? localizedTitle : "Obliquity";
             
