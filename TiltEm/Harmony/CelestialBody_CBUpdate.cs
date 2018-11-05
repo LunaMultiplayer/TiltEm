@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using System;
 using UnityEngine;
 
 // ReSharper disable All
@@ -32,8 +33,8 @@ namespace TiltEm.Harmony
                     body.rotationPeriod = body.orbit.period;
                 }
                 body.rotPeriodRecip = 1 / body.rotationPeriod;
-                body.angularVelocity = Vector3d.down * (6.28318530717959 * body.rotPeriodRecip);
-                body.zUpAngularVelocity = Vector3d.back * (6.28318530717959 * body.rotPeriodRecip);
+                body.angularVelocity = Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
+                body.zUpAngularVelocity = Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
                 body.rotationAngle = (body.initialRotation + 360 * body.rotPeriodRecip * Planetarium.GetUniversalTime()) % 360;
                 body.angularV = body.angularVelocity.magnitude;
                 if (body.inverseRotation)
