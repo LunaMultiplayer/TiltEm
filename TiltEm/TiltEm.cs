@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using KSP.UI.Screens;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace TiltEm
     {
 #if DEBUG
         public static bool[] DebugSwitches = new bool[10];
+        public static Action[] DebugActions = new Action[10];
 #endif
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
@@ -27,10 +29,29 @@ namespace TiltEm
 
 #if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
+            DefineDebugActions();
 #endif
         }
 
 #if DEBUG
+
+        /// <summary>
+        /// Define actions that you want to be executed when pressing the A0-A9 buttons
+        /// </summary>
+        public void DefineDebugActions()
+        {
+            DebugActions[0] = () => { };
+            DebugActions[1] = () => { };
+            DebugActions[2] = () => { };
+            DebugActions[3] = () => { };
+            DebugActions[4] = () => { };
+            DebugActions[5] = () => { };
+            DebugActions[6] = () => { };
+            DebugActions[7] = () => { };
+            DebugActions[8] = () => { };
+            DebugActions[9] = () => { };
+        }
+
         // ReSharper disable once InconsistentNaming
         public void OnGUI()
         {

@@ -83,6 +83,15 @@ namespace TiltEm
             }
             GUILayout.EndHorizontal();
 
+            GUILayout.BeginHorizontal();
+            for (var i = 0; i < TiltEm.DebugSwitches.Length; i++)
+            {
+                if (GUILayout.Button($"A{i}"))
+                    TiltEm.DebugActions[i].Invoke();
+
+            }
+            GUILayout.EndHorizontal();
+
             GUILayout.Space(20);
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Toggle rotating frame"))
