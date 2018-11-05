@@ -40,8 +40,8 @@ namespace TiltEm
         /// </summary>
         public void DefineDebugActions()
         {
-            DebugActions[0] = () => { };
-            DebugActions[1] = () => { };
+            DebugActions[0] = () => { FlightGlobals.ActiveVessel.orbitDriver.vel *= 3; };
+            DebugActions[1] = () => { FlightGlobals.ActiveVessel.orbit.vel *= 3; };
             DebugActions[2] = () => { };
             DebugActions[3] = () => { };
             DebugActions[4] = () => { };
@@ -72,7 +72,7 @@ namespace TiltEm
 
         public void Update()
         {
-            if (FlightGlobals.ActiveVessel && (!FlightGlobals.ActiveVessel.mainBody || FlightGlobals.ActiveVessel.mainBody && !FlightGlobals.ActiveVessel.mainBody.inverseRotation))
+            if (FlightGlobals.fetch && FlightGlobals.ActiveVessel && (!FlightGlobals.ActiveVessel.mainBody || FlightGlobals.ActiveVessel.mainBody && !FlightGlobals.ActiveVessel.mainBody.inverseRotation))
             {
                 TiltEmUtil.RestorePlanetariumTilt();
             }
@@ -95,7 +95,7 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
-        
+
         /// <summary>
         /// When loading a scene that doesn't have a main body we rotate the bodies.
         /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
@@ -157,7 +157,7 @@ namespace TiltEm
         {
             return !TiltDictionary.TryGetValue(bodyName, out var tilt) ? "0" : KSPUtil.LocalizeNumber(tilt.magnitude, "F2");
         }
-        
+
         /// <summary>
         /// Returns the given tilt if found
         /// </summary>
