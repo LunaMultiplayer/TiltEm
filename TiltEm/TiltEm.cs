@@ -40,8 +40,8 @@ namespace TiltEm
         /// </summary>
         public void DefineDebugActions()
         {
-            DebugActions[0] = () => { FlightGlobals.ActiveVessel.orbitDriver.vel *= 3; };
-            DebugActions[1] = () => { FlightGlobals.ActiveVessel.orbit.vel *= 3; };
+            DebugActions[0] = () => { };
+            DebugActions[1] = () => { };
             DebugActions[2] = () => { };
             DebugActions[3] = () => { };
             DebugActions[4] = () => { };
