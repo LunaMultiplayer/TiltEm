@@ -17,13 +17,14 @@ namespace TiltEm
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
+        public static double[] Data = new double[6];
+
         public void Awake()
         {
             DontDestroyOnLoad(this);
             Debug.Log("[TiltEm]: TiltEm started!");
 
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-            GameEvents.onRotatingFrameTransition.Add(RotatingFrameTransition);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onLevelWasLoadedGUIReady.Add(LevelWasLoaded);
 
@@ -40,8 +41,19 @@ namespace TiltEm
         /// </summary>
         public void DefineDebugActions()
         {
-            DebugActions[0] = () => { };
-            DebugActions[1] = () => { };
+            DebugActions[0] = () =>
+            {
+                Data[0] = FlightGlobals.ActiveVessel.orbit.eccentricity;
+                Data[1] = FlightGlobals.ActiveVessel.orbit.semiMajorAxis;
+                Data[2] = FlightGlobals.ActiveVessel.orbit.inclination;
+                Data[3] = FlightGlobals.ActiveVessel.orbit.LAN;
+                Data[4] = FlightGlobals.ActiveVessel.orbit.meanAnomalyAtEpoch;
+                Data[5] = FlightGlobals.ActiveVessel.orbit.argumentOfPeriapsis;
+            };
+            DebugActions[1] = () =>
+            {
+                FlightGlobals.fetch.SetShipOrbit(FlightGlobals.GetHomeBodyIndex(), Data[0], Data[1], Data[2], Data[3], Data[4], Data[5], Planetarium.GetUniversalTime());
+            };
             DebugActions[2] = () => { };
             DebugActions[3] = () => { };
             DebugActions[4] = () => { };
@@ -113,22 +125,7 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
-
-        /// <summary>
-        /// When switching to rotation mode we tilt the planetarium. Otherwise we tilt the planetarium
-        /// </summary>
-        public void RotatingFrameTransition(GameEvents.HostTargetAction<CelestialBody, bool> data)
-        {
-            if (data.target)
-            {
-                TiltEmUtil.RestorePlanetTilt(data.host);
-            }
-            else
-            {
-                TiltEmUtil.RestorePlanetariumTilt();
-            }
-        }
-
+        
         /// <summary>
         /// Adds the tilt of the body into the system
         /// </summary>

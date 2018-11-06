@@ -14,7 +14,8 @@ namespace TiltEm.Harmony
         [HarmonyPrefix]
         private static void PrefixUpdateOrbit(OrbitDriver __instance, ref bool __state)
         {
-            //TODO something must be done to modify the orbit for vessels with updateMode == OrbitDriver.UpdateMode.TRACK_Phys. Even for active vessel
+            //We NEVER tilt the orbit frames for vessels that are in TRACK_Phys mode
+            //Otherwise the orbits of them get messy after the frame is tilted
             if (__instance.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                 return;
 
