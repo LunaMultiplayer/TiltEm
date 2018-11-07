@@ -41,19 +41,8 @@ namespace TiltEm
         /// </summary>
         public void DefineDebugActions()
         {
-            DebugActions[0] = () =>
-            {
-                Data[0] = FlightGlobals.ActiveVessel.orbit.eccentricity;
-                Data[1] = FlightGlobals.ActiveVessel.orbit.semiMajorAxis;
-                Data[2] = FlightGlobals.ActiveVessel.orbit.inclination;
-                Data[3] = FlightGlobals.ActiveVessel.orbit.LAN;
-                Data[4] = FlightGlobals.ActiveVessel.orbit.meanAnomalyAtEpoch;
-                Data[5] = FlightGlobals.ActiveVessel.orbit.argumentOfPeriapsis;
-            };
-            DebugActions[1] = () =>
-            {
-                FlightGlobals.fetch.SetShipOrbit(FlightGlobals.GetHomeBodyIndex(), Data[0], Data[1], Data[2], Data[3], Data[4], Data[5], Planetarium.GetUniversalTime());
-            };
+            DebugActions[0] = () => { };
+            DebugActions[1] = () => { };
             DebugActions[2] = () => { };
             DebugActions[3] = () => { };
             DebugActions[4] = () => { };
