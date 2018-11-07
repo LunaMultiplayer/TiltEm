@@ -62,7 +62,7 @@ after_build:
  - ps: if ($env:configuration -like "Debug") { xcopy /y "$env:appveyor_build_folder\TiltEm\TiltEmButton.png" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm" }
   
  #7zip everything
- - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion.zip-$env:configuration" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
+ - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion-$env:configuration.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
 
 #---------------------------------#
 #      artifacts configuration    #
