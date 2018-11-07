@@ -25,7 +25,6 @@
 
 # Installation of version 1.0.0 (proof of concept)
 
-1) Install [Kopernicus](https://forum.kerbalspaceprogram.com/index.php?/topic/140580-151-1-backports-kopernicus-kittopiatech/)
 1) Go to the [latest release](../../releases/latest) page and download the zip file
 2) Decompress the downloaded .zip and put it in the KSP folder
 3) If you want to edit the current tilts, edit the file `GameData\TiltEm\PlanetTilt.cfg` the first number is the celestial body index, the second number is the degrees of tilt.	3) If you want to edit the current tilts, edit the file `TiltEm.cfg`
