@@ -18,8 +18,8 @@ namespace TiltEm
 
         private static Rect _windowRect;
         private static Rect _moveRect;
-        private const float WindowHeight = 100;
-        private const float WindowWidth = 450;
+        private const float WindowHeight = 150;
+        private const float WindowWidth = 480;
         private static GUILayoutOption[] _layoutOptions;
         private static bool _isWindowLocked;
 
@@ -58,8 +58,7 @@ namespace TiltEm
         {
             if (_initialized) return;
 
-            _windowRect = new Rect(Screen.width - (WindowWidth + 50), Screen.height / 2f - WindowHeight / 2f, WindowWidth,
-                WindowHeight);
+            _windowRect = new Rect(Screen.width - (WindowWidth + 50), Screen.height / 2f - WindowHeight / 2f, WindowWidth, WindowHeight);
             _moveRect = new Rect(0, 0, int.MaxValue, 20);
 
             _layoutOptions = new GUILayoutOption[4];
@@ -107,6 +106,9 @@ namespace TiltEm
             GUILayout.EndHorizontal();
             GUILayout.Space(20);
             GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
+            GUILayout.Label($"DriverTransform Rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero)}");
+            GUILayout.Label($"Orbit Frm: {(FlightGlobals.ActiveVessel != null ? ((Quaternion)FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero)}");
+            GUILayout.Label($"Vessel rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero)}");
             GUILayout.Space(20);
 
             Builder.Length = 0;
