@@ -33,7 +33,7 @@ Have a look at the [wiki](../../wiki) to see what index refers to what body name
 # Installation of version 1.1.0 (unstable)
 
 1) Install [Kopernicus](https://forum.kerbalspaceprogram.com/index.php?/topic/140580-151-1-backports-kopernicus-kittopiatech/)
-2) Go to the [AppVeyor build](https://ci.appveyor.com/project/gavazquez/tiltem/branch/master) page and download the artifact of the latest build. If you ge thte DEBUG build you will be able to see some specific TiltEm data such as celestial frames rotation an planetarium rotations
+2) Go to the [AppVeyor build](https://ci.appveyor.com/project/gavazquez/tiltem/branch/master) page and download the artifact of the latest build. If you get the DEBUG build you will be able to see some specific TiltEm data such as celestial frames rotation an planetarium rotations
 2) Decompress the downloaded .zip and put it in the KSP folder
 3) If you want to edit the current tilts, edit the file `GameData\TiltEm\TiltEm.cfg` file. It follows the same rules as any Kopernicus .cfg file
 
