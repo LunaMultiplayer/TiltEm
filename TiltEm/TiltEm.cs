@@ -14,13 +14,14 @@ namespace TiltEm
         public static bool[] DebugSwitches = new bool[10];
         public static Action[] DebugActions = new Action[10];
 #endif
+
+        public static TiltEm Singleton;
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
-        public static double[] Data = new double[6];
-
         public void Awake()
         {
+            Singleton = this;
             DontDestroyOnLoad(this);
             Debug.Log("[TiltEm]: TiltEm started!");
 
