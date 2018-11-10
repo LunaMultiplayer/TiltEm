@@ -109,6 +109,7 @@ namespace TiltEm
             GUILayout.Label($"DriverTransform Rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero)}");
             GUILayout.Label($"Orbit Frm: {(FlightGlobals.ActiveVessel != null ? ((Quaternion)FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero)}");
             GUILayout.Label($"Vessel rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero)}");
+            GUILayout.Label($"Vessel pos: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero)}");
             GUILayout.Space(20);
 
             Builder.Length = 0;
