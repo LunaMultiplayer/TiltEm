@@ -24,7 +24,7 @@ namespace TiltEm.Harmony
                     //switching the frame
                     for (var i = 0; i < FlightGlobals.VesselsLoaded.Count; i++)
                     {
-                        if (FlightGlobals.VesselsLoaded[i].orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys && TiltEm.DebugSwitches[0])
+                        if (FlightGlobals.VesselsLoaded[i].orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                         {
                             FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.UPDATE);
                             CallbackUtil.DelayedCallback(1, () => { FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.TRACK_Phys); });
