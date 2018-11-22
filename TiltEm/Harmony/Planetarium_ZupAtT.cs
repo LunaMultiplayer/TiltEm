@@ -19,6 +19,7 @@ namespace TiltEm.Harmony
             {
                 var num = (body.initialRotation + 360 * body.rotPeriodRecip * UT) % 360;
                 var num1 = (num - body.directRotAngle) % 360;
+
                 Planetarium.CelestialFrame.PlanetaryFrame(0, 90, num1, ref tempZup);
                 TiltEmUtil.ApplyTiltToFrame(ref tempZup, tilt);
 
