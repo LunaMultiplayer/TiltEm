@@ -23,6 +23,7 @@ namespace TiltEm
         private const float WindowHeight = 150;
         private const float WindowWidth = 480;
         private static GUILayoutOption[] _layoutOptions;
+        private static GUIStyle _horizontalLine;
         private static bool _isWindowLocked;
 
         private static readonly StringBuilder Builder = new StringBuilder();
@@ -69,6 +70,16 @@ namespace TiltEm
             _layoutOptions[2] = GUILayout.MinHeight(WindowHeight);
             _layoutOptions[3] = GUILayout.MaxHeight(WindowHeight);
 
+            _horizontalLine = new GUIStyle
+            {
+                normal =
+                {
+                    background = Texture2D.whiteTexture
+                },
+                margin = new RectOffset(0, 0, 4, 4),
+                fixedHeight = 1
+            };
+
             _initialized = true;
         }
 
@@ -78,13 +89,13 @@ namespace TiltEm
             GUILayout.BeginVertical();
 
             DrawDebugAndActionButtons();
-            GUILayout.Space(20);
+            DrawHorizontalLine(Color.white);
 
             DrawRotatingFrameButtons();
-            GUILayout.Space(20);
+            DrawHorizontalLine(Color.white);
 
             GUILayout.Label(GetVesselData());
-            GUILayout.Space(20);
+            DrawHorizontalLine(Color.white);
 
             GUILayout.Label(GetTilts());
 
@@ -134,7 +145,7 @@ namespace TiltEm
             Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero).ToString());
 
             Builder.Append("Vessel pos: ");
-            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
+            Builder.Append((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
 
             return Builder.ToString();
         }
@@ -144,14 +155,23 @@ namespace TiltEm
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Toggle rotating frame"))
             {
+                if (OrbitPhysicsManager.DominantBody != null)
+                {
+                    Debug.Log(OrbitPhysicsManager.DominantBody.inverseRotation
+                        ? $"Setting NORMAL rotation t:{Planetarium.GetUniversalTime()}"
+                        : $"Setting INVERSE rotation t:{Planetarium.GetUniversalTime()}");
+                }
+
                 ObtPhysMgr.ToggleRotatingFrame();
             }
+
+            GUILayout.Label($"Rotated planetarium: {(OrbitPhysicsManager.DominantBody != null ? OrbitPhysicsManager.DominantBody.inverseRotation.ToString() : "?")}");
+            GUILayout.EndHorizontal();
 
             if (GUILayout.Button("Reset"))
             {
                 ObtPhysMgr.degub = false;
             }
-            GUILayout.EndHorizontal();
         }
 
         private static void DrawDebugAndActionButtons()
@@ -205,6 +225,21 @@ namespace TiltEm
                 inputRect.y = yMax;
 
             return inputRect;
+        }
+
+        /// <summary>
+        /// Draws an horizontal separator line
+        /// </summary>
+        private static void DrawHorizontalLine(Color color)
+        {
+            GUILayout.Space(10);
+
+            var aux = GUI.color;
+            GUI.color = color;
+            GUILayout.Box(GUIContent.none, _horizontalLine);
+            GUI.color = aux;
+
+            GUILayout.Space(10);
         }
     }
 }
