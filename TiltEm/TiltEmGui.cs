@@ -79,43 +79,64 @@ namespace TiltEm
 
             DrawDebugAndActionButtons();
             GUILayout.Space(20);
+
             DrawRotatingFrameButtons();
-
-            FillBuilderWithVesselData();
-
-            GUILayout.Space(20);
-            GUILayout.Label(Builder.ToString());
-
-            GUILayout.Space(20);
-            GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
             GUILayout.Space(20);
 
-            FillBuilderWithPlanetsData();
+            GUILayout.Label(GetVesselData());
+            GUILayout.Space(20);
 
-            GUILayout.Label(Builder.ToString());
+            GUILayout.Label(GetTilts());
 
             GUILayout.EndVertical();
         }
 
-        private static void FillBuilderWithPlanetsData()
+        private static string GetTilts()
         {
             Builder.Length = 0;
-            foreach (var body in FlightGlobals.Bodies)
+
+            Builder.AppendLine($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
+            Builder.AppendLine(string.Empty);
+            for (var i = 0; i < FlightGlobals.Bodies.Count; i++)
             {
-                Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
-                                   $"- Rot: {((Quaternion) body.rotation).eulerAngles} " +
-                                   $"- Frm: {((Quaternion) body.BodyFrame.Rotation).eulerAngles}");
+                var body = FlightGlobals.Bodies[i];
+
+                if (i == FlightGlobals.Bodies.Count - 1)
+                {
+                    Builder.Append($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
+                                       $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
+                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
+                }
+                else
+                {
+                    Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
+                                       $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
+                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
+                }
             }
+
+            return Builder.ToString();
         }
 
-        private static void FillBuilderWithVesselData()
+        private static string GetVesselData()
         {
             Builder.Length = 0;
-            Builder.AppendLine($"Vessel obt mode: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.updateMode.ToString() : string.Empty)}");
-            Builder.AppendLine($"Vessel obt transform rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero)}");
-            Builder.AppendLine($"Vessel obt frm: {(FlightGlobals.ActiveVessel != null ? ((Quaternion) FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero)}");
-            Builder.AppendLine($"Vessel rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero)}");
-            Builder.AppendLine($"Vessel pos: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero)}");
+            Builder.Append("Vessel obt mode: ");
+            Builder.AppendLine(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.updateMode.ToString() : string.Empty);
+
+            Builder.Append("Vessel obt transform rot: ");
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero).ToString());
+
+            Builder.Append("Vessel obt frm: ");
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? ((Quaternion)FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero).ToString());
+
+            Builder.Append("Vessel rot: ");
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero).ToString());
+
+            Builder.Append("Vessel pos: ");
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
+
+            return Builder.ToString();
         }
 
         private static void DrawRotatingFrameButtons()
