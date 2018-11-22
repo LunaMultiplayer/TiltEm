@@ -16,11 +16,16 @@ namespace TiltEm.Harmony
         [HarmonyPrefix]
         private static bool PrefixCBUpdate(CelestialBody __instance)
         {
-            CBUpdate(__instance);
-            return false;
+            if (TiltEm.TryGetTilt(__instance.bodyName, out var tilt))
+            {
+                CBUpdate(__instance, tilt);
+                return false;
+            }
+
+            return true;
         }
 
-        private static void CBUpdate(CelestialBody body)
+        private static void CBUpdate(CelestialBody body, Vector3d tilt)
         {
             body.gMagnitudeAtCenter = body.GeeASL * 9.80665 * body.Radius * body.Radius;
             body.Mass = body.Radius * body.Radius * (body.GeeASL * 9.80665) / 6.67408E-11;
@@ -33,8 +38,10 @@ namespace TiltEm.Harmony
                     body.rotationPeriod = body.orbit.period;
                 }
                 body.rotPeriodRecip = 1 / body.rotationPeriod;
-                body.angularVelocity = Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
-                body.zUpAngularVelocity = Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
+
+                body.angularVelocity = (QuaternionD)Quaternion.Euler(tilt) * Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
+                body.zUpAngularVelocity = (QuaternionD)Quaternion.Euler(tilt) * Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
+
                 body.rotationAngle = (body.initialRotation + 360 * body.rotPeriodRecip * Planetarium.GetUniversalTime()) % 360;
                 body.angularV = body.angularVelocity.magnitude;
                 if (body.inverseRotation)
@@ -43,7 +50,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, Planetarium.InverseRotAngle, ref Planetarium.Zup);
                     
                     //Apply tilt
-                    TiltEmUtil.ApplyPlanetariumTilt(body);
+                    TiltEmUtil.ApplyPlanetariumTilt(body, tilt);
 
                     var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
                     Planetarium.Rotation = quaternionD.swizzle;
@@ -54,7 +61,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, body.directRotAngle, ref body.BodyFrame);
 
                     //Apply tilt
-                    TiltEmUtil.ApplyPlanetTilt(body);
+                    TiltEmUtil.ApplyPlanetTilt(body, tilt);
 
                     body.rotation = body.BodyFrame.Rotation.swizzle;
                     body.bodyTransform.rotation = body.rotation;

@@ -48,9 +48,9 @@ namespace TiltEm
         /// <summary>
         /// Tilts given planet frames
         /// </summary>
-        public static void ApplyPlanetTilt(CelestialBody body)
+        public static void ApplyPlanetTilt(CelestialBody body, Vector3d tilt)
         {
-            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt) || body.inverseRotation) return;
+            if (body.inverseRotation) return;
 
             ApplyTiltToFrame(ref body.BodyFrame, tilt);
         }
@@ -58,9 +58,9 @@ namespace TiltEm
         /// <summary>
         /// Tilts the planetarium. Useful when you're in inverse rotation mode 
         /// </summary>
-        public static void ApplyPlanetariumTilt(CelestialBody body)
+        public static void ApplyPlanetariumTilt(CelestialBody body, Vector3d tilt)
         {
-            if (!TiltEm.TryGetTilt(body.bodyName, out var tilt) || !body.inverseRotation) return;
+            if (!body.inverseRotation) return;
 
             ApplyTiltToFrame(ref Planetarium.Zup, tilt);
             PlanetariumTilted = true;
