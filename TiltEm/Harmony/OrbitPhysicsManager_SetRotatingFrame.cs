@@ -1,4 +1,6 @@
 ﻿using Harmony;
+using System.Collections;
+using UnityEngine;
 
 // ReSharper disable All
 
@@ -26,8 +28,8 @@ namespace TiltEm.Harmony
                     {
                         if (FlightGlobals.VesselsLoaded[i].orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                         {
-                            FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.UPDATE);
-                            CallbackUtil.DelayedCallback(1, () => { FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.TRACK_Phys); });
+                            //FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.UPDATE);
+                            //TiltEm.Singleton.StartCoroutine(SetOrbitUpdateModeNextFrame(FlightGlobals.VesselsLoaded[i], OrbitDriver.UpdateMode.TRACK_Phys));
                         }
                     }
                 }
@@ -36,6 +38,12 @@ namespace TiltEm.Harmony
                     TiltEmUtil.RestorePlanetariumTilt();
                 }
             }
+        }
+
+        public static IEnumerator SetOrbitUpdateModeNextFrame(Vessel vessel, OrbitDriver.UpdateMode updateMode)
+        {
+            yield return new WaitForSeconds(0.1f);
+            vessel.orbitDriver.SetOrbitMode(updateMode);
         }
     }
 }
