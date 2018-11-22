@@ -151,7 +151,6 @@ namespace TiltEm
             {
                 ObtPhysMgr.degub = false;
             }
-
             GUILayout.EndHorizontal();
         }
 
