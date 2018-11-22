@@ -7,6 +7,8 @@ namespace TiltEm
 {
     internal class TiltEmGui
     {
+        private static OrbitPhysicsManager ObtPhysMgr => Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
+        
         public static bool Display
         {
             get => _display && HighLogic.LoadedScene >= GameScenes.SPACECENTER;
@@ -75,11 +77,71 @@ namespace TiltEm
             GUI.DragWindow(_moveRect);
             GUILayout.BeginVertical();
 
+            DrawDebugAndActionButtons();
+            GUILayout.Space(20);
+            DrawRotatingFrameButtons();
+
+            FillBuilderWithVesselData();
+
+            GUILayout.Space(20);
+            GUILayout.Label(Builder.ToString());
+
+            GUILayout.Space(20);
+            GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
+            GUILayout.Space(20);
+
+            FillBuilderWithPlanetsData();
+
+            GUILayout.Label(Builder.ToString());
+
+            GUILayout.EndVertical();
+        }
+
+        private static void FillBuilderWithPlanetsData()
+        {
+            Builder.Length = 0;
+            foreach (var body in FlightGlobals.Bodies)
+            {
+                Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
+                                   $"- Rot: {((Quaternion) body.rotation).eulerAngles} " +
+                                   $"- Frm: {((Quaternion) body.BodyFrame.Rotation).eulerAngles}");
+            }
+        }
+
+        private static void FillBuilderWithVesselData()
+        {
+            Builder.Length = 0;
+            Builder.AppendLine($"Vessel obt mode: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.updateMode.ToString() : string.Empty)}");
+            Builder.AppendLine($"Vessel obt transform rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero)}");
+            Builder.AppendLine($"Vessel obt frm: {(FlightGlobals.ActiveVessel != null ? ((Quaternion) FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero)}");
+            Builder.AppendLine($"Vessel rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero)}");
+            Builder.AppendLine($"Vessel pos: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero)}");
+        }
+
+        private static void DrawRotatingFrameButtons()
+        {
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Toggle rotating frame"))
+            {
+                ObtPhysMgr.ToggleRotatingFrame();
+            }
+
+            if (GUILayout.Button("Reset"))
+            {
+                ObtPhysMgr.degub = false;
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+        private static void DrawDebugAndActionButtons()
+        {
             GUILayout.BeginHorizontal();
             for (var i = 0; i < TiltEm.DebugSwitches.Length; i++)
             {
                 TiltEm.DebugSwitches[i] = GUILayout.Toggle(TiltEm.DebugSwitches[i], $"D{i}");
             }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
@@ -87,50 +149,16 @@ namespace TiltEm
             {
                 if (GUILayout.Button($"A{i}"))
                     TiltEm.DebugActions[i].Invoke();
-
             }
             GUILayout.EndHorizontal();
-
-            GUILayout.Space(20);
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Toggle rotating frame"))
-            {
-                var manager = Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
-                manager.ToggleRotatingFrame();
-            }
-            if (GUILayout.Button("Reset"))
-            {
-                var manager = Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
-                manager.degub = false;
-            }
-            GUILayout.EndHorizontal();
-            GUILayout.Space(20);
-            GUILayout.Label($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
-            GUILayout.Label($"DriverTransform Rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.orbitDriver.driverTransform.rotation.eulerAngles : Vector3.zero)}");
-            GUILayout.Label($"Orbit Frm: {(FlightGlobals.ActiveVessel != null ? ((Quaternion)FlightGlobals.ActiveVessel.orbit.OrbitFrame.Rotation).eulerAngles : Vector3.zero)}");
-            GUILayout.Label($"Vessel rot: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero)}");
-            GUILayout.Label($"Vessel pos: {(FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero)}");
-            GUILayout.Space(20);
-
-            Builder.Length = 0;
-            foreach (var body in FlightGlobals.Bodies)
-            {
-                Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
-                                   $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
-                                   $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
-            }
-            GUILayout.Label(Builder.ToString());
-
-            GUILayout.EndVertical();
         }
 
         private static void RemoveWindowLock()
         {
-            if (_isWindowLocked)
-            {
-                _isWindowLocked = false;
-                InputLockManager.RemoveControlLock("TiltItLock");
-            }
+            if (!_isWindowLocked) return;
+
+            _isWindowLocked = false;
+            InputLockManager.RemoveControlLock("TiltItLock");
         }
 
         /// <summary>
