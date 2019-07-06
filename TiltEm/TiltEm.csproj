@@ -36,41 +36,26 @@
       <HintPath>..\External\Nuget\Lib.Harmony.1.2.0.1\lib\net35\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Assembly-CSharp.1.5.1\lib\net35\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\Assembly-CSharp.1.7.1\lib\net35\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\External\KSPLibraries\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\External\Nuget\Assembly-CSharp-firstpass.1.7.1\lib\net35\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Kopernicus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Kopernicus.1.5.1.1\lib\net35\Kopernicus.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Kopernicus.Components, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Kopernicus.Components.1.5.1.1\lib\net35\Kopernicus.Components.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Kopernicus.OnDemand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Kopernicus.OnDemand.1.5.1.1\lib\net35\Kopernicus.OnDemand.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\Kopernicus.1.7.1.5\lib\net35\Kopernicus.dll</HintPath>
     </Reference>
     <Reference Include="Kopernicus.Parser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\Kopernicus.Parser.1.5.1.1\lib\net35\Kopernicus.Parser.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\Kopernicus.Parser.1.7.1.5\lib\net35\Kopernicus.Parser.dll</HintPath>
     </Reference>
     <Reference Include="ModularFlightIntegrator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\ModularFlightIntegrator.1.2.5.4\lib\net35\ModularFlightIntegrator.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\ModularFlightIntegrator.1.2.6.3\lib\net35\ModularFlightIntegrator.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\UnityEngine.1.5.1\lib\net35\UnityEngine.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\UnityEngine.1.7.1\lib\net35\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\External\Nuget\UnityEngine.UI.1.5.1\lib\net35\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\External\Nuget\UnityEngine.UI.1.7.1\lib\net35\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
