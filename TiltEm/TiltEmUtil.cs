@@ -74,14 +74,5 @@ namespace TiltEm
             var rot = (QuaternionD)ApplyWorldRotation(frame.Rotation.swizzle, tilt);
             rot.swizzle.FrameVectors(out frame.X, out frame.Y, out frame.Z);
         }
-
-        /// <summary>
-        /// Applies tilt to the given celestial frame
-        /// </summary>
-        public static void RemoveTiltToFrame(ref Planetarium.CelestialFrame frame, Vector3d tilt)
-        {
-            var rot = (QuaternionD)ApplyWorldRotation(frame.Rotation.swizzle, -tilt);
-            rot.swizzle.FrameVectors(out frame.X, out frame.Y, out frame.Z);
-        }
     }
 }

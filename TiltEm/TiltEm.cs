@@ -11,8 +11,8 @@ namespace TiltEm
     public class TiltEm : MonoBehaviour
     {
 #if DEBUG
-        public static bool[] DebugSwitches = new bool[10];
-        public static Action[] DebugActions = new Action[10];
+        public static bool[] DebugSwitches { get; } = new bool[10];
+        public static Action[] DebugActions { get; } = new Action[10];
 #endif
 
         public static TiltEm Singleton;
