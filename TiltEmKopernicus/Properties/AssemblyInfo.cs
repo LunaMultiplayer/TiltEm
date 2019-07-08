@@ -1,18 +1,21 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: KSPAssembly("TiltEm", 1, 0)]
-[assembly: AssemblyTitle("TiltEm")]
-[assembly: AssemblyDescription("Axial tilt for KSP")]
+[assembly: KSPAssembly("TiltEmKopernicus", 1, 0)]
+[assembly: KSPAssemblyDependency("TiltEm", 1, 0)]
+[assembly: KSPAssemblyDependency("Kopernicus", 1, 0)]
+
+[assembly: AssemblyTitle("TiltEmKopernicus")]
+[assembly: AssemblyDescription("Axial tilt for KSP - Kopernicus")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TiltEm")]
+[assembly: AssemblyProduct("TiltEmKopernicus")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("Gabriel Vazquez")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: Guid("06a3e7cd-b0fb-4869-bdd9-26ab90d6396c")]
+[assembly: Guid("c748efb9-28cf-4abe-8784-3d105d3bafdf")]
 
 [assembly: AssemblyVersion("1.2.0")]
 [assembly: AssemblyFileVersion("1.2.0")]

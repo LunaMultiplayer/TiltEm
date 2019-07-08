@@ -1,7 +1,7 @@
 ﻿using Kopernicus;
 using UnityEngine;
 
-namespace TiltEm.Kopernicus
+namespace TiltEmKopernicus
 {
     [KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
     public class KopernicusLoader : MonoBehaviour
@@ -15,7 +15,7 @@ namespace TiltEm.Kopernicus
             {
                 if (body.Has("tiltx") || body.Has("tiltz"))
                 {
-                    TiltEm.AddTiltData(body, new Vector3d(body.Get("tiltx", 0d), 0, body.Get("tiltz", 0d)));
+                    TiltEm.TiltEm.AddTiltData(body, new Vector3d(body.Get("tiltx", 0d), 0, body.Get("tiltz", 0d)));
                 }
             }
         }

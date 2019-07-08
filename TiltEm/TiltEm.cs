@@ -16,7 +16,28 @@ namespace TiltEm
 #endif
 
         public static TiltEm Singleton;
-        public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>();
+
+        public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>()
+        {
+            ["Sun"] = new Vector3d(7.57, 0, 2.12),
+            ["Kerbin"] = new Vector3d(23, 0, 0),
+            ["Mun"] = new Vector3d(15.45, 0, 10.61),
+            ["Minmus"] = new Vector3d(5.87, 0, 12.63),
+            ["Moho"] = new Vector3d(15.14, 0, 30.25),
+            ["Eve"] = new Vector3d(120.4, 0, 35.82),
+            ["Duna"] = new Vector3d(5.93, 0, 3.81),
+            ["Ike"] = new Vector3d(15.41, 0, 4.22),
+            ["Jool"] = new Vector3d(0.54, 0, 1.16),
+            ["Laythe"] = new Vector3d(10.63, 0, 13.45),
+            ["Vall"] = new Vector3d(5.5, 0, 6.12),
+            ["Bop"] = new Vector3d(7.1, 0, 9.4),
+            ["Tylo"] = new Vector3d(17.3, 0, 6),
+            ["Gilly"] = new Vector3d(15.7, 0, 9.69),
+            ["Pol"] = new Vector3d(15.4, 0, 3.12),
+            ["Dres"] = new Vector3d(8.64, 0, 11.48),
+            ["Eeloo"] = new Vector3d(80.63, 0, 12.34),
+        };
+
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
         public void Awake()
@@ -115,7 +136,7 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
-        
+
         /// <summary>
         /// Adds the tilt of the body into the system
         /// </summary>
@@ -126,13 +147,15 @@ namespace TiltEm
                 Debug.LogError("[TiltEm]: AddTiltData parameter 'body' cannot be null!");
                 return;
             }
+
             if (TiltDictionary.ContainsKey(body.bodyName))
             {
-                Debug.LogError($"[TiltEm]: AddTiltData body {body.bodyName} already exists!");
-                return;
+                TiltDictionary[body.bodyName] = tilt;
             }
-
-            TiltDictionary.Add(body.bodyName, tilt);
+            else
+            {
+                TiltDictionary.Add(body.bodyName, tilt);
+            }
         }
 
         #endregion

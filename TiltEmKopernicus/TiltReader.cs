@@ -4,7 +4,7 @@ using Kopernicus.ConfigParser.BuiltinTypeParsers;
 using Kopernicus.ConfigParser.Enumerations;
 using Kopernicus.Configuration.Parsing;
 
-namespace TiltEm.Kopernicus
+namespace TiltEmKopernicus
 {
     [RequireConfigType(ConfigType.Node)]
     [ParserTargetExternal("Body", "Properties", "Kopernicus")]

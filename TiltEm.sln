@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEm", "TiltEm\TiltEm.csproj", "{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEmKopernicus", "TiltEmKopernicus\TiltEmKopernicus.csproj", "{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

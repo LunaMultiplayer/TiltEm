@@ -16,10 +16,12 @@ mkdir "%KSPPATH%\GameData\TiltEm\"
 mkdir "%KSPPATH%\GameData\TiltEm\Plugins"
 
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.dll"
+"%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEmKopernicus\bin\%SOLUTIONCONFIGURATION%\TiltEmKopernicus.dll"
 
 xcopy /Y "%~dp0..\TiltEm\TiltEm.cfg" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm\TiltEmButton.png" "%KSPPATH%\GameData\TiltEm"
 xcopy /Y "%~dp0..\TiltEm.version" "%KSPPATH%\GameData\TiltEm"
-xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\*.*" "%KSPPATH%\GameData\TiltEm\Plugins"
+xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.*" "%KSPPATH%\GameData\TiltEm\Plugins"
+xcopy /Y "%~dp0..\TiltEmKopernicus\bin\%SOLUTIONCONFIGURATION%\TiltEmKopernicus.*" "%KSPPATH%\GameData\TiltEm\Plugins"
 
 xcopy /Y /S "%~dp0..\Resources\*.*" "%KSPPATH%\GameData\TiltEm"
