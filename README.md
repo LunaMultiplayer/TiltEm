@@ -28,7 +28,7 @@ There are still some issues when switching the rotating frame, so take this mod 
 # Installation
 
 1) Go to the [latest release](../../releases/latest) page and download the zip file
-2) Decompress the downloaded .zip and put it in the `GameData`folder of your KSP
+2) Decompress the downloaded .zip into your KSP folder
 3) If you want to edit the default tilts, you need to install Kopernicus and edit the `GameData\TiltEm\TiltEm.cfg` file. It follows the same rules as any Kopernicus .cfg file
 
 ---
