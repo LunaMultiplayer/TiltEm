@@ -1,2 +1,2 @@
-1- First of all, you need to have installed Kopernicus!!!
-2- Edit the file TiltEm.cfg if you want to change the default tilts
+1- Copy the TiltEm folder into Kerbal Space Program\GameData folder
+2- If you want to edit the default tilt angles, install Kopernicus and edit the file TiltEm.cfg

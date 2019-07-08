@@ -54,7 +54,8 @@ after_build:
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: mkdir "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Localization"
 
- - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\bin\$env:configuration\TiltEm.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
+ - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm.version" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEm\TiltEm.cfg" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
