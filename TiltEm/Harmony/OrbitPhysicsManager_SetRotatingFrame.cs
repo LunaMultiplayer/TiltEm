@@ -20,22 +20,32 @@ namespace TiltEm.Harmony
             {
                 if (rotatingFrameState)
                 {
-                    TiltEmUtil.RestorePlanetTilt(__instance.dominantBody);
-                    
-                    //For all the vessels in physics range, we must set the orbit mode to UPDATE for 1 frame. This is needed as otherwise their position won't be correct after
-                    //switching the frame
                     for (var i = 0; i < FlightGlobals.VesselsLoaded.Count; i++)
                     {
-                        if (FlightGlobals.VesselsLoaded[i].orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+                        var vessel = FlightGlobals.VesselsLoaded[i];
+                        if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.UPDATE && TiltEm.TryGetTilt(vessel.mainBody.bodyName, out var tilt))
                         {
-                            //FlightGlobals.VesselsLoaded[i].orbitDriver.SetOrbitMode(OrbitDriver.UpdateMode.UPDATE);
-                            //TiltEm.Singleton.StartCoroutine(SetOrbitUpdateModeNextFrame(FlightGlobals.VesselsLoaded[i], OrbitDriver.UpdateMode.TRACK_Phys));
+                            TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, tilt);
                         }
                     }
                 }
                 else
                 {
-                    TiltEmUtil.RestorePlanetariumTilt();
+                    //for (var i = 0; i < FlightGlobals.VesselsLoaded.Count; i++)
+                    //{
+                    //    var vessel = FlightGlobals.VesselsLoaded[i];
+                    //    if (TiltEm.TryGetTilt(vessel.mainBody.bodyName, out var tilt))
+                    //    {
+                    //        if (TiltEm.DebugSwitches[0])
+                    //        {
+                    //            TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, tilt);
+                    //        }
+                    //        if (TiltEm.DebugSwitches[1])
+                    //        {
+                    //            Planetarium.CelestialFrame.OrbitalFrame(vessel.orbit.LAN, vessel.orbit.inclination, vessel.orbit.argumentOfPeriapsis, ref vessel.orbit.OrbitFrame);
+                    //        }
+                    //    }
+                    //}
                 }
             }
         }
