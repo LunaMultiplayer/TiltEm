@@ -14,28 +14,12 @@ namespace TiltEm.Harmony
     internal class OrbitPhysicsManager_SetRotatingFrame
     {
         [HarmonyPrefix]
-        private static bool PrefixSetRotatingFrame(OrbitPhysicsManager __instance, bool rotatingFrameState)
+        private static void PrefixSetRotatingFrame(OrbitPhysicsManager __instance, bool rotatingFrameState)
         {
-            if (__instance.dominantBody.inverseRotation != rotatingFrameState)
-            {
-                for (var i = 0; i < FlightGlobals.VesselsLoaded.Count; i++)
-                {
-                    var vessel = FlightGlobals.VesselsLoaded[i];
-                    if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.UPDATE && TiltEm.TryGetTilt(vessel.mainBody.bodyName, out var tilt))
-                    {
-                        if (rotatingFrameState)
-                        {
-                            TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, tilt);
-                        }
-                        else
-                        {
-                            //Something must be done here...
-                        }
-                    }
-                }
-            }
+            foreach (var vessel in FlightGlobals.VesselsLoaded)
+                vessel.GoOnRails();
 
-            return true;
+            OrbitPhysicsManager.HoldVesselUnpack(10);
         }
     }
 }
