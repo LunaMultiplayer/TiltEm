@@ -48,7 +48,7 @@ namespace TiltEm.Harmony
                 {
                     Planetarium.InverseRotAngle = (body.rotationAngle - body.directRotAngle) % 360;
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, Planetarium.InverseRotAngle, ref Planetarium.Zup);
-                    
+
                     //Apply tilt to the planetarium. In this mode, the planet is NOT tilted. What we do is tilt the planetarium
                     TiltEmUtil.ApplyPlanetariumTilt(body, tilt);
 
@@ -61,7 +61,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, body.directRotAngle, ref body.BodyFrame);
 
                     //Apply tilt to the planet and NOT to the planetarium
-                    TiltEmUtil.ApplyPlanetTilt(body, tilt);
+                    TiltEmUtil.ApplyPlanetTilt(body, -tilt);
 
                     body.rotation = body.BodyFrame.Rotation.swizzle;
                     body.bodyTransform.rotation = body.rotation;
