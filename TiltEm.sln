@@ -8,16 +8,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
-		Scripts\CopyToKSPDirectory.bat = Scripts\CopyToKSPDirectory.bat
-		README.md = README.md
-		Resources\Readme.txt = Resources\Readme.txt
-		Scripts\SetDirectories.bat = Scripts\SetDirectories.bat
-		TiltEm.version = TiltEm.version
+		Resources\TiltEm.cfg = Resources\TiltEm.cfg
+		Resources\TiltEm.version = Resources\TiltEm.version
+		Resources\TiltEmButton.png = Resources\TiltEmButton.png
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEm", "TiltEm\TiltEm.csproj", "{06A3E7CD-B0FB-4869-BDD9-26AB90D6396C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TiltEmKopernicus", "TiltEmKopernicus\TiltEmKopernicus.csproj", "{C748EFB9-28CF-4ABE-8784-3D105D3BAFDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{FA817180-4591-4B25-B2FB-6E17E6D7CA81}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\CopyToKSPDirectory.bat = Scripts\CopyToKSPDirectory.bat
+		Scripts\SetDirectories.bat = Scripts\SetDirectories.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{7CED25CA-C1A2-47AC-A6C5-E8EE9C0335FB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		Resources\Readme.txt = Resources\Readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +46,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA817180-4591-4B25-B2FB-6E17E6D7CA81} = {3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}
+		{7CED25CA-C1A2-47AC-A6C5-E8EE9C0335FB} = {3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CEE8ADF-EAC5-42F7-B036-D8DBDD53EDA0}
