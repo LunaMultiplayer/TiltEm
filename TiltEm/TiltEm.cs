@@ -80,8 +80,6 @@ namespace TiltEm
             DebugActions[9] = () => { };
         }
 
-
-
         /// <summary>
         /// Called on every GUI frame
         /// </summary>
@@ -97,11 +95,12 @@ namespace TiltEm
 #endif
 
         #region Game events
-        
+
         /// <summary>
         /// Enables the toolbar button
         /// </summary>
-        public void EnableToolBar()
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void EnableToolBar()
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/TiltEmButton", false);
             GameEvents.onGUIApplicationLauncherReady.Remove(EnableToolBar);
@@ -114,9 +113,10 @@ namespace TiltEm
         /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in our custom CBUpdate.
         /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in our custom CBUpdate.
         /// </summary>
-        private static void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
         {
-            if (data.target)
+            if (data.host && data.target)
             {
                 TiltEmUtil.RestorePlanetTilt(data.host);
             }
@@ -130,7 +130,8 @@ namespace TiltEm
         /// When loading a vessel that doesn't have a main body or that is not in inverse rotation we rotate the bodies.
         /// Otherwise if the vessel has a main body and is rotating we rotate the planetarium
         /// </summary>
-        private static void OnVesselChange(Vessel vessel)
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void OnVesselChange(Vessel vessel)
         {
             if (vessel.mainBody && vessel.mainBody.inverseRotation)
             {
@@ -146,7 +147,8 @@ namespace TiltEm
         /// When loading a scene that doesn't have a main body we rotate the bodies.
         /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
         /// </summary>
-        private static void LevelWasLoaded(GameScenes data)
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void LevelWasLoaded(GameScenes data)
         {
             if (data < GameScenes.SPACECENTER) return;
 
@@ -161,7 +163,7 @@ namespace TiltEm
         }
 
         #endregion
-        
+
         /// <summary>
         /// Adds the tilt of the body into the system
         /// </summary>
