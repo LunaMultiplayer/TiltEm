@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
+    <Compile Include="Harmony\OrbitDriver_TrackRigidbody.cs" />
     <Compile Include="Harmony\Planetarium_ZupAtT.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
     <Compile Include="Harmony\OrbitPhysicsManager_SetRotatingFrame.cs" />
