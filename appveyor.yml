@@ -58,7 +58,7 @@ after_build:
  - ps: xcopy /y "$env:appveyor_build_folder\TiltEmKopernicus\bin\$env:configuration\TiltEmKopernicus.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm\Plugins"
  - ps: xcopy /y /s "$env:appveyor_build_folder\Resources\*.*" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm"
 
- - ps: if ($env:configuration -like "Debug") { xcopy /y "$env:appveyor_build_folder\TiltEm\TiltEmButton.png" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm" }
+# - ps: if ($env:configuration -like "Debug") { xcopy /y "$env:appveyor_build_folder\TiltEm\TiltEmButton.png" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData\TiltEm" }
   
  #7zip everything
  - ps: 7z a "$env:appveyor_build_folder\TiltEm-$env:smallversion-$env:configuration.zip" "$env:appveyor_build_folder\FinalFiles\$env:configuration\GameData"
