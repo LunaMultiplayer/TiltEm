@@ -40,6 +40,10 @@ namespace TiltEm
 
         public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
 
+        /// <summary>
+        /// Called just when starting
+        /// </summary>
+        // ReSharper disable once UnusedMember.Global
         public void Awake()
         {
             Singleton = this;
@@ -49,6 +53,7 @@ namespace TiltEm
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onLevelWasLoadedGUIReady.Add(LevelWasLoaded);
+            GameEvents.onRotatingFrameTransition.Add(RotatingFrameChanged);
 
 #if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
@@ -75,7 +80,13 @@ namespace TiltEm
             DebugActions[9] = () => { };
         }
 
+
+
+        /// <summary>
+        /// Called on every GUI frame
+        /// </summary>
         // ReSharper disable once InconsistentNaming
+        // ReSharper disable once UnusedMember.Global
         public void OnGUI()
         {
             TiltEmGui.SetStyles();
@@ -83,6 +94,13 @@ namespace TiltEm
             TiltEmGui.DrawGui();
         }
 
+#endif
+
+        #region Game events
+        
+        /// <summary>
+        /// Enables the toolbar button
+        /// </summary>
         public void EnableToolBar()
         {
             var buttonTexture = GameDatabase.Instance.GetTexture("TiltEm/TiltEmButton", false);
@@ -91,23 +109,28 @@ namespace TiltEm
             ApplicationLauncher.Instance.AddModApplication(() => TiltEmGui.Display = true, () => TiltEmGui.Display = false,
                 () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
         }
-#endif
 
-        public void Update()
+        /// <summary>
+        /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in our custom CBUpdate.
+        /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in our custom CBUpdate.
+        /// </summary>
+        private static void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
         {
-            if (FlightGlobals.fetch && FlightGlobals.ActiveVessel && (!FlightGlobals.ActiveVessel.mainBody || FlightGlobals.ActiveVessel.mainBody && !FlightGlobals.ActiveVessel.mainBody.inverseRotation))
+            if (data.target)
+            {
+                TiltEmUtil.RestorePlanetTilt(data.host);
+            }
+            else
             {
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
 
-        #region Game events
-
         /// <summary>
         /// When loading a vessel that doesn't have a main body or that is not in inverse rotation we rotate the bodies.
         /// Otherwise if the vessel has a main body and is rotating we rotate the planetarium
         /// </summary>
-        private void OnVesselChange(Vessel vessel)
+        private static void OnVesselChange(Vessel vessel)
         {
             if (vessel.mainBody && vessel.mainBody.inverseRotation)
             {
@@ -123,7 +146,7 @@ namespace TiltEm
         /// When loading a scene that doesn't have a main body we rotate the bodies.
         /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
         /// </summary>
-        private void LevelWasLoaded(GameScenes data)
+        private static void LevelWasLoaded(GameScenes data)
         {
             if (data < GameScenes.SPACECENTER) return;
 
@@ -137,6 +160,8 @@ namespace TiltEm
             }
         }
 
+        #endregion
+        
         /// <summary>
         /// Adds the tilt of the body into the system
         /// </summary>
@@ -157,8 +182,6 @@ namespace TiltEm
                 TiltDictionary.Add(body.bodyName, tilt);
             }
         }
-
-        #endregion
 
         /// <summary>
         /// Gets the tilt magnitude to display it in a UI for the given body
