@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using System.Collections;
+using System.Reflection;
 using UnityEngine;
 
 // ReSharper disable All
@@ -13,13 +14,18 @@ namespace TiltEm.Harmony
     [HarmonyPatch("setRotatingFrame")]
     internal class OrbitPhysicsManager_SetRotatingFrame
     {
-        [HarmonyPrefix]
-        private static void PrefixSetRotatingFrame(OrbitPhysicsManager __instance, bool rotatingFrameState)
-        {
-            foreach (var vessel in FlightGlobals.VesselsLoaded)
-                vessel.GoOnRails();
 
-            OrbitPhysicsManager.HoldVesselUnpack(10);
+        [HarmonyPostfix]
+        private static void PostfixSetRotatingFrame(OrbitPhysicsManager __instance, bool rotatingFrameState)
+        {
+            if (TiltEm.TryGetTilt(__instance.dominantBody.bodyName, out var tilt))
+            {
+                foreach (var vessel in FlightGlobals.VesselsLoaded)
+                {
+                    vessel.GoOnRails();
+                    OrbitPhysicsManager.HoldVesselUnpack(10);
+                }
+            }
         }
     }
 }
