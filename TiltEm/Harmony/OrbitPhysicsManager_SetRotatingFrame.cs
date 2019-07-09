@@ -14,10 +14,12 @@ namespace TiltEm.Harmony
     [HarmonyPatch("setRotatingFrame")]
     internal class OrbitPhysicsManager_SetRotatingFrame
     {
-
         [HarmonyPostfix]
         private static void PostfixSetRotatingFrame(OrbitPhysicsManager __instance, bool rotatingFrameState)
         {
+            //TODO: This is just a hack and not the nicest way of tilting the orbits of the vessels that are in TRACK_Phys mode...
+            //More investigation is needed...
+
             if (TiltEm.TryGetTilt(__instance.dominantBody.bodyName, out var tilt))
             {
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
