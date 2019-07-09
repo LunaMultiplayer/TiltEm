@@ -15,7 +15,7 @@ namespace TiltEm.Harmony
         [HarmonyPrefix]
         private static bool PrefixZupAtT(double UT, CelestialBody body, ref Planetarium.CelestialFrame tempZup)
         {
-            if (body != null && TiltEm.TryGetTilt(body.bodyName, out var tilt) && body.inverseRotation)
+            if (body != null && body.inverseRotation && TiltEm.TryGetTilt(body.bodyName, out var tilt))
             {
                 var num = (body.initialRotation + 360 * body.rotPeriodRecip * UT) % 360;
                 var num1 = (num - body.directRotAngle) % 360;
