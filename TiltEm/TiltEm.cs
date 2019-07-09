@@ -92,10 +92,6 @@ namespace TiltEm
             TiltEmGui.DrawGui();
         }
 
-#endif
-
-        #region Game events
-
         /// <summary>
         /// Enables the toolbar button
         /// </summary>
@@ -108,6 +104,10 @@ namespace TiltEm
             ApplicationLauncher.Instance.AddModApplication(() => TiltEmGui.Display = true, () => TiltEmGui.Display = false,
                 () => { }, () => { }, () => { }, () => { }, ApplicationLauncher.AppScenes.ALWAYS, buttonTexture);
         }
+
+#endif
+
+        #region Game events
 
         /// <summary>
         /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in our custom CBUpdate.
