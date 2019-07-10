@@ -27,6 +27,7 @@ namespace TiltEm.Harmony
 
                         vessel.CustomGoOnRails();
                         OrbitPhysicsManager.HoldVesselUnpack(10);
+                        vessel.IgnoreGForces(20);
                     }
                 }
             }
