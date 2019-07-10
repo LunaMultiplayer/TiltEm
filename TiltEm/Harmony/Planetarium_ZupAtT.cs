@@ -7,6 +7,7 @@ namespace TiltEm.Harmony
     /// <summary>
     /// This harmony patch is intended to apply the tilt when getting the Zup frame
     /// This method is called by Orbit.GetOrbitalStateVectorsAtTrueAnomaly, that's called by Orbit.UpdateFromUT and that method is called by the OrbitDriver.updateFromParameters
+    /// If you don't call this method, the orbits of the UNLOADED vessels will be drawn correctly but the vessel itself in map view will be displaced
     /// </summary>
     [HarmonyPatch(typeof(Planetarium))]
     [HarmonyPatch("ZupAtT")]
