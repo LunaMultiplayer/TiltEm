@@ -51,8 +51,8 @@ namespace TiltEm
             Debug.Log("[TiltEm]: TiltEm started!");
 
             HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+            GameEvents.onGameSceneSwitchRequested.Add(SceneRequested);
             GameEvents.onVesselChange.Add(OnVesselChange);
-            GameEvents.onLevelWasLoadedGUIReady.Add(LevelWasLoaded);
             GameEvents.onRotatingFrameTransition.Add(RotatingFrameChanged);
 
 #if DEBUG
@@ -127,6 +127,26 @@ namespace TiltEm
         }
 
         /// <summary>
+        /// When loading a scene that doesn't have a main body we rotate the bodies.
+        /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
+        /// </summary>
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void SceneRequested(GameEvents.FromToAction<GameScenes, GameScenes> data)
+        {
+            if (data.from >= GameScenes.SPACECENTER && data.to >= GameScenes.SPACECENTER)
+            {
+                if (FlightGlobals.currentMainBody && FlightGlobals.currentMainBody.inverseRotation)
+                {
+                    TiltEmUtil.RestorePlanetTilt(FlightGlobals.currentMainBody);
+                }
+                else
+                {
+                    TiltEmUtil.RestorePlanetariumTilt();
+                }
+            }
+        }
+
+        /// <summary>
         /// When loading a vessel that doesn't have a main body or that is not in inverse rotation we rotate the bodies.
         /// Otherwise if the vessel has a main body and is rotating we rotate the planetarium
         /// </summary>
@@ -143,24 +163,6 @@ namespace TiltEm
             }
         }
 
-        /// <summary>
-        /// When loading a scene that doesn't have a main body we rotate the bodies.
-        /// Otherwise if the scene has a main body and we are rotating, we rotate the planetarium instead
-        /// </summary>
-        // ReSharper disable once MemberCanBeMadeStatic.Local
-        private void LevelWasLoaded(GameScenes data)
-        {
-            if (data < GameScenes.SPACECENTER) return;
-
-            if (FlightGlobals.currentMainBody && FlightGlobals.currentMainBody.inverseRotation)
-            {
-                TiltEmUtil.RestorePlanetTilt(FlightGlobals.currentMainBody);
-            }
-            else
-            {
-                TiltEmUtil.RestorePlanetariumTilt();
-            }
-        }
 
         #endregion
 
