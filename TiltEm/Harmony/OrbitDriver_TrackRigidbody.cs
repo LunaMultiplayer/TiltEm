@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Harmony;
+using System;
 using System.Reflection;
-using Harmony;
 
 // ReSharper disable All
 
