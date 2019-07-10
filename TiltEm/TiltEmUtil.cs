@@ -50,8 +50,6 @@ namespace TiltEm
         /// </summary>
         public static void ApplyPlanetTilt(CelestialBody body, Vector3d tilt)
         {
-            if (body.inverseRotation) return;
-
             ApplyTiltToFrame(ref body.BodyFrame, tilt);
         }
 
@@ -60,8 +58,6 @@ namespace TiltEm
         /// </summary>
         public static void ApplyPlanetariumTilt(CelestialBody body, Vector3d tilt)
         {
-            if (!body.inverseRotation) return;
-
             ApplyTiltToFrame(ref Planetarium.Zup, tilt);
             PlanetariumTilted = true;
         }
