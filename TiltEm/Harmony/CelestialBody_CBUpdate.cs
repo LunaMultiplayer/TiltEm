@@ -61,7 +61,7 @@ namespace TiltEm.Harmony
                     Planetarium.CelestialFrame.PlanetaryFrame(0, 90, body.directRotAngle, ref body.BodyFrame);
 
                     //Apply tilt to the planet and NOT to the planetarium
-                    TiltEmUtil.ApplyPlanetTilt(body, -tilt);
+                    TiltEmUtil.ApplyPlanetTilt(body, tilt);
 
                     body.rotation = body.BodyFrame.Rotation.swizzle;
                     body.bodyTransform.rotation = body.rotation;
