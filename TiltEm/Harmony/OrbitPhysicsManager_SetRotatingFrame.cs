@@ -1,7 +1,4 @@
 ﻿using Harmony;
-using System.Collections;
-using System.Reflection;
-using UnityEngine;
 
 // ReSharper disable All
 
@@ -24,8 +21,11 @@ namespace TiltEm.Harmony
             {
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
                 {
-                    vessel.GoOnRails();
-                    OrbitPhysicsManager.HoldVesselUnpack(10);
+                    if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+                    {
+                        vessel.CustomGoOnRails();
+                        OrbitPhysicsManager.HoldVesselUnpack(10);
+                    }
                 }
             }
         }
