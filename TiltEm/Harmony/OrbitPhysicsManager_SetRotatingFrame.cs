@@ -23,6 +23,8 @@ namespace TiltEm.Harmony
                 {
                     if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                     {
+                        vessel.SetRotation(TiltEmUtil.ApplyWorldRotation(FlightGlobals.ActiveVessel.transform.rotation, rotatingFrameState ? tilt : -tilt));
+
                         vessel.CustomGoOnRails();
                         OrbitPhysicsManager.HoldVesselUnpack(10);
                     }
