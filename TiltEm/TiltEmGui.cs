@@ -8,7 +8,7 @@ namespace TiltEm
     internal class TiltEmGui
     {
         private static OrbitPhysicsManager ObtPhysMgr => Traverse.Create<OrbitPhysicsManager>().Field<OrbitPhysicsManager>("fetch").Value;
-        
+
         public static bool Display
         {
             get => _display && HighLogic.LoadedScene >= GameScenes.SPACECENTER;
@@ -18,13 +18,22 @@ namespace TiltEm
 
         private static bool _initialized;
 
+
+        private static bool _displayCorrectionSlider;
+        private static bool _displayVesselData;
+        private static bool _displayTilts;
+
         private static Rect _windowRect;
         private static Rect _moveRect;
         private const float WindowHeight = 150;
-        private const float WindowWidth = 480;
+        private const float WindowWidth = 580;
         private static GUILayoutOption[] _layoutOptions;
         private static GUIStyle _horizontalLine;
         private static bool _isWindowLocked;
+
+        private static string X;
+        private static string Y;
+        private static string Z;
 
         private static readonly StringBuilder Builder = new StringBuilder();
 
@@ -72,15 +81,42 @@ namespace TiltEm
 
             _horizontalLine = new GUIStyle
             {
-                normal =
-                {
-                    background = Texture2D.whiteTexture
-                },
+                normal = { background = Texture2D.whiteTexture },
                 margin = new RectOffset(0, 0, 4, 4),
                 fixedHeight = 1
             };
 
             _initialized = true;
+        }
+
+        private static void DrawEditButtons(ref double value)
+        {
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("-1"))
+                value -= 1;
+            if (GUILayout.Button("-0.5"))
+                value -= 0.5;
+            if (GUILayout.Button("-0.1"))
+                value -= 0.1;
+            if (GUILayout.Button("-0.01"))
+                value -= 0.01;
+            if (GUILayout.Button("0"))
+                value = 0;
+            if (GUILayout.Button("+0.01"))
+                value += 0.01;
+            if (GUILayout.Button("+0.1"))
+                value += 0.1;
+            if (GUILayout.Button("+0.5"))
+                value += 0.5;
+            if (GUILayout.Button("+1"))
+                value += 1;
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label($"{value:F2}", GUILayout.Width(55.0f));
+            value = GUILayout.HorizontalScrollbar((float)value, 0, 360, -360);
+            GUILayout.EndHorizontal();
+            DrawHorizontalLine(Color.white);
         }
 
         private static void DrawContent(int windowId)
@@ -94,10 +130,33 @@ namespace TiltEm
             DrawRotatingFrameButtons();
             DrawHorizontalLine(Color.white);
 
-            GUILayout.Label(GetVesselData());
-            DrawHorizontalLine(Color.white);
+            _displayCorrectionSlider = GUILayout.Toggle(_displayCorrectionSlider, "Show correction slider");
+            if (_displayCorrectionSlider)
+            {
+                if (FlightGlobals.currentMainBody)
+                {
+                    if (FlightGlobals.currentMainBody.inverseRotation)
+                    {
+                        DrawEditButtons(ref TiltEm.CorrectionValue);
+                    }
+                    else
+                    {
+                        GUILayout.Label("You need to be in inverse rotation");
+                    }
+                }
+            }
 
-            GUILayout.Label(GetTilts());
+            _displayVesselData = GUILayout.Toggle(_displayVesselData, "Display Vessel data");
+            if (_displayVesselData)
+            {
+                GUILayout.Label(GetVesselData());
+            }
+
+            _displayTilts = GUILayout.Toggle(_displayTilts, "Display Tilts");
+            if (_displayTilts)
+            {
+                GUILayout.Label(GetTilts());
+            }
 
             GUILayout.EndVertical();
         }
@@ -106,7 +165,8 @@ namespace TiltEm
         {
             Builder.Length = 0;
 
-            Builder.AppendLine($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles}");
+            Builder.AppendLine($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles} " +
+                               $"- Direct rot°: {Planetarium.InverseRotAngle:F2}");
             Builder.AppendLine(string.Empty);
             for (var i = 0; i < FlightGlobals.Bodies.Count; i++)
             {
@@ -115,14 +175,16 @@ namespace TiltEm
                 if (i == FlightGlobals.Bodies.Count - 1)
                 {
                     Builder.Append($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
-                                       $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
-                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
+                                       $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
+                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
+                                       $"- Direct rot°: {body.rotationAngle:F2}");
                 }
                 else
                 {
                     Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
-                                       $"- Rot: {((Quaternion)body.rotation).eulerAngles} " +
-                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles}");
+                                       $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
+                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
+                                       $"- Direct rot°: {body.rotationAngle:F2}");
                 }
             }
 
@@ -181,7 +243,6 @@ namespace TiltEm
             {
                 TiltEm.DebugSwitches[i] = GUILayout.Toggle(TiltEm.DebugSwitches[i], $"D{i}");
             }
-
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();

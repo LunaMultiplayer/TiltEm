@@ -16,11 +16,13 @@ namespace TiltEm
 #endif
 
         public static TiltEm Singleton;
+        
+        public static double CorrectionValue;
 
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>()
         {
             ["Sun"] = new Vector3d(7.57, 0, 2.12),
-            ["Kerbin"] = new Vector3d(23, 0, 0),
+            ["Kerbin"] = new Vector3d(20, 0, 5),
             ["Mun"] = new Vector3d(15.45, 0, 10.61),
             ["Minmus"] = new Vector3d(5.87, 0, 12.63),
             ["Moho"] = new Vector3d(15.14, 0, 30.25),
