@@ -109,7 +109,7 @@ namespace TiltEm
 
             GUILayout.BeginHorizontal();
             GUILayout.Label($"{value:F2}", GUILayout.Width(55.0f));
-            value = GUILayout.HorizontalScrollbar((float)value, 0, 360, -360);
+            value = GUILayout.HorizontalScrollbar((float)value, 0, 0, 360);
             GUILayout.EndHorizontal();
             DrawHorizontalLine(Color.white);
         }
