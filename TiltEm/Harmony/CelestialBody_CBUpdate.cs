@@ -39,8 +39,11 @@ namespace TiltEm.Harmony
                 }
                 body.rotPeriodRecip = 1 / body.rotationPeriod;
 
-                body.angularVelocity = QuaternionD.Inverse(Quaternion.Euler(tilt)) * Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
-                body.zUpAngularVelocity = (QuaternionD)Quaternion.Euler(tilt) * Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
+                //Do not touch those values. They will just mess up with the orbital calculations
+                //body.angularVelocity = QuaternionD.Inverse(Quaternion.Euler(tilt)) * Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
+                //body.zUpAngularVelocity = (QuaternionD)Quaternion.Euler(tilt) * Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
+                body.angularVelocity = Vector3d.down * (Math.PI * 2 * body.rotPeriodRecip);
+                body.zUpAngularVelocity = Vector3d.back * (Math.PI * 2 * body.rotPeriodRecip);
 
                 body.rotationAngle = (body.initialRotation + 360 * body.rotPeriodRecip * Planetarium.GetUniversalTime()) % 360;
                 body.angularV = body.angularVelocity.magnitude;
