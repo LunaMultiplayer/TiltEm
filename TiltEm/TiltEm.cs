@@ -19,7 +19,7 @@ namespace TiltEm
         
         public static double CorrectionValue;
 
-        public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>()
+        public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>
         {
             ["Sun"] = new Vector3d(7.57, 0, 2.12),
             ["Kerbin"] = new Vector3d(20, 0, 5),
@@ -120,7 +120,13 @@ namespace TiltEm
         {
             if (data.host && data.target)
             {
-                TiltEmUtil.RestorePlanetTilt(data.host);
+                //TiltEmUtil.RestorePlanetTilt(data.host);
+
+                if (TiltDictionary.TryGetValue(data.host.bodyName, out _))
+                {
+                    data.host.transform.position = data.host.bodyTransform.position;
+                    data.host.transform.rotation = data.host.bodyTransform.rotation;
+                }
             }
             else
             {
