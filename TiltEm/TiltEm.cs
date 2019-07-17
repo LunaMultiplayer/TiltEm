@@ -120,13 +120,7 @@ namespace TiltEm
         {
             if (data.host && data.target)
             {
-                //TiltEmUtil.RestorePlanetTilt(data.host);
-
-                if (TiltDictionary.TryGetValue(data.host.bodyName, out _))
-                {
-                    data.host.transform.position = data.host.bodyTransform.position;
-                    data.host.transform.rotation = data.host.bodyTransform.rotation;
-                }
+                TiltEmUtil.RestorePlanetTilt(data.host);
             }
             else
             {
