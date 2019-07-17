@@ -23,11 +23,19 @@ namespace TiltEm.Harmony
                 {
                     if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                     {
-                        vessel.SetRotation(TiltEmUtil.ApplyWorldRotation(FlightGlobals.ActiveVessel.transform.rotation, rotatingFrameState ? tilt : -tilt));
-
-                        vessel.CustomGoOnRails();
-                        OrbitPhysicsManager.HoldVesselUnpack(10);
-                        vessel.IgnoreGForces(20);
+                        if (!rotatingFrameState)
+                        {
+                            vessel.orbitDriver.updateFromParameters();
+                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - Krakensbane.GetFrameVelocity());
+                        }
+                        else
+                        {
+                            vessel.SetRotation(TiltEmUtil.ApplyWorldRotation(FlightGlobals.ActiveVessel.transform.rotation, rotatingFrameState ? tilt : -tilt));
+                            vessel.CustomGoOnRails();
+                            OrbitPhysicsManager.HoldVesselUnpack(10);
+                            vessel.IgnoreGForces(20);
+                        }
                     }
                 }
             }
