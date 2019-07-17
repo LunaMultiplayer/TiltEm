@@ -4,8 +4,6 @@ namespace TiltEm
 {
     public class TiltEmUtil
     {
-        public static bool PlanetariumTilted { get; set; }
-
         /// <summary>
         /// Does the same as Transform.Rotate but against a given quaternion and against WORLD space
         /// </summary>
@@ -41,8 +39,6 @@ namespace TiltEm
             Planetarium.CelestialFrame.PlanetaryFrame(0, 90, Planetarium.InverseRotAngle, ref Planetarium.Zup);
             var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
             Planetarium.Rotation = quaternionD.swizzle;
-
-            PlanetariumTilted = false;
         }
 
         /// <summary>
@@ -56,10 +52,9 @@ namespace TiltEm
         /// <summary>
         /// Tilts the planetarium. Useful when you're in inverse rotation mode 
         /// </summary>
-        public static void ApplyPlanetariumTilt(CelestialBody body, Vector3d tilt)
+        public static void ApplyPlanetariumTilt(Vector3d tilt)
         {
             ApplyTiltToFrame(ref Planetarium.Zup, tilt);
-            PlanetariumTilted = true;
         }
 
         /// <summary>

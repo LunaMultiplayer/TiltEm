@@ -31,10 +31,8 @@ namespace TiltEm.Harmony
                         }
                         else
                         {
-                            vessel.SetRotation(TiltEmUtil.ApplyWorldRotation(FlightGlobals.ActiveVessel.transform.rotation, rotatingFrameState ? tilt : -tilt));
-                            vessel.CustomGoOnRails();
-                            OrbitPhysicsManager.HoldVesselUnpack(10);
-                            vessel.IgnoreGForces(20);
+                            vessel.orbitDriver.updateFromParameters();
+                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - vessel.orbit.referenceBody.getRFrmVel(vessel.vesselTransform.position) - Krakensbane.GetFrameVelocity());
                         }
                     }
                 }
