@@ -109,7 +109,7 @@ namespace TiltEm
 
             GUILayout.BeginHorizontal();
             GUILayout.Label($"{value:F2}", GUILayout.Width(55.0f));
-            value = GUILayout.HorizontalScrollbar((float)value, 0, 0, 360);
+            value = GUILayout.HorizontalScrollbar((float)value, 0, -360, 360);
             GUILayout.EndHorizontal();
             DrawHorizontalLine(Color.white);
         }
@@ -165,14 +165,16 @@ namespace TiltEm
                     Builder.Append($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
                                        $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
                                        $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
-                                       $"- Direct rot°: {body.rotationAngle:F2}");
+                                       $"- Rot °: {body.rotationAngle:F2} " +
+                                       $"- Direct rot°: {body.directRotAngle:F2}");
                 }
                 else
                 {
                     Builder.AppendLine($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
                                        $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
                                        $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
-                                       $"- Direct rot°: {body.rotationAngle:F2}");
+                                       $"- Rot °: {body.rotationAngle:F2} " +
+                                       $"- Direct rot°: {body.directRotAngle:F2}");
                 }
             }
 
