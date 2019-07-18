@@ -1,15 +1,15 @@
 {
     "NAME":     "Tilt 'Em",
     "URL":      "https://github.com/LunaMultiplayer/TiltEm/tree/master/TiltEm/TiltEm.version",
-    "DOWNLOAD": "https://github.com/LunaMultiplayer/TiltEm/releases/download/1.2.0/TiltEm.1.2.0.zip",
+    "DOWNLOAD": "https://github.com/LunaMultiplayer/TiltEm/releases/download/1.2.1/TiltEm.1.2.1.zip",
     "GITHUB": {
         "USERNAME":   "LunaMultiplayer",
         "REPOSITORY": "TiltEm"
     },
     "VERSION": {
         "MAJOR": 1,
-        "MINOR": 0,
-        "PATCH": 0
+        "MINOR": 2,
+        "PATCH": 1
     },
     "KSP_VERSION": {
         "MAJOR": 1,
