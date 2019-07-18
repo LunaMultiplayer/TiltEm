@@ -113,10 +113,34 @@ namespace TiltEm
         /// <summary>
         /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in our custom CBUpdate.
         /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in our custom CBUpdate.
+        ///
+        /// Also we must adjust the orbits of the loaded vessels to match the new tilt
         /// </summary>
         // ReSharper disable once MemberCanBeMadeStatic.Local
         private void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
         {
+            if (TryGetTilt(data.host.bodyName, out _))
+            {
+                //TODO: Here we adjust the loaded vessel orbits that are in physics mode. This creates some small errors in the orbit parameters so more investigation is needed
+                foreach (var vessel in FlightGlobals.VesselsLoaded)
+                {
+                    if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+                    {
+                        if (!data.target) //NOT rotating frame
+                        {
+                            vessel.orbitDriver.updateFromParameters();
+                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - Krakensbane.GetFrameVelocity());
+                        }
+                        else
+                        {
+                            vessel.orbitDriver.updateFromParameters();
+                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - vessel.orbit.referenceBody.getRFrmVel(vessel.vesselTransform.position) - Krakensbane.GetFrameVelocity());
+                        }
+                    }
+                }
+            }
+
             if (data.host && data.target)
             {
                 TiltEmUtil.RestorePlanetTilt(data.host);

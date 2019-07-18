@@ -53,14 +53,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
-    <Compile Include="Harmony\CelestialBody_getRFrmVelOrbit.cs" />
-    <Compile Include="Harmony\Orbit_GetRotFrameVel.cs" />
-    <Compile Include="Harmony\CelestialBody_getRFrmVel.cs" />
-    <Compile Include="Harmony\Orbit_GetRotFrameVelAtPos.cs" />
     <Compile Include="Harmony\OrbitDriver_TrackRigidbody.cs" />
     <Compile Include="Harmony\Planetarium_ZupAtT.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
-    <Compile Include="Harmony\OrbitPhysicsManager_SetRotatingFrame.cs" />
     <Compile Include="TiltAxisRenderer.cs" />
     <Compile Include="TiltEm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

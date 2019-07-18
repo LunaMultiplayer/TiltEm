@@ -6,9 +6,6 @@
 
 //namespace TiltEm.Harmony
 //{
-//    /// <summary>
-//    /// This harmony patch is intended to restore the planetarium or the planet tilt when changing the rotating frame
-//    /// </summary>
 //    [HarmonyPatch(typeof(OrbitDriver))]
 //    [HarmonyPatch("TrackRigidbody")]
 //    internal class OrbitDriver_TrackRigidbody

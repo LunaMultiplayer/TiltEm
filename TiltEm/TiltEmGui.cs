@@ -82,37 +82,7 @@ namespace TiltEm
 
             _initialized = true;
         }
-
-        private static void DrawEditButtons(ref double value)
-        {
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("-1"))
-                value -= 1;
-            if (GUILayout.Button("-0.5"))
-                value -= 0.5;
-            if (GUILayout.Button("-0.1"))
-                value -= 0.1;
-            if (GUILayout.Button("-0.01"))
-                value -= 0.01;
-            if (GUILayout.Button("0"))
-                value = 0;
-            if (GUILayout.Button("+0.01"))
-                value += 0.01;
-            if (GUILayout.Button("+0.1"))
-                value += 0.1;
-            if (GUILayout.Button("+0.5"))
-                value += 0.5;
-            if (GUILayout.Button("+1"))
-                value += 1;
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            GUILayout.Label($"{value:F2}", GUILayout.Width(55.0f));
-            value = GUILayout.HorizontalScrollbar((float)value, 0, 0, 360);
-            GUILayout.EndHorizontal();
-            DrawHorizontalLine(Color.white);
-        }
-
+        
         private static void DrawContent(int windowId)
         {
             GUI.DragWindow(_moveRect);
