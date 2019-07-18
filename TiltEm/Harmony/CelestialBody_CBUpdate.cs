@@ -58,7 +58,7 @@ namespace TiltEm.Harmony
 
                     //Apply tilt to the planetarium. In this mode, the planet is NOT tilted. What we do is tilt the planetarium.
                     //Don't worry about tilting the planet to 0 degrees. This is done in the "onRotatingFrameTransition" event of TiltEm class 
-                    Planetarium.CelestialFrame.PlanetaryFrame(tilt.z + Planetarium.InverseRotAngle, 90 + tilt.x, 0, ref Planetarium.Zup);
+                    Planetarium.CelestialFrame.PlanetaryFrame(tilt.z, 90 + tilt.x, Planetarium.InverseRotAngle, ref Planetarium.Zup);
 
                     var quaternionD = QuaternionD.Inverse(Planetarium.Zup.Rotation);
                     Planetarium.Rotation = quaternionD.swizzle;
