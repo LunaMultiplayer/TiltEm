@@ -23,7 +23,7 @@
 
 *This mod adds [planetary axial tilt](https://simple.wikipedia.org/wiki/Axial_tilt) for [Kerbal Space Program (KSP)](https://kerbalspaceprogram.com)*
 
-There are still some issues when switching the rotating frame, so take this mod as a proof of concept and not as a fully released mod!
+There might be [issues](./issues) when switching the [rotating frame](./wiki/How-this-mod-works), so take this mod as a proof of concept and not as a fully released mod!
 
 # Installation
 
