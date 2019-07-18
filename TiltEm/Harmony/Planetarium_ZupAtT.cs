@@ -21,7 +21,7 @@ namespace TiltEm.Harmony
                 var rotationAngle = (body.initialRotation + 360 * body.rotPeriodRecip * UT) % 360;
                 var inverseRotAngle = (rotationAngle - body.directRotAngle) % 360;
                 
-                Planetarium.CelestialFrame.PlanetaryFrame(tilt.z + Planetarium.InverseRotAngle, 90 + tilt.x, inverseRotAngle - Planetarium.InverseRotAngle, ref tempZup);
+                Planetarium.CelestialFrame.PlanetaryFrame(tilt.z + TiltEm.CorrectionValue, 90 + tilt.x, inverseRotAngle - TiltEm.CorrectionValue, ref tempZup);
 
                 return false;
             }

@@ -18,6 +18,7 @@ namespace TiltEm
 
         private static bool _initialized;
 
+        private static bool _displayCorrectionSlider;
         private static bool _displayVesselData;
         private static bool _displayTilts;
 
@@ -82,7 +83,37 @@ namespace TiltEm
 
             _initialized = true;
         }
-        
+
+        private static void DrawEditButtons(ref double value)
+        {
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("-1"))
+                value -= 1;
+            if (GUILayout.Button("-0.5"))
+                value -= 0.5;
+            if (GUILayout.Button("-0.1"))
+                value -= 0.1;
+            if (GUILayout.Button("-0.01"))
+                value -= 0.01;
+            if (GUILayout.Button("0"))
+                value = 0;
+            if (GUILayout.Button("+0.01"))
+                value += 0.01;
+            if (GUILayout.Button("+0.1"))
+                value += 0.1;
+            if (GUILayout.Button("+0.5"))
+                value += 0.5;
+            if (GUILayout.Button("+1"))
+                value += 1;
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label($"{value:F2}", GUILayout.Width(55.0f));
+            value = GUILayout.HorizontalScrollbar((float)value, 0, 0, 360);
+            GUILayout.EndHorizontal();
+            DrawHorizontalLine(Color.white);
+        }
+
         private static void DrawContent(int windowId)
         {
             GUI.DragWindow(_moveRect);
@@ -93,6 +124,22 @@ namespace TiltEm
 
             DrawRotatingFrameButtons();
             DrawHorizontalLine(Color.white);
+
+            _displayCorrectionSlider = GUILayout.Toggle(_displayCorrectionSlider, "Show correction slider");
+            if (_displayCorrectionSlider)
+            {
+                if (FlightGlobals.currentMainBody)
+                {
+                    if (FlightGlobals.currentMainBody.inverseRotation)
+                    {
+                        DrawEditButtons(ref TiltEm.CorrectionValue);
+                    }
+                    else
+                    {
+                        GUILayout.Label("You need to be in inverse rotation");
+                    }
+                }
+            }
 
             _displayVesselData = GUILayout.Toggle(_displayVesselData, "Display Vessel data");
             if (_displayVesselData)
