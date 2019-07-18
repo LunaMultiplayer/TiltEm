@@ -5,7 +5,10 @@ using Vectrosity;
 #if DEBUG
 namespace TiltEm
 {
-    [KSPAddon(KSPAddon.Startup.TrackingStation, true)]
+    /// <summary>
+    /// This class just render some lines on the planets while in tracking station. Only useful for debugging purposes
+    /// </summary>
+    [KSPAddon(KSPAddon.Startup.TrackingStation, false)]
     public class TiltAxisRenderer : MonoBehaviour
     {
         private static VectorLine _lineUpDown;
@@ -16,9 +19,14 @@ namespace TiltEm
         private static readonly List<Vector3> PointsLeftRightAxis = new List<Vector3> { new Vector3(), new Vector3() };
         private static readonly List<Vector3> PointsFwdBackAxis = new List<Vector3> { new Vector3(), new Vector3() };
 
-        public void Awake()
+        public void OnDisable()
         {
-            DontDestroyOnLoad(this);
+            if (_lineUpDown != null)
+                VectorLine.Destroy(ref _lineUpDown);
+            if (_lineLeftRight != null)
+                VectorLine.Destroy(ref _lineLeftRight);
+            if (_lineFwdBack != null)
+                VectorLine.Destroy(ref _lineFwdBack);
         }
 
         public void Update()
