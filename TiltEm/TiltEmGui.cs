@@ -18,7 +18,6 @@ namespace TiltEm
 
         private static bool _initialized;
 
-        private static bool _displayCorrectionSlider;
         private static bool _displayVesselData;
         private static bool _displayTilts;
 
@@ -124,22 +123,6 @@ namespace TiltEm
 
             DrawRotatingFrameButtons();
             DrawHorizontalLine(Color.white);
-
-            _displayCorrectionSlider = GUILayout.Toggle(_displayCorrectionSlider, "Show correction slider");
-            if (_displayCorrectionSlider)
-            {
-                if (FlightGlobals.currentMainBody)
-                {
-                    if (FlightGlobals.currentMainBody.inverseRotation)
-                    {
-                        DrawEditButtons(ref TiltEm.CorrectionValue);
-                    }
-                    else
-                    {
-                        GUILayout.Label("You need to be in inverse rotation");
-                    }
-                }
-            }
 
             _displayVesselData = GUILayout.Toggle(_displayVesselData, "Display Vessel data");
             if (_displayVesselData)

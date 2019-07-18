@@ -17,7 +17,6 @@ namespace TiltEm
 
         public static TiltEm Singleton;
         
-        public static double CorrectionValue;
 
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>
         {
