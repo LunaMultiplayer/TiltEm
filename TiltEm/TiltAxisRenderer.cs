@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Vectrosity;
+// ReSharper disable All
 
 #if DEBUG
 namespace TiltEm
