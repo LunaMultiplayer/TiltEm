@@ -70,6 +70,8 @@ namespace TiltEm
 #endif
         }
 
+#if DEBUG
+
         /// <summary>
         /// Called on every GUI frame
         /// </summary>
@@ -81,6 +83,8 @@ namespace TiltEm
             TiltEmGui.CheckWindowLock();
             TiltEmGui.DrawGui();
         }
+
+#endif
 
         #endregion
 
@@ -180,9 +184,9 @@ namespace TiltEm
             }
         }
         
-        #endregion
+#endregion
 
-        #region Public accessors
+#region Public accessors
 
         /// <summary>
         /// Adds the tilt of the body into the system.
@@ -222,9 +226,9 @@ namespace TiltEm
             return TiltDictionary.TryGetValue(bodyName, out tilt);
         }
 
-        #endregion
+#endregion
 
-        #region Private methods
+#region Private methods
 
 #if DEBUG
 
@@ -247,7 +251,7 @@ namespace TiltEm
 
 #endif
 
-        #endregion
+#endregion
 
     }
 }
