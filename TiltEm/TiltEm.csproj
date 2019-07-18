@@ -50,7 +50,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
     <Compile Include="Harmony\OrbitDriver_TrackRigidbody.cs" />

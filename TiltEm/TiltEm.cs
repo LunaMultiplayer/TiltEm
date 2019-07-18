@@ -10,13 +10,19 @@ namespace TiltEm
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class TiltEm : MonoBehaviour
     {
+
+        #region Fields
+
+        public static TiltEm Singleton;
+
 #if DEBUG
         public static bool[] DebugSwitches { get; } = new bool[10];
         public static Action[] DebugActions { get; } = new Action[10];
 #endif
-
-        public static TiltEm Singleton;
         
+        /// <summary>
+        /// Here we define the default tilts in case you don't use Kopernicus
+        /// </summary>
 
         public static readonly Dictionary<string, Vector3d> TiltDictionary = new Dictionary<string, Vector3d>
         {
@@ -39,7 +45,9 @@ namespace TiltEm
             ["Eeloo"] = new Vector3d(80.63, 0, 12.34),
         };
 
-        public static HarmonyInstance HarmonyInstance = HarmonyInstance.Create("TiltEm");
+        #endregion
+
+        #region Unity methods
 
         /// <summary>
         /// Called just when starting
@@ -51,7 +59,7 @@ namespace TiltEm
             DontDestroyOnLoad(this);
             Debug.Log("[TiltEm]: TiltEm started!");
 
-            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
+            HarmonyInstance.Create("TiltEm").PatchAll(Assembly.GetExecutingAssembly());
             GameEvents.onGameSceneSwitchRequested.Add(SceneRequested);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onRotatingFrameTransition.Add(RotatingFrameChanged);
@@ -60,25 +68,6 @@ namespace TiltEm
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
             DefineDebugActions();
 #endif
-        }
-
-#if DEBUG
-
-        /// <summary>
-        /// Define actions that you want to be executed when pressing the A0-A9 buttons
-        /// </summary>
-        public void DefineDebugActions()
-        {
-            DebugActions[0] = () => { };
-            DebugActions[1] = () => { };
-            DebugActions[2] = () => { };
-            DebugActions[3] = () => { };
-            DebugActions[4] = () => { };
-            DebugActions[5] = () => { };
-            DebugActions[6] = () => { };
-            DebugActions[7] = () => { };
-            DebugActions[8] = () => { };
-            DebugActions[9] = () => { };
         }
 
         /// <summary>
@@ -92,6 +81,13 @@ namespace TiltEm
             TiltEmGui.CheckWindowLock();
             TiltEmGui.DrawGui();
         }
+
+        #endregion
+
+        #region Game events
+
+
+#if DEBUG
 
         /// <summary>
         /// Enables the toolbar button
@@ -108,11 +104,9 @@ namespace TiltEm
 
 #endif
 
-        #region Game events
-
         /// <summary>
-        /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in our custom CBUpdate.
-        /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in our custom CBUpdate.
+        /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in <see cref="Harmony.CelestialBody_CBUpdate"/>.
+        /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in <see cref="Harmony.CelestialBody_CBUpdate"/>.
         ///
         /// Also we must adjust the orbits of the loaded vessels to match the new tilt
         /// </summary>
@@ -191,8 +185,11 @@ namespace TiltEm
 
         #endregion
 
+        #region Public accessors
+
         /// <summary>
-        /// Adds the tilt of the body into the system
+        /// Adds the tilt of the body into the system.
+        /// Feel free to call this method from another mod.
         /// </summary>
         public static void AddTiltData(CelestialBody body, Vector3d tilt)
         {
@@ -213,7 +210,7 @@ namespace TiltEm
         }
 
         /// <summary>
-        /// Gets the tilt magnitude to display it in a UI for the given body
+        /// Gets the tilt magnitude to display it in a UI for a given body name
         /// </summary>
         public static string GetTiltForDisplay(string bodyName)
         {
@@ -221,11 +218,39 @@ namespace TiltEm
         }
 
         /// <summary>
-        /// Returns the given tilt if found
+        /// Returns the given tilt if found in the storage
         /// </summary>
         public static bool TryGetTilt(string bodyName, out Vector3d tilt)
         {
             return TiltDictionary.TryGetValue(bodyName, out tilt);
         }
+
+        #endregion
+
+        #region Private methods
+
+#if DEBUG
+
+        /// <summary>
+        /// Define actions that you want to be executed when pressing the A0-A9 buttons
+        /// </summary>
+        public void DefineDebugActions()
+        {
+            DebugActions[0] = () => { };
+            DebugActions[1] = () => { };
+            DebugActions[2] = () => { };
+            DebugActions[3] = () => { };
+            DebugActions[4] = () => { };
+            DebugActions[5] = () => { };
+            DebugActions[6] = () => { };
+            DebugActions[7] = () => { };
+            DebugActions[8] = () => { };
+            DebugActions[9] = () => { };
+        }
+
+#endif
+
+        #endregion
+
     }
 }
