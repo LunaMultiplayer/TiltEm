@@ -19,6 +19,7 @@ mkdir "%KSPPATH%\GameData\TiltEm\Plugins"
 "%~dp0..\External\pdb2mdb\pdb2mdb.exe" "%~dp0..\TiltEmKopernicus\bin\%SOLUTIONCONFIGURATION%\TiltEmKopernicus.dll"
 
 xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\TiltEm.*" "%KSPPATH%\GameData\TiltEm\Plugins"
+xcopy /Y "%~dp0..\TiltEm\bin\%SOLUTIONCONFIGURATION%\0Harmony.dll" "%KSPPATH%\GameData\TiltEm\Plugins"
 xcopy /Y "%~dp0..\TiltEmKopernicus\bin\%SOLUTIONCONFIGURATION%\TiltEmKopernicus.*" "%KSPPATH%\GameData\TiltEm\Plugins"
 
 xcopy /Y /S "%~dp0..\Resources\*.*" "%KSPPATH%\GameData\TiltEm"
