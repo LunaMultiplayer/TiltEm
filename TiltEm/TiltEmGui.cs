@@ -130,14 +130,7 @@ namespace TiltEm
             {
                 if (FlightGlobals.currentMainBody)
                 {
-                    if (FlightGlobals.currentMainBody.inverseRotation)
-                    {
-                        DrawEditButtons(ref TiltEm.CorrectionValue);
-                    }
-                    else
-                    {
-                        GUILayout.Label("You need to be in inverse rotation");
-                    }
+                    DrawEditButtons(ref TiltEm.CorrectionValue);
                 }
             }
 
