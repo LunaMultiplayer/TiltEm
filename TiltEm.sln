@@ -29,6 +29,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{7CED25
 		Resources\Readme.txt = Resources\Readme.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{7A274B26-71E0-4C82-AE75-FA678C17BD06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "en-us", "en-us", "{D9C869A9-365B-4B1A-BADD-E28F85DBEBAE}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Localization\en-us\TiltEmLoc.cfg = Resources\Localization\en-us\TiltEmLoc.cfg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "es-es", "es-es", "{017AEAE7-74EB-4860-A783-2A804141E141}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Localization\es-es\TiltEmLoc.cfg = Resources\Localization\es-es\TiltEmLoc.cfg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +62,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FA817180-4591-4B25-B2FB-6E17E6D7CA81} = {3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}
 		{7CED25CA-C1A2-47AC-A6C5-E8EE9C0335FB} = {3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}
+		{7A274B26-71E0-4C82-AE75-FA678C17BD06} = {3D16D5C8-AD7C-4E3C-B1CE-D350314D3F97}
+		{D9C869A9-365B-4B1A-BADD-E28F85DBEBAE} = {7A274B26-71E0-4C82-AE75-FA678C17BD06}
+		{017AEAE7-74EB-4860-A783-2A804141E141} = {7A274B26-71E0-4C82-AE75-FA678C17BD06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CEE8ADF-EAC5-42F7-B036-D8DBDD53EDA0}
