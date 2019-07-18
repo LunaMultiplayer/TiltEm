@@ -80,7 +80,6 @@ namespace TiltEm
 
             _lineFwdBack.active = true;
             _lineFwdBack.Draw3D();
-
         }
     }
 }

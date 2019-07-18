@@ -16,8 +16,7 @@ namespace TiltEm.Harmony
     internal class KbAppPlanetParameters_CreatePhysicalCharacteristics
     {
         private static string Title => Localizer.TryGetStringByTag("#autoLOC_TiltEm_AxialTilt", out var localizedTitle) ? localizedTitle : "Obliquity";
-
-
+        
         [HarmonyPostfix]
         private static void PostfixCreatePhysicalCharacteristics(KbApp_PlanetParameters __instance, List<UIListItem> __result)
         {

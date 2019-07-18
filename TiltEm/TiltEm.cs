@@ -10,7 +10,6 @@ namespace TiltEm
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
     public class TiltEm : MonoBehaviour
     {
-
         #region Fields
 
         public static TiltEm Singleton;
@@ -86,7 +85,6 @@ namespace TiltEm
 
         #region Game events
 
-
 #if DEBUG
 
         /// <summary>
@@ -152,16 +150,15 @@ namespace TiltEm
         // ReSharper disable once MemberCanBeMadeStatic.Local
         private void SceneRequested(GameEvents.FromToAction<GameScenes, GameScenes> data)
         {
-            if (data.from >= GameScenes.SPACECENTER && data.to >= GameScenes.SPACECENTER)
+            if (data.from < GameScenes.SPACECENTER || data.to < GameScenes.SPACECENTER) return;
+
+            if (FlightGlobals.currentMainBody && FlightGlobals.currentMainBody.inverseRotation)
             {
-                if (FlightGlobals.currentMainBody && FlightGlobals.currentMainBody.inverseRotation)
-                {
-                    TiltEmUtil.RestorePlanetTilt(FlightGlobals.currentMainBody);
-                }
-                else
-                {
-                    TiltEmUtil.RestorePlanetariumTilt();
-                }
+                TiltEmUtil.RestorePlanetTilt(FlightGlobals.currentMainBody);
+            }
+            else
+            {
+                TiltEmUtil.RestorePlanetariumTilt();
             }
         }
 
@@ -181,8 +178,7 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
-
-
+        
         #endregion
 
         #region Public accessors

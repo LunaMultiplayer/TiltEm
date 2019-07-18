@@ -180,6 +180,7 @@ namespace TiltEm
 
             if (GUILayout.Button("Reset"))
             {
+                //Yeah... Really, they can't spell "debug"
                 ObtPhysMgr.degub = false;
             }
         }

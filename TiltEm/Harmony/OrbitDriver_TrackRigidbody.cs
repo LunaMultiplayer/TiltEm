@@ -110,7 +110,7 @@
 //            }
 
 //            //Tilt the orbit frame before using it
-//            TiltEmUtil.ApplyTiltToFrame(ref obt.OrbitFrame, -Tilt);
+//            //TiltEmUtil.ApplyTiltToFrame(ref obt.OrbitFrame, -Tilt);
 
 //            obt.inclination = Math.Acos(obt.OrbitFrame.Z.z) * 57.2957795130823;
 //            obt.argumentOfPeriapsis *= 57.2957795130823;
