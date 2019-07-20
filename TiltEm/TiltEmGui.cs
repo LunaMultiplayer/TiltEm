@@ -18,7 +18,6 @@ namespace TiltEm
 
         private static bool _initialized;
 
-        private static bool _displayCorrectionSlider;
         private static bool _displayVesselData;
         private static bool _displayTilts;
 
@@ -125,15 +124,6 @@ namespace TiltEm
             DrawRotatingFrameButtons();
             DrawHorizontalLine(Color.white);
 
-            _displayCorrectionSlider = GUILayout.Toggle(_displayCorrectionSlider, "Show correction slider");
-            if (_displayCorrectionSlider)
-            {
-                if (FlightGlobals.currentMainBody)
-                {
-                    DrawEditButtons(ref TiltEm.CorrectionValue);
-                }
-            }
-
             _displayVesselData = GUILayout.Toggle(_displayVesselData, "Display Vessel data");
             if (_displayVesselData)
             {
@@ -153,9 +143,10 @@ namespace TiltEm
         {
             Builder.Length = 0;
 
-            Builder.AppendLine($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Frm: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles} " +
+            Builder.AppendLine($"Planetarium Rot: {((Quaternion)Planetarium.Rotation).eulerAngles} - Zup Rot: {((Quaternion)Planetarium.Zup.Rotation).eulerAngles} " +
                                $"- Inverse rot°: {Planetarium.InverseRotAngle:F2}");
             Builder.AppendLine(string.Empty);
+
             for (var i = 0; i < FlightGlobals.Bodies.Count; i++)
             {
                 var body = FlightGlobals.Bodies[i];
@@ -163,10 +154,10 @@ namespace TiltEm
                 if (i == FlightGlobals.Bodies.Count - 1)
                 {
                     Builder.Append($"{body.bodyName}: T: {TiltEm.GetTiltForDisplay(body.bodyName)}° " +
-                                       $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
-                                       $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
-                                       $"- Rot °: {body.rotationAngle:F2} " +
-                                       $"- Direct rot°: {body.directRotAngle:F2}");
+                                   $"- Rot: {((Quaternion)body.transform.rotation).eulerAngles} " +
+                                   $"- Frm: {((Quaternion)body.BodyFrame.Rotation).eulerAngles} " +
+                                   $"- Rot °: {body.rotationAngle:F2} " +
+                                   $"- Direct rot°: {body.directRotAngle:F2}");
                 }
                 else
                 {

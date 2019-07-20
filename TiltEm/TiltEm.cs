@@ -13,7 +13,6 @@ namespace TiltEm
         #region Fields
 
         public static TiltEm Singleton;
-        public static double CorrectionValue;
 
 #if DEBUG
         public static bool[] DebugSwitches { get; } = new bool[10];
