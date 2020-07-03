@@ -132,16 +132,14 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
 
-            if (TryGetTilt(data.host.bodyName, out var tilt))
+            //Only fix the orbit from when going to inverse rotation (below 100k in Kerbin and body.inverseRotation = true)
+            if (data.target && TryGetTilt(data.host.bodyName, out var tilt))
             {
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
                 {
                     if (vessel.mainBody == data.host && vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                     {
-                        if (data.target) //IN inverse rotating frame (vessel is now below 100k in Kerbin and body.inverseRotation = true)
-                        {
-                            TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, -tilt);
-                        }
+                        TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, -tilt);
                     }
                 }
             }
