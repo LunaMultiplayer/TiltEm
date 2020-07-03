@@ -14,11 +14,13 @@ namespace TiltEm
 
         public static TiltEm Singleton;
 
+        private static readonly MethodInfo UpdateFromParameters = AccessTools.Method(typeof(OrbitDriver), "updateFromParameters", new[] { typeof(bool) });
+
 #if DEBUG
         public static bool[] DebugSwitches { get; } = new bool[10];
         public static Action[] DebugActions { get; } = new Action[10];
 #endif
-        
+
         /// <summary>
         /// Here we define the default tilts in case you don't use Kopernicus
         /// </summary>
@@ -117,21 +119,24 @@ namespace TiltEm
         {
             if (TryGetTilt(data.host.bodyName, out _))
             {
-                //TODO: Here we adjust the loaded vessel orbits that are in physics mode. This creates some small errors in the orbit parameters so more investigation is needed
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
                 {
                     if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
                     {
-                        if (!data.target) //NOT rotating frame
+                        //We need to put the vessel on rails and hold the unpacking.
+                        //There must be a way of avoiding this by playing with the vessel velocity...
+                        vessel.GoOnRails();
+                        OrbitPhysicsManager.HoldVesselUnpack(10);
+
+                        if (!data.target) //NOT rotating frame (above 100k in Kerbin)
                         {
-                            vessel.orbitDriver.updateFromParameters();
                             vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
-                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - Krakensbane.GetFrameVelocity());
+                            UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
                         }
-                        else
+                        else //IN rotating frame (below 100k in Kerbin)
                         {
-                            vessel.orbitDriver.updateFromParameters();
-                            vessel.SetWorldVelocity(vessel.orbit.GetVel() - vessel.orbit.referenceBody.getRFrmVel(vessel.vesselTransform.position) - Krakensbane.GetFrameVelocity());
+                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                            UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
                         }
                     }
                 }
@@ -182,10 +187,10 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
         }
-        
-#endregion
 
-#region Public accessors
+        #endregion
+
+        #region Public accessors
 
         /// <summary>
         /// Adds the tilt of the body into the system.
@@ -225,9 +230,9 @@ namespace TiltEm
             return TiltDictionary.TryGetValue(bodyName, out tilt);
         }
 
-#endregion
+        #endregion
 
-#region Private methods
+        #region Private methods
 
 #if DEBUG
 
@@ -250,7 +255,7 @@ namespace TiltEm
 
 #endif
 
-#endregion
+        #endregion
 
     }
 }
