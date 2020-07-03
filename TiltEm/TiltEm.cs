@@ -132,7 +132,7 @@ namespace TiltEm
                 TiltEmUtil.RestorePlanetariumTilt();
             }
 
-            //Only fix the orbit from when going to inverse rotation (below 100k in Kerbin and body.inverseRotation = true)
+            //Only fix the orbit frame when going to inverse rotation (below 100k in Kerbin and body.inverseRotation = true)
             if (data.target && TryGetTilt(data.host.bodyName, out var tilt))
             {
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
