@@ -3,6 +3,7 @@ using KSP.UI.Screens;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using TiltEm.Event;
 using UnityEngine;
 
 namespace TiltEm
@@ -15,6 +16,8 @@ namespace TiltEm
         public static TiltEm Singleton;
 
         private static readonly MethodInfo UpdateFromParameters = AccessTools.Method(typeof(OrbitDriver), "updateFromParameters", new[] { typeof(bool) });
+
+        public static bool GoOnRailsOnRotatingFrameChange { get; set; } = true;
 
 #if DEBUG
         public static bool[] DebugSwitches { get; } = new bool[10];
@@ -60,17 +63,19 @@ namespace TiltEm
             DontDestroyOnLoad(this);
             Debug.Log("[TiltEm]: TiltEm started!");
 
+            TiltEmBaseEvent.Awake();
             HarmonyInstance.Create("TiltEm").PatchAll(Assembly.GetExecutingAssembly());
             GameEvents.onGameSceneSwitchRequested.Add(SceneRequested);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onRotatingFrameTransition.Add(RotatingFrameChanged);
+            RotatingFrameEvents.beforeRotatingFrameChange.Add(BeforeRotatingFrameChanged);
 
 #if DEBUG
             GameEvents.onGUIApplicationLauncherReady.Add(EnableToolBar);
             DefineDebugActions();
 #endif
         }
-
+        
 #if DEBUG
 
         /// <summary>
@@ -112,42 +117,12 @@ namespace TiltEm
         /// When switching to inverse rotation (below 100K on Kerbin) we must restore the planet tilt to 0 as then the planetarium will be tilted in <see cref="Harmony.CelestialBody_CBUpdate"/>.
         /// When switching to NON inverse rotation (above 100K on Kerbin) we must restore the planetarium tilt and then the planet will be tilted in <see cref="Harmony.CelestialBody_CBUpdate"/>.
         ///
-        /// Also we must adjust the orbits of the loaded vessels to match the new tilt
+        /// Also we must adjust the orbits of the loaded vessels to match the new tilt only if they are going to inverse rotation.
+        /// Somehow it's not needed when going from inverse rotation to normal rotation
         /// </summary>
         // ReSharper disable once MemberCanBeMadeStatic.Local
-        private void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
+        private void BeforeRotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
         {
-            if (TryGetTilt(data.host.bodyName, out var tilt))
-            {
-                foreach (var vessel in FlightGlobals.VesselsLoaded)
-                {
-                    if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
-                    {                        
-                        //We need to put the vessel on rails and hold the unpacking.
-                        //There must be a way of avoiding this by playing with the vessel velocity...
-                        vessel.GoOnRails();
-                        OrbitPhysicsManager.HoldVesselUnpack(10);
-
-                        if (!data.target) //NOT rotating frame (above 100k in Kerbin)
-                        {
-                            //Apply the tilt to the orbit frame if we are NOT on rails
-                            //TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, tilt);
-
-                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
-                            UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
-                        }
-                        else //IN rotating frame (below 100k in Kerbin)
-                        {
-                            //Apply the tilt to the orbit frame if we are NOT on rails
-                            //TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, -tilt);
-
-                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
-                            UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
-                        }
-                    }
-                }
-            }
-
             if (data.host && data.target)
             {
                 TiltEmUtil.RestorePlanetTilt(data.host);
@@ -155,6 +130,64 @@ namespace TiltEm
             else
             {
                 TiltEmUtil.RestorePlanetariumTilt();
+            }
+
+            if (TryGetTilt(data.host.bodyName, out var tilt))
+            {
+                foreach (var vessel in FlightGlobals.VesselsLoaded)
+                {
+                    if (vessel.mainBody == data.host && vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+                    {
+                        if (data.target) //IN inverse rotating frame (vessel is now below 100k in Kerbin and body.inverseRotation = true)
+                        {
+                            TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, -tilt);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Here we adjust position and velocity of the vessels that are in track physics
+        /// </summary>
+        // ReSharper disable once MemberCanBeMadeStatic.Local
+        private void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
+        {
+            if (TryGetTilt(data.host.bodyName, out _))
+            {
+                foreach (var vessel in FlightGlobals.VesselsLoaded)
+                {
+                    if (vessel.mainBody == data.host && vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
+                    {
+                        if (GoOnRailsOnRotatingFrameChange)
+                        {
+                            vessel.GoOnRails();
+                            OrbitPhysicsManager.HoldVesselUnpack(1);
+                            vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                            UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
+                        }
+                        else
+                        {
+                            if (!data.target) //NOT rotating frame (vessel is now above 100k in Kerbin and body.inverseRotation = false)
+                            {
+                                vessel.IgnoreGForces(20);
+
+                                vessel.orbit.UpdateFromUT(Planetarium.GetUniversalTime());
+
+                                vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                                vessel.SetWorldVelocity(vessel.orbit.GetVel() - Krakensbane.GetFrameVelocity());
+                            }
+                            else //IN rotating frame (vessel is now below 100k in Kerbin and body.inverseRotation = true)
+                            {
+                                vessel.IgnoreGForces(20);
+
+                                vessel.orbit.UpdateFromUT(Planetarium.GetUniversalTime());
+                                vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+                                vessel.SetWorldVelocity(vessel.orbit.GetWorldSpaceVel() - Krakensbane.GetFrameVelocity());
+                            }
+                        }
+                    }
+                }
             }
         }
 

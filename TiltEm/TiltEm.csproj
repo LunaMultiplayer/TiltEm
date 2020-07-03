@@ -53,8 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Event\RotatingFrameEvents.cs" />
+    <Compile Include="Event\TiltEmBaseEvent.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Harmony\CelestialBody_CBUpdate.cs" />
+    <Compile Include="Harmony\OrbitPhysicsManager_SetRotatingFrame.cs" />
     <Compile Include="Harmony\OrbitDriver_TrackRigidbody.cs" />
     <Compile Include="Harmony\Planetarium_ZupAtT.cs" />
     <Compile Include="Harmony\KbAppPlanetParameters_CreatePhysicalCharacteristics.cs" />
@@ -67,6 +70,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if /I "$(ConfigurationName)" == "Debug" call  "$(SolutionDir)Scripts\CopyToKSPDirectory.bat" $(ConfigurationName)</PostBuildEvent>
