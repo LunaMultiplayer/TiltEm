@@ -117,12 +117,12 @@ namespace TiltEm
         // ReSharper disable once MemberCanBeMadeStatic.Local
         private void RotatingFrameChanged(GameEvents.HostTargetAction<CelestialBody, bool> data)
         {
-            if (TryGetTilt(data.host.bodyName, out _))
+            if (TryGetTilt(data.host.bodyName, out var tilt))
             {
                 foreach (var vessel in FlightGlobals.VesselsLoaded)
                 {
                     if (vessel.orbitDriver.updateMode == OrbitDriver.UpdateMode.TRACK_Phys)
-                    {
+                    {                        
                         //We need to put the vessel on rails and hold the unpacking.
                         //There must be a way of avoiding this by playing with the vessel velocity...
                         vessel.GoOnRails();
@@ -130,11 +130,17 @@ namespace TiltEm
 
                         if (!data.target) //NOT rotating frame (above 100k in Kerbin)
                         {
+                            //Apply the tilt to the orbit frame if we are NOT on rails
+                            //TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, tilt);
+
                             vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
                             UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
                         }
                         else //IN rotating frame (below 100k in Kerbin)
                         {
+                            //Apply the tilt to the orbit frame if we are NOT on rails
+                            //TiltEmUtil.ApplyTiltToFrame(ref vessel.orbit.OrbitFrame, -tilt);
+
                             vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
                             UpdateFromParameters.Invoke(vessel.orbitDriver, new object[] { false });
                         }
