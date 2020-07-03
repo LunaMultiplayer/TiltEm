@@ -186,7 +186,10 @@ namespace TiltEm
 
             Builder.Append("Vessel rot: ");
             Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.rotation.eulerAngles : Vector3.zero).ToString());
-
+            
+            Builder.Append("Vessel srf Rel Rot: ");
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.srfRelRotation.eulerAngles : Vector3.zero).ToString());
+            
             Builder.Append("Vessel pos: ");
             Builder.Append((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
 
