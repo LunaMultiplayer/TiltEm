@@ -123,7 +123,7 @@ namespace TiltEm
 
             DrawRotatingFrameButtons();
             DrawHorizontalLine(Color.white);
-
+            
             _displayVesselData = GUILayout.Toggle(_displayVesselData, "Display Vessel data");
             if (_displayVesselData)
             {
@@ -191,8 +191,11 @@ namespace TiltEm
             Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.srfRelRotation.eulerAngles : Vector3.zero).ToString());
             
             Builder.Append("Vessel pos: ");
-            Builder.Append((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
-
+            Builder.AppendLine((FlightGlobals.ActiveVessel != null ? FlightGlobals.ActiveVessel.vesselTransform.position : Vector3.zero).ToString());
+            
+            Builder.Append("Krakensbane frame vel: ");
+            Builder.Append(Krakensbane.GetFrameVelocity().ToString());
+            
             return Builder.ToString();
         }
 
