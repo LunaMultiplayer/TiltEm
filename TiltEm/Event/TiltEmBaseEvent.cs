@@ -11,10 +11,10 @@ namespace TiltEm.Event
     {
         public static void Awake()
         {
-            var lmpEventClasses = Assembly.GetExecutingAssembly().GetTypes().Where(myType => myType.IsClass && myType.IsSubclassOf(typeof(TiltEmBaseEvent)));
-            foreach (var lmpEventClass in lmpEventClasses)
+            var tiltEmEventClasses = Assembly.GetExecutingAssembly().GetTypes().Where(myType => myType.IsClass && myType.IsSubclassOf(typeof(TiltEmBaseEvent)));
+            Parallel.ForEach(tiltEmEventClasses, tiltEmEventClass =>
             {
-                var eventFields = lmpEventClass.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).ToArray();
+                var eventFields = tiltEmEventClass.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).ToArray();
                 if (eventFields.Any())
                 {
                     foreach (var eventField in eventFields)
@@ -23,7 +23,7 @@ namespace TiltEm.Event
                         eventField.SetValue(null, val);
                     }
                 }
-            }
+            });
         }
     }
 }
