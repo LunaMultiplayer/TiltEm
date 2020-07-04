@@ -181,6 +181,8 @@ namespace TiltEm
 
                                 vessel.orbit.UpdateFromUT(Planetarium.GetUniversalTime());
                                 vessel.SetPosition(vessel.orbit.getPositionAtUT(Planetarium.GetUniversalTime()), false);
+
+                                //TODO: Find a way to adjust the velocity that works
                                 vessel.SetWorldVelocity(vessel.orbit.GetWorldSpaceVel() - Krakensbane.GetFrameVelocity());
                             }
                         }
