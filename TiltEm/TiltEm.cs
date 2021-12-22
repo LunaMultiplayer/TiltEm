@@ -1,10 +1,10 @@
-﻿using Harmony;
-using KSP.UI.Screens;
+﻿using KSP.UI.Screens;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using TiltEm.Event;
 using UnityEngine;
+using AccessTools = HarmonyLib.AccessTools;
 
 namespace TiltEm
 {
@@ -14,6 +14,7 @@ namespace TiltEm
         #region Fields
 
         public static TiltEm Singleton;
+        public static HarmonyLib.Harmony HarmonyInstance = new HarmonyLib.Harmony("TiltEm");
 
         private static readonly MethodInfo UpdateFromParameters = AccessTools.Method(typeof(OrbitDriver), "updateFromParameters", new[] { typeof(bool) });
 
@@ -64,7 +65,7 @@ namespace TiltEm
             Debug.Log("[TiltEm]: TiltEm started!");
 
             TiltEmBaseEvent.Awake();
-            HarmonyInstance.Create("TiltEm").PatchAll(Assembly.GetExecutingAssembly());
+            HarmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
             GameEvents.onGameSceneSwitchRequested.Add(SceneRequested);
             GameEvents.onVesselChange.Add(OnVesselChange);
             GameEvents.onRotatingFrameTransition.Add(RotatingFrameChanged);
